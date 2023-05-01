@@ -1,0 +1,6 @@
+{
+    "serverCommunicationError": "Error occured during communication with server. Check your internet connection or contact with developers.",
+    "signInWithGoogle": "Sign in with Google",
+    "authErrorTitle": "Auth error",
+    "ok": "OK"
+}

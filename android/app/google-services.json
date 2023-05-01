@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "510239907988",
+    "project_id": "musicday",
+    "storage_bucket": "musicday.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510239907988:android:76c9737b97db55baa05481",
+        "android_client_info": {
+          "package_name": "com.example.musicday_mobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "510239907988-g05lec3q59dotslbe5ua8mmlkdq3l9qe.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.musicday_mobile",
+            "certificate_hash": "926154039da5ca8e3b676797a425c6e73f3be8fb"
+          }
+        },
+        {
+          "client_id": "510239907988-rvkr6rj5eqssdr1f6q5o540gna27gnjj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACKvZiPEbHX1RcHCG5vqYXOlGY2WP5Vq4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "510239907988-rvkr6rj5eqssdr1f6q5o540gna27gnjj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
