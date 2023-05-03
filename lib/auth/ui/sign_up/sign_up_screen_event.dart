@@ -4,5 +4,5 @@ part 'sign_up_screen_event.freezed.dart';
 
 @freezed
 class SignUpScreenEvent with _$SignUpScreenEvent {
-  const factory SignUpScreenEvent.doneClick() = DoneClick;
+  const factory SignUpScreenEvent.doneClick(String nickname, String username) = DoneClick;
 }

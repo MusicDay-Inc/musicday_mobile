@@ -16,19 +16,21 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$SignUpScreenEvent {
+  String get nickname => throw _privateConstructorUsedError;
+  String get username => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() doneClick,
+    required TResult Function(String nickname, String username) doneClick,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? doneClick,
+    TResult? Function(String nickname, String username)? doneClick,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? doneClick,
+    TResult Function(String nickname, String username)? doneClick,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -48,6 +50,10 @@ mixin _$SignUpScreenEvent {
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $SignUpScreenEventCopyWith<SignUpScreenEvent> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -55,6 +61,8 @@ abstract class $SignUpScreenEventCopyWith<$Res> {
   factory $SignUpScreenEventCopyWith(
           SignUpScreenEvent value, $Res Function(SignUpScreenEvent) then) =
       _$SignUpScreenEventCopyWithImpl<$Res, SignUpScreenEvent>;
+  @useResult
+  $Res call({String nickname, String username});
 }
 
 /// @nodoc
@@ -66,13 +74,35 @@ class _$SignUpScreenEventCopyWithImpl<$Res, $Val extends SignUpScreenEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? nickname = null,
+    Object? username = null,
+  }) {
+    return _then(_value.copyWith(
+      nickname: null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
+              as String,
+      username: null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+    ) as $Val);
+  }
 }
 
 /// @nodoc
-abstract class _$$DoneClickCopyWith<$Res> {
+abstract class _$$DoneClickCopyWith<$Res>
+    implements $SignUpScreenEventCopyWith<$Res> {
   factory _$$DoneClickCopyWith(
           _$DoneClick value, $Res Function(_$DoneClick) then) =
       __$$DoneClickCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call({String nickname, String username});
 }
 
 /// @nodoc
@@ -82,51 +112,85 @@ class __$$DoneClickCopyWithImpl<$Res>
   __$$DoneClickCopyWithImpl(
       _$DoneClick _value, $Res Function(_$DoneClick) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? nickname = null,
+    Object? username = null,
+  }) {
+    return _then(_$DoneClick(
+      null == nickname
+          ? _value.nickname
+          : nickname // ignore: cast_nullable_to_non_nullable
+              as String,
+      null == username
+          ? _value.username
+          : username // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$DoneClick implements DoneClick {
-  const _$DoneClick();
+  const _$DoneClick(this.nickname, this.username);
+
+  @override
+  final String nickname;
+  @override
+  final String username;
 
   @override
   String toString() {
-    return 'SignUpScreenEvent.doneClick()';
+    return 'SignUpScreenEvent.doneClick(nickname: $nickname, username: $username)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$DoneClick);
+        (other.runtimeType == runtimeType &&
+            other is _$DoneClick &&
+            (identical(other.nickname, nickname) ||
+                other.nickname == nickname) &&
+            (identical(other.username, username) ||
+                other.username == username));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, nickname, username);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DoneClickCopyWith<_$DoneClick> get copyWith =>
+      __$$DoneClickCopyWithImpl<_$DoneClick>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function() doneClick,
+    required TResult Function(String nickname, String username) doneClick,
   }) {
-    return doneClick();
+    return doneClick(nickname, username);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? doneClick,
+    TResult? Function(String nickname, String username)? doneClick,
   }) {
-    return doneClick?.call();
+    return doneClick?.call(nickname, username);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? doneClick,
+    TResult Function(String nickname, String username)? doneClick,
     required TResult orElse(),
   }) {
     if (doneClick != null) {
-      return doneClick();
+      return doneClick(nickname, username);
     }
     return orElse();
   }
@@ -161,5 +225,15 @@ class _$DoneClick implements DoneClick {
 }
 
 abstract class DoneClick implements SignUpScreenEvent {
-  const factory DoneClick() = _$DoneClick;
+  const factory DoneClick(final String nickname, final String username) =
+      _$DoneClick;
+
+  @override
+  String get nickname;
+  @override
+  String get username;
+  @override
+  @JsonKey(ignore: true)
+  _$$DoneClickCopyWith<_$DoneClick> get copyWith =>
+      throw _privateConstructorUsedError;
 }
