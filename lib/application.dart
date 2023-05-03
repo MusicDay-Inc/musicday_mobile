@@ -25,7 +25,7 @@ class _ApplicationState extends State<Application> {
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
-        primaryColor: Colors.amber[800],
+        colorSchemeSeed: Colors.amber[800],
       ),
     );
   }

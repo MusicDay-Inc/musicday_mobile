@@ -1,6 +1,11 @@
 {
-    "serverCommunicationError": "Error occured during communication with server. Check your internet connection or contact with developers.",
+    "ok": "OK",
+    "done": "Done",
+    "username": "Username",
+    "nickname": "Nickname",
     "signInWithGoogle": "Sign in with Google",
+    "serverCommunicationError": "Error occured during communication with server. Check your internet connection or contact with developers.",
     "authErrorTitle": "Auth error",
-    "ok": "OK"
+    "signUpTitle": "Sign up",
+    "signUpWelcome": "Welcome to the MusicDay! In order for other users to see you in the app, we want to know you better."
 }

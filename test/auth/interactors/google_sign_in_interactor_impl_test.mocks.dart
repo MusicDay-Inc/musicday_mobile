@@ -10,10 +10,13 @@ import 'package:google_sign_in_platform_interface/google_sign_in_platform_interf
     as _i6;
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:musicday_mobile/auth/dtos/google_sign_in_start_request.dart'
-    as _i11;
+    as _i12;
 import 'package:musicday_mobile/auth/dtos/google_sign_in_start_response.dart'
-    as _i10;
-import 'package:musicday_mobile/auth/network/auth_remote_service.dart' as _i9;
+    as _i11;
+import 'package:musicday_mobile/auth/dtos/sign_up_request.dart' as _i14;
+import 'package:musicday_mobile/auth/dtos/sign_up_response.dart' as _i13;
+import 'package:musicday_mobile/auth/models/session.dart' as _i9;
+import 'package:musicday_mobile/auth/network/auth_remote_service.dart' as _i10;
 import 'package:musicday_mobile/auth/repositories/auth_session_repository.dart'
     as _i8;
 import 'package:musicday_mobile/core/logging/logger.dart' as _i2;
@@ -305,17 +308,33 @@ class MockAuthSessionRepository extends _i1.Mock
   }
 
   @override
-  _i7.Future<void> saveSession(
-    String? token,
-    bool? isAuthorizationToken,
-  ) =>
-      (super.noSuchMethod(
+  _i7.Stream<_i9.Session?> get currentSession => (super.noSuchMethod(
+        Invocation.getter(#currentSession),
+        returnValue: _i7.Stream<_i9.Session?>.empty(),
+      ) as _i7.Stream<_i9.Session?>);
+  @override
+  set currentSession(_i7.Stream<_i9.Session?>? _currentSession) =>
+      super.noSuchMethod(
+        Invocation.setter(
+          #currentSession,
+          _currentSession,
+        ),
+        returnValueForMissingStub: null,
+      );
+  @override
+  _i7.Future<void> saveSession(_i9.Session? session) => (super.noSuchMethod(
         Invocation.method(
           #saveSession,
-          [
-            token,
-            isAuthorizationToken,
-          ],
+          [session],
+        ),
+        returnValue: _i7.Future<void>.value(),
+        returnValueForMissingStub: _i7.Future<void>.value(),
+      ) as _i7.Future<void>);
+  @override
+  _i7.Future<void> deleteSession() => (super.noSuchMethod(
+        Invocation.method(
+          #deleteSession,
+          [],
         ),
         returnValue: _i7.Future<void>.value(),
         returnValueForMissingStub: _i7.Future<void>.value(),
@@ -325,28 +344,45 @@ class MockAuthSessionRepository extends _i1.Mock
 /// A class which mocks [AuthRemoteService].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthRemoteService extends _i1.Mock implements _i9.AuthRemoteService {
+class MockAuthRemoteService extends _i1.Mock implements _i10.AuthRemoteService {
   MockAuthRemoteService() {
     _i1.throwOnMissingStub(this);
   }
 
   @override
   _i7.Future<
-      _i4.HttpResponse<_i10.GoogleSignInStartResponse>> startGoogleSignIn(
-          _i11.GoogleSignInStartRequest? request) =>
+      _i4.HttpResponse<_i11.GoogleSignInStartResponse>> startGoogleSignIn(
+          _i12.GoogleSignInStartRequest? request) =>
       (super.noSuchMethod(
         Invocation.method(
           #startGoogleSignIn,
           [request],
         ),
         returnValue:
-            _i7.Future<_i4.HttpResponse<_i10.GoogleSignInStartResponse>>.value(
-                _FakeHttpResponse_2<_i10.GoogleSignInStartResponse>(
+            _i7.Future<_i4.HttpResponse<_i11.GoogleSignInStartResponse>>.value(
+                _FakeHttpResponse_2<_i11.GoogleSignInStartResponse>(
           this,
           Invocation.method(
             #startGoogleSignIn,
             [request],
           ),
         )),
-      ) as _i7.Future<_i4.HttpResponse<_i10.GoogleSignInStartResponse>>);
+      ) as _i7.Future<_i4.HttpResponse<_i11.GoogleSignInStartResponse>>);
+  @override
+  _i7.Future<_i4.HttpResponse<_i13.SignUpResponse>> signUp(
+          _i14.SignUpRequest? request) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signUp,
+          [request],
+        ),
+        returnValue: _i7.Future<_i4.HttpResponse<_i13.SignUpResponse>>.value(
+            _FakeHttpResponse_2<_i13.SignUpResponse>(
+          this,
+          Invocation.method(
+            #signUp,
+            [request],
+          ),
+        )),
+      ) as _i7.Future<_i4.HttpResponse<_i13.SignUpResponse>>);
 }

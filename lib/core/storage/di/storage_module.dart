@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 
 @module
 abstract class StorageModule {
+  @Singleton()
   FlutterSecureStorage get flutterSecureStorage =>
       const FlutterSecureStorage(aOptions: AndroidOptions(encryptedSharedPreferences: true));
 }

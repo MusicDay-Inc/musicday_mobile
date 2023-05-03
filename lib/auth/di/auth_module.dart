@@ -7,6 +7,7 @@ import 'package:musicday_mobile/auth/network/auth_remote_service.dart';
 @module
 abstract class AuthModule {
   @Scope(AuthScope.name)
+  @Singleton()
   GoogleSignIn provideGoogleSignIn() => GoogleSignIn(scopes: ["email"]);
 
   @Scope(AuthScope.name)

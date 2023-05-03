@@ -3,15 +3,15 @@ import 'package:injectable/injectable.dart';
 import 'package:musicday_mobile/auth/di/auth_scope.dart';
 import 'package:musicday_mobile/auth/dtos/google_sign_in_start_request.dart';
 import 'package:musicday_mobile/auth/interactors/google_sign_in_interactor.dart';
+import 'package:musicday_mobile/auth/models/session.dart';
 import 'package:musicday_mobile/auth/models/sign_in_result.dart';
 import 'package:musicday_mobile/auth/network/auth_remote_service.dart';
 import 'package:musicday_mobile/auth/repositories/auth_session_repository.dart';
 import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/network/extensions/future_http_response_extensions.dart';
-import 'package:musicday_mobile/core/network/extensions/http_response_extensions.dart';
 
-@Injectable(as: GoogleSignInInteractor, scope: AuthScope.name)
+@Singleton(as: GoogleSignInInteractor, scope: AuthScope.name)
 class GoogleSignInInteractorImpl implements GoogleSignInInteractor {
   final AuthSessionRepository authSessionRepository;
   final AuthRemoteService authRemoteService;
@@ -38,17 +38,22 @@ class GoogleSignInInteractorImpl implements GoogleSignInInteractor {
     final request = GoogleSignInStartRequest(idToken: idToken);
     final response = await authRemoteService.startGoogleSignIn(request).safe(_logger);
 
-    if (response == null) {
-      _logger.warn("start(): response == null");
-      return const SignInResult.serverError();
-    } else if (response.isSuccess) {
-      _logger.debug("start(): response is success");
-      await authSessionRepository.saveSession(response.data.jwtToken, !response.data.isRegistered);
-      return const SignInResult.success();
-    } else {
-      _logger.debug("start(): response is error");
-      return const SignInResult.serverError();
-    }
+    return response.when(
+      serverError: (code) {
+        _logger.debug("start(): response is error, code = $code");
+        return const SignInResult.serverError();
+      },
+      serverNotAvailable: () {
+        _logger.warn("start(): server not available.");
+        return const SignInResult.serverError();
+      },
+      ok: (data) async {
+        _logger.debug("start(): response is ok");
+        final session = Session(token: data.jwtToken, isAuthorizationToken: !data.isRegistered);
+        await authSessionRepository.saveSession(session);
+        return const SignInResult.success();
+      },
+    );
   }
 
   Future<String?> _openFormAndGetIdToken() async {
