@@ -22,7 +22,10 @@ class IntroScreenBloc extends Bloc<IntroScreenEvent, IntroScreenState> {
 
       emit(const IntroScreenState.loading());
       (await googleSignInInteractor.start()).when(
-        success: () => _logger.debug("IntroScreenEvent: success"),
+        success: () {
+          _logger.debug("IntroScreenEvent: success");
+          emit(const IntroScreenState.idle());
+        },
         cancelled: () {
           _logger.debug("IntroScreenEvent: cancelled");
           emit(const IntroScreenState.idle());

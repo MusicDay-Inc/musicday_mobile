@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AuthContainerState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() loading,
     required TResult Function() nonAuthorized,
     required TResult Function() inRegistration,
     required TResult Function() authorized,
@@ -25,6 +26,7 @@ mixin _$AuthContainerState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
     TResult? Function()? nonAuthorized,
     TResult? Function()? inRegistration,
     TResult? Function()? authorized,
@@ -32,6 +34,7 @@ mixin _$AuthContainerState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? nonAuthorized,
     TResult Function()? inRegistration,
     TResult Function()? authorized,
@@ -40,6 +43,7 @@ mixin _$AuthContainerState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Loading value) loading,
     required TResult Function(NonAuthorized value) nonAuthorized,
     required TResult Function(InRegistration value) inRegistration,
     required TResult Function(Authorized value) authorized,
@@ -47,6 +51,7 @@ mixin _$AuthContainerState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Loading value)? loading,
     TResult? Function(NonAuthorized value)? nonAuthorized,
     TResult? Function(InRegistration value)? inRegistration,
     TResult? Function(Authorized value)? authorized,
@@ -54,6 +59,7 @@ mixin _$AuthContainerState {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Loading value)? loading,
     TResult Function(NonAuthorized value)? nonAuthorized,
     TResult Function(InRegistration value)? inRegistration,
     TResult Function(Authorized value)? authorized,
@@ -78,6 +84,118 @@ class _$AuthContainerStateCopyWithImpl<$Res, $Val extends AuthContainerState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+}
+
+/// @nodoc
+abstract class _$$LoadingCopyWith<$Res> {
+  factory _$$LoadingCopyWith(_$Loading value, $Res Function(_$Loading) then) =
+      __$$LoadingCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LoadingCopyWithImpl<$Res>
+    extends _$AuthContainerStateCopyWithImpl<$Res, _$Loading>
+    implements _$$LoadingCopyWith<$Res> {
+  __$$LoadingCopyWithImpl(_$Loading _value, $Res Function(_$Loading) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$Loading implements Loading {
+  const _$Loading();
+
+  @override
+  String toString() {
+    return 'AuthContainerState.loading()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$Loading);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() loading,
+    required TResult Function() nonAuthorized,
+    required TResult Function() inRegistration,
+    required TResult Function() authorized,
+  }) {
+    return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
+    TResult? Function()? nonAuthorized,
+    TResult? Function()? inRegistration,
+    TResult? Function()? authorized,
+  }) {
+    return loading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
+    TResult Function()? nonAuthorized,
+    TResult Function()? inRegistration,
+    TResult Function()? authorized,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Loading value) loading,
+    required TResult Function(NonAuthorized value) nonAuthorized,
+    required TResult Function(InRegistration value) inRegistration,
+    required TResult Function(Authorized value) authorized,
+  }) {
+    return loading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Loading value)? loading,
+    TResult? Function(NonAuthorized value)? nonAuthorized,
+    TResult? Function(InRegistration value)? inRegistration,
+    TResult? Function(Authorized value)? authorized,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Loading value)? loading,
+    TResult Function(NonAuthorized value)? nonAuthorized,
+    TResult Function(InRegistration value)? inRegistration,
+    TResult Function(Authorized value)? authorized,
+    required TResult orElse(),
+  }) {
+    if (loading != null) {
+      return loading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class Loading implements AuthContainerState {
+  const factory Loading() = _$Loading;
 }
 
 /// @nodoc
@@ -118,6 +236,7 @@ class _$NonAuthorized implements NonAuthorized {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() loading,
     required TResult Function() nonAuthorized,
     required TResult Function() inRegistration,
     required TResult Function() authorized,
@@ -128,6 +247,7 @@ class _$NonAuthorized implements NonAuthorized {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
     TResult? Function()? nonAuthorized,
     TResult? Function()? inRegistration,
     TResult? Function()? authorized,
@@ -138,6 +258,7 @@ class _$NonAuthorized implements NonAuthorized {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? nonAuthorized,
     TResult Function()? inRegistration,
     TResult Function()? authorized,
@@ -152,6 +273,7 @@ class _$NonAuthorized implements NonAuthorized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Loading value) loading,
     required TResult Function(NonAuthorized value) nonAuthorized,
     required TResult Function(InRegistration value) inRegistration,
     required TResult Function(Authorized value) authorized,
@@ -162,6 +284,7 @@ class _$NonAuthorized implements NonAuthorized {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Loading value)? loading,
     TResult? Function(NonAuthorized value)? nonAuthorized,
     TResult? Function(InRegistration value)? inRegistration,
     TResult? Function(Authorized value)? authorized,
@@ -172,6 +295,7 @@ class _$NonAuthorized implements NonAuthorized {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Loading value)? loading,
     TResult Function(NonAuthorized value)? nonAuthorized,
     TResult Function(InRegistration value)? inRegistration,
     TResult Function(Authorized value)? authorized,
@@ -226,6 +350,7 @@ class _$InRegistration implements InRegistration {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() loading,
     required TResult Function() nonAuthorized,
     required TResult Function() inRegistration,
     required TResult Function() authorized,
@@ -236,6 +361,7 @@ class _$InRegistration implements InRegistration {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
     TResult? Function()? nonAuthorized,
     TResult? Function()? inRegistration,
     TResult? Function()? authorized,
@@ -246,6 +372,7 @@ class _$InRegistration implements InRegistration {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? nonAuthorized,
     TResult Function()? inRegistration,
     TResult Function()? authorized,
@@ -260,6 +387,7 @@ class _$InRegistration implements InRegistration {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Loading value) loading,
     required TResult Function(NonAuthorized value) nonAuthorized,
     required TResult Function(InRegistration value) inRegistration,
     required TResult Function(Authorized value) authorized,
@@ -270,6 +398,7 @@ class _$InRegistration implements InRegistration {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Loading value)? loading,
     TResult? Function(NonAuthorized value)? nonAuthorized,
     TResult? Function(InRegistration value)? inRegistration,
     TResult? Function(Authorized value)? authorized,
@@ -280,6 +409,7 @@ class _$InRegistration implements InRegistration {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Loading value)? loading,
     TResult Function(NonAuthorized value)? nonAuthorized,
     TResult Function(InRegistration value)? inRegistration,
     TResult Function(Authorized value)? authorized,
@@ -334,6 +464,7 @@ class _$Authorized implements Authorized {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function() loading,
     required TResult Function() nonAuthorized,
     required TResult Function() inRegistration,
     required TResult Function() authorized,
@@ -344,6 +475,7 @@ class _$Authorized implements Authorized {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? loading,
     TResult? Function()? nonAuthorized,
     TResult? Function()? inRegistration,
     TResult? Function()? authorized,
@@ -354,6 +486,7 @@ class _$Authorized implements Authorized {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? loading,
     TResult Function()? nonAuthorized,
     TResult Function()? inRegistration,
     TResult Function()? authorized,
@@ -368,6 +501,7 @@ class _$Authorized implements Authorized {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(Loading value) loading,
     required TResult Function(NonAuthorized value) nonAuthorized,
     required TResult Function(InRegistration value) inRegistration,
     required TResult Function(Authorized value) authorized,
@@ -378,6 +512,7 @@ class _$Authorized implements Authorized {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Loading value)? loading,
     TResult? Function(NonAuthorized value)? nonAuthorized,
     TResult? Function(InRegistration value)? inRegistration,
     TResult? Function(Authorized value)? authorized,
@@ -388,6 +523,7 @@ class _$Authorized implements Authorized {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(Loading value)? loading,
     TResult Function(NonAuthorized value)? nonAuthorized,
     TResult Function(InRegistration value)? inRegistration,
     TResult Function(Authorized value)? authorized,

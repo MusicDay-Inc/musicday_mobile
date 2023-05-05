@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 // ignore: depend_on_referenced_packages
 import 'package:get_it/get_it.dart';
 
-class BlocInject<T extends Bloc> extends StatelessWidget {
+class BlocInject<T extends StateStreamableSource<Object?>> extends StatelessWidget {
   final GetIt getIt;
   final Widget child;
 

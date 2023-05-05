@@ -4,6 +4,7 @@ part 'auth_container_state.freezed.dart';
 
 @freezed
 class AuthContainerState with _$AuthContainerState {
+  const factory AuthContainerState.loading() = Loading;
   const factory AuthContainerState.nonAuthorized() = NonAuthorized;
   const factory AuthContainerState.inRegistration() = InRegistration;
   const factory AuthContainerState.authorized() = Authorized;
