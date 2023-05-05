@@ -9,4 +9,7 @@ abstract class AuthSessionRepository {
 
   /// Удаляет сессию авторизации/регистрации.
   Future<void> deleteSession();
+
+  /// Освобождает занятые ресурсы.
+  Future<void> dispose();
 }

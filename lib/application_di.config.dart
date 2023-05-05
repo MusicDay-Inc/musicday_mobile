@@ -89,10 +89,13 @@ _i1.GetIt initAuthScope(
       final authModule = _$AuthModule();
       gh.factory<_i15.AuthRemoteService>(
           () => authModule.provideAuthRemoteService(gh<_i3.Dio>()));
-      gh.singleton<_i12.AuthSessionRepository>(_i16.AuthSessionRepositoryImpl(
-        loggerFactory: gh<_i5.LoggerFactory>(),
-        flutterSecureStorage: gh<_i4.FlutterSecureStorage>(),
-      ));
+      gh.singleton<_i12.AuthSessionRepository>(
+        _i16.AuthSessionRepositoryImpl(
+          loggerFactory: gh<_i5.LoggerFactory>(),
+          flutterSecureStorage: gh<_i4.FlutterSecureStorage>(),
+        ),
+        dispose: (i) => i.dispose(),
+      );
       gh.singleton<_i17.GoogleSignIn>(authModule.provideGoogleSignIn());
       gh.singleton<_i14.GoogleSignInInteractor>(_i18.GoogleSignInInteractorImpl(
         loggerFactory: gh<_i5.LoggerFactory>(),

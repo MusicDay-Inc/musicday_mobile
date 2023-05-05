@@ -68,4 +68,10 @@ class AuthSessionRepositoryImpl implements AuthSessionRepository {
     _logger.debug("_loadInitialSession(), isAuthorizationToken = $isAuthorizationToken, token != null");
     _sessionStreamController.sink.add(Session(token: token, isAuthorizationToken: isAuthorizationToken));
   }
+
+  @override
+  @disposeMethod
+  Future<void> dispose() async {
+    await _sessionStreamController.close();
+  }
 }
