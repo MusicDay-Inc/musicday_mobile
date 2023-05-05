@@ -72,6 +72,7 @@ class AuthSessionRepositoryImpl implements AuthSessionRepository {
   @override
   @disposeMethod
   Future<void> dispose() async {
+    _logger.debug("dispose()");
     await _sessionStreamController.close();
   }
 }
