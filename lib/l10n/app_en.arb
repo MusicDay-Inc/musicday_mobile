@@ -7,5 +7,10 @@
     "serverCommunicationError": "Error occured during communication with server. Check your internet connection or contact with developers.",
     "authErrorTitle": "Auth error",
     "signUpTitle": "Sign up",
-    "signUpWelcome": "Welcome to the MusicDay! In order for other users to see you in the app, we want to know you better."
+    "signUpWelcome": "Welcome to the MusicDay! In order for other users to see you in the app, we want to know you better.",
+    "yourReview": "Your review",
+    "writeReview": "Write review",
+    "deleteReview": "Delete review",
+    "writeReviewHint": "You not write review for this release. Click to the button below this text for writing & publishing it. Your post will be visible by all your subscribers.",
+    "subscriptionsReviews": "Subscriptions reviews"
 }
