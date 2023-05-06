@@ -92,12 +92,12 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                   return Column(
                     children: [
                       const SizedBox(height: 8),
-                      const AnotherUserReviewWidget(
+                      AnotherUserReviewWidget(
                         reviewTimestamp: 1683402042,
                         authorId: "Maxim Mityushkin",
                         authorName: "Maxim Mityushkin",
                         authorAvatar: null,
-                        comment: "My comment.",
+                        comment: "M" * 150,
                         rating: 4,
                       ),
                       const SizedBox(height: 14),

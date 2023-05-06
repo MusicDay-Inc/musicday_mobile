@@ -1,3 +1,4 @@
+import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:musicday_mobile/core/formatting/date_formatting_extensions.dart';
 import 'package:musicday_mobile/core/ui/avatars/avatar_widget.dart';
@@ -57,7 +58,12 @@ class AnotherUserReviewWidget extends StatelessWidget {
                 ),
               ]),
               const SizedBox(height: 8),
-              Text(comment, style: TextStyle(color: Theme.of(context).hintColor)),
+              ExpandableText(
+                comment,
+                style: TextStyle(color: Theme.of(context).hintColor),
+                expandText: "[read more]",
+                maxLines: 5,
+              ),
             ],
           ),
         ),
