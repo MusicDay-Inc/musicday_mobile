@@ -12,5 +12,6 @@
     "writeReview": "Write review",
     "deleteReview": "Delete review",
     "writeReviewHint": "You not write review for this release. Click to the button below this text for writing & publishing it. Your post will be visible by all your subscribers.",
-    "subscriptionsReviews": "Subscriptions reviews"
+    "subscriptionsReviews": "Subscriptions reviews",
+    "readMore": "[read more]"
 }

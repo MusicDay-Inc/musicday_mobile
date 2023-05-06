@@ -1,5 +1,6 @@
 import 'package:expandable_text/expandable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:musicday_mobile/core/formatting/date_formatting_extensions.dart';
 import 'package:musicday_mobile/core/ui/avatars/avatar_widget.dart';
 import 'package:musicday_mobile/releases/ui/widgets/rating_stars_widget.dart';
@@ -61,7 +62,7 @@ class AnotherUserReviewWidget extends StatelessWidget {
               ExpandableText(
                 comment,
                 style: TextStyle(color: Theme.of(context).hintColor),
-                expandText: "[read more]",
+                expandText: AppLocalizations.of(context)!.readMore,
                 maxLines: 5,
               ),
             ],
