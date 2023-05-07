@@ -17,5 +17,7 @@
     "optional": "Optional",
     "comment": "Comment",
     "cancel": "Cancel",
-    "submit": "Submit"
+    "submit": "Submit",
+    "reviewDeletingTitle": "Review deleting",
+    "reviewDeletingConfirm": "Do you really want to delete your review? This action will not be reversible."
 }

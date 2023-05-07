@@ -4,6 +4,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:musicday_mobile/application_di.dart';
 import 'package:musicday_mobile/core/di/bloc_inject.dart';
 import 'package:musicday_mobile/core/formatting/duration_formatting_extensions.dart';
+import 'package:musicday_mobile/core/ui/dialogs/yes_no_dialog.dart';
 import 'package:musicday_mobile/releases/ui/song_info/song_info_bloc.dart';
 import 'package:musicday_mobile/releases/ui/song_info/song_info_state.dart';
 import 'package:musicday_mobile/releases/ui/widgets/another_user_review_widget.dart';
@@ -73,8 +74,14 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                 delegate: SliverChildBuilderDelegate((context, index) {
                   if (index == 0) {
                     return UserReviewWidget(
-                      onDeleteClick: () {},
                       onWriteClick: () => WriteReviewDialog.open(context, widget.songId),
+                      onDeleteClick: () {
+                        YesNoDialog.show(
+                          context,
+                          title: AppLocalizations.of(context)!.reviewDeletingTitle,
+                          content: AppLocalizations.of(context)!.reviewDeletingConfirm,
+                        );
+                      },
                     );
                   } else if (index == 1) {
                     return Padding(
