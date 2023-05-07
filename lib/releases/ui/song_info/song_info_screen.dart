@@ -8,6 +8,7 @@ import 'package:musicday_mobile/releases/ui/song_info/song_info_bloc.dart';
 import 'package:musicday_mobile/releases/ui/song_info/song_info_state.dart';
 import 'package:musicday_mobile/releases/ui/widgets/another_user_review_widget.dart';
 import 'package:musicday_mobile/releases/ui/widgets/user_review_widget.dart';
+import 'package:musicday_mobile/releases/ui/write_review/write_review_dialog.dart';
 
 class SongInfoScreen extends StatefulWidget {
   final String songId;
@@ -71,7 +72,10 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
               SliverList(
                 delegate: SliverChildBuilderDelegate((context, index) {
                   if (index == 0) {
-                    return UserReviewWidget(rating: 5, onDeleteClick: () {}, onWriteClick: () {});
+                    return UserReviewWidget(
+                      onDeleteClick: () {},
+                      onWriteClick: () => WriteReviewDialog.open(context, widget.songId),
+                    );
                   } else if (index == 1) {
                     return Padding(
                       padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 12, bottom: 8),
