@@ -33,7 +33,7 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
         body: BlocBuilder<SongInfoBloc, SongInfoState>(builder: (context, state) {
           return state.when(loading: () {
             return const Center(child: CircularProgressIndicator());
-          }, data: (song) {
+          }, data: (song, review) {
             return CustomScrollView(slivers: [
               SliverAppBar.large(
                 expandedHeight: 300,
@@ -63,7 +63,7 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                             child: Icon(Icons.circle, size: 4, color: Theme.of(context).hintColor),
                           ),
                           const SizedBox(width: 4),
-                          Text(song.duration.formatSecondsToDuration(), style: const TextStyle(fontSize: 12)),
+                          Text(song.durationInSeconds.formatSecondsToDuration(), style: const TextStyle(fontSize: 12)),
                         ],
                       ),
                     ],
@@ -74,6 +74,7 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                 delegate: SliverChildBuilderDelegate((context, index) {
                   if (index == 0) {
                     return UserReviewWidget(
+                      review: review,
                       onWriteClick: () => WriteReviewDialog.open(context, widget.songId),
                       onDeleteClick: () {
                         YesNoDialog.show(

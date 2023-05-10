@@ -1,17 +1,17 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:musicday_mobile/releases/models/release.dart';
 
-part 'song.freezed.dart';
+part 'album.freezed.dart';
 
 @freezed
-class Song with _$Song {
+class Album with _$Album {
   @Implements<Release>()
-  const factory Song({
+  const factory Album({
     required String id,
     required String name,
     required String author,
     required String? avatarUrl,
-    required int durationInSeconds,
+    required int songsCount,
     required int year,
-  }) = _Song;
+  }) = _Album;
 }

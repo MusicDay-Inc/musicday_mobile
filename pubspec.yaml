@@ -50,6 +50,7 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.3.2
   flutter_lints: ^2.0.0
+  mock_web_server: ^5.0.0-nullsafety.1
   injectable_generator: ^2.1.5
   retrofit_generator: '>=5.0.0 <6.0.0'
   json_serializable: ^6.6.1

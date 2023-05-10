@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:musicday_mobile/releases/models/review.dart';
 import 'package:musicday_mobile/releases/ui/widgets/rating_stars_widget.dart';
 
 class UserReviewWidget extends StatelessWidget {
-  final int? rating;
-  final String? comment;
+  final Review? review;
   final VoidCallback? onWriteClick;
   final VoidCallback? onDeleteClick;
 
   const UserReviewWidget({
     super.key,
-    this.rating,
-    this.comment,
+    this.review,
     this.onWriteClick,
     this.onDeleteClick,
   });
@@ -29,11 +28,11 @@ class UserReviewWidget extends StatelessWidget {
               Row(children: [
                 Text(AppLocalizations.of(context)!.yourReview, style: const TextStyle(fontSize: 18)),
                 const SizedBox(width: 6),
-                if (rating != null) RatingStarsWidget(filled: rating!, total: 5, size: 14),
+                if (review != null) RatingStarsWidget(filled: review!.rating, total: 5, size: 14),
               ]),
               const SizedBox(height: 4),
               Text(
-                comment ?? AppLocalizations.of(context)!.writeReviewHint,
+                review?.text ?? AppLocalizations.of(context)!.writeReviewHint,
                 style: TextStyle(color: Theme.of(context).hintColor),
               ),
             ],
@@ -42,9 +41,9 @@ class UserReviewWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 9),
           child: TextButton(
-            onPressed: rating != null ? onDeleteClick : onWriteClick,
+            onPressed: review != null ? onDeleteClick : onWriteClick,
             child: Text(
-              rating != null ? AppLocalizations.of(context)!.deleteReview : AppLocalizations.of(context)!.writeReview,
+              review != null ? AppLocalizations.of(context)!.deleteReview : AppLocalizations.of(context)!.writeReview,
             ),
           ),
         )
