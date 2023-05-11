@@ -6,13 +6,13 @@ part 'album_dto.g.dart';
 class AlbumDto {
   @JsonKey(name: "id")
   final String id;
-  @JsonKey(name: "name")
+  @JsonKey(name: "name", defaultValue: "")
   final String name;
-  @JsonKey(name: "author")
+  @JsonKey(name: "author", defaultValue: "")
   final String author;
   @JsonKey(name: "date")
   final DateTime date;
-  @JsonKey(name: "song_amount")
+  @JsonKey(name: "song_amount", defaultValue: 0)
   final int songsCount;
 
   AlbumDto({

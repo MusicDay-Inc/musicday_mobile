@@ -84,6 +84,7 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                   if (index == 0) {
                     return UserReviewWidget(
                       review: review,
+                      key: UniqueKey(),
                       onWriteClick: () => WriteReviewDialog.open(context, widget.songId),
                       onDeleteClick: () async {
                         final result = await YesNoDialog.show(
@@ -96,8 +97,6 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                           // todo: уйти от этого костыля
                           // ignore: use_build_context_synchronously
                           BlocProvider.of<SongInfoBloc>(context).removeReview(review!.id);
-                          // ignore: use_build_context_synchronously
-                          Navigator.pop(context);
                         }
                       },
                     );

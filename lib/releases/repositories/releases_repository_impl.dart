@@ -113,7 +113,7 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
       ok: (state) {
         _logger.debug("sendAlbumReview($id): received ok");
 
-        if (state.data.song != null) {
+        if (state.data.song != null && !_isSongNull(state.data.song!)) {
           _logger.debug("sendAlbumReview($id): state.data.song != null");
           _newSongsStreamController.add(_convertSongResponseDto(state.data.song!, state.data));
         } else {
@@ -143,7 +143,7 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
       ok: (state) {
         _logger.debug("sendSongReview($id): received ok");
 
-        if (state.data.song != null) {
+        if (state.data.song != null && !_isSongNull(state.data.song!)) {
           _logger.debug("sendSongReview($id): state.data.song != null");
           _newSongsStreamController.add(_convertSongResponseDto(state.data.song!, state.data));
         } else {
@@ -239,4 +239,6 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
     final score = dto.score;
     return score != null ? Review(id: dto.id, publishTime: dto.publishedAt, rating: score, text: text ?? "") : null;
   }
+
+  bool _isSongNull(SongDto dto) => dto.id == "00000000-0000-0000-0000-000000000000";
 }

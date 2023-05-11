@@ -8,10 +8,10 @@ part of 'album_dto.dart';
 
 AlbumDto _$AlbumDtoFromJson(Map<String, dynamic> json) => AlbumDto(
       id: json['id'] as String,
-      name: json['name'] as String,
-      author: json['author'] as String,
+      name: json['name'] as String? ?? '',
+      author: json['author'] as String? ?? '',
       date: DateTime.parse(json['date'] as String),
-      songsCount: json['song_amount'] as int,
+      songsCount: json['song_amount'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$AlbumDtoToJson(AlbumDto instance) => <String, dynamic>{

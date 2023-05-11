@@ -8,10 +8,10 @@ part of 'song_dto.dart';
 
 SongDto _$SongDtoFromJson(Map<String, dynamic> json) => SongDto(
       id: json['id'] as String,
-      name: json['name'] as String,
-      author: json['author'] as String,
+      name: json['name'] as String? ?? '',
+      author: json['author'] as String? ?? '',
       date: DateTime.parse(json['date'] as String),
-      durationInNanoseconds: json['duration'] as int,
+      durationInNanoseconds: json['duration'] as int? ?? 0,
     );
 
 Map<String, dynamic> _$SongDtoToJson(SongDto instance) => <String, dynamic>{

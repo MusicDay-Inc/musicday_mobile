@@ -3,7 +3,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:musicday_mobile/releases/models/review.dart';
 import 'package:musicday_mobile/releases/ui/widgets/rating_stars_widget.dart';
 
-class UserReviewWidget extends StatelessWidget {
+class UserReviewWidget extends StatefulWidget {
   final Review? review;
   final VoidCallback? onWriteClick;
   final VoidCallback? onDeleteClick;
@@ -15,6 +15,11 @@ class UserReviewWidget extends StatelessWidget {
     this.onDeleteClick,
   });
 
+  @override
+  State<UserReviewWidget> createState() => _UserReviewWidgetState();
+}
+
+class _UserReviewWidgetState extends State<UserReviewWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -28,12 +33,12 @@ class UserReviewWidget extends StatelessWidget {
               Row(children: [
                 Text(AppLocalizations.of(context)!.yourReview, style: const TextStyle(fontSize: 18)),
                 const SizedBox(width: 6),
-                if (review != null) RatingStarsWidget(filled: review!.rating, total: 5, size: 14),
+                if (widget.review != null) RatingStarsWidget(filled: widget.review!.rating, total: 5, size: 14),
               ]),
-              if (review == null || (review != null && review?.text.isNotEmpty == true)) ...[
+              if (widget.review == null || (widget.review != null && widget.review?.text.isNotEmpty == true)) ...[
                 const SizedBox(height: 4),
                 Text(
-                  review?.text ?? AppLocalizations.of(context)!.writeReviewHint,
+                  widget.review?.text ?? AppLocalizations.of(context)!.writeReviewHint,
                   style: TextStyle(color: Theme.of(context).hintColor),
                 ),
               ]
@@ -43,9 +48,11 @@ class UserReviewWidget extends StatelessWidget {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 6),
           child: TextButton(
-            onPressed: review != null ? onDeleteClick : onWriteClick,
+            onPressed: widget.review != null ? widget.onDeleteClick : widget.onWriteClick,
             child: Text(
-              review != null ? AppLocalizations.of(context)!.deleteReview : AppLocalizations.of(context)!.writeReview,
+              widget.review != null
+                  ? AppLocalizations.of(context)!.deleteReview
+                  : AppLocalizations.of(context)!.writeReview,
             ),
           ),
         )

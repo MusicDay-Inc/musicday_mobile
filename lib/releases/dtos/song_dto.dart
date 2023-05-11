@@ -6,13 +6,13 @@ part 'song_dto.g.dart';
 class SongDto {
   @JsonKey(name: "id")
   final String id;
-  @JsonKey(name: "name")
+  @JsonKey(name: "name", defaultValue: "")
   final String name;
-  @JsonKey(name: "author")
+  @JsonKey(name: "author", defaultValue: "")
   final String author;
   @JsonKey(name: "date")
   final DateTime date;
-  @JsonKey(name: "duration")
+  @JsonKey(name: "duration", defaultValue: 0)
   final int durationInNanoseconds;
 
   SongDto({
