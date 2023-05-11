@@ -30,16 +30,18 @@ class UserReviewWidget extends StatelessWidget {
                 const SizedBox(width: 6),
                 if (review != null) RatingStarsWidget(filled: review!.rating, total: 5, size: 14),
               ]),
-              const SizedBox(height: 4),
-              Text(
-                review?.text ?? AppLocalizations.of(context)!.writeReviewHint,
-                style: TextStyle(color: Theme.of(context).hintColor),
-              ),
+              if (review == null || (review != null && review?.text.isNotEmpty == true)) ...[
+                const SizedBox(height: 4),
+                Text(
+                  review?.text ?? AppLocalizations.of(context)!.writeReviewHint,
+                  style: TextStyle(color: Theme.of(context).hintColor),
+                ),
+              ]
             ],
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 9),
+          padding: const EdgeInsets.symmetric(horizontal: 6),
           child: TextButton(
             onPressed: review != null ? onDeleteClick : onWriteClick,
             child: Text(
