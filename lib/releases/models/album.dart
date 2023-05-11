@@ -4,7 +4,7 @@ import 'package:musicday_mobile/releases/models/release.dart';
 part 'album.freezed.dart';
 
 @freezed
-class Album with _$Album {
+class Album extends Release with _$Album {
   @Implements<Release>()
   const factory Album({
     required String id,

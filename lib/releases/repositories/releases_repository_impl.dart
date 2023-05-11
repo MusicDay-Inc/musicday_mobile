@@ -112,7 +112,15 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
       },
       ok: (state) {
         _logger.debug("sendAlbumReview($id): received ok");
-        _newAlbumsStreamController.add(_convertAlbumResponseDto(state.data.album!, state.data));
+
+        if (state.data.song != null) {
+          _logger.debug("sendAlbumReview($id): state.data.song != null");
+          _newSongsStreamController.add(_convertSongResponseDto(state.data.song!, state.data));
+        } else {
+          _logger.debug("sendAlbumReview($id): state.data.song == null");
+          _newAlbumsStreamController.add(_convertAlbumResponseDto(state.data.album!, state.data));
+        }
+
         return true;
       },
     );
@@ -134,7 +142,15 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
       },
       ok: (state) {
         _logger.debug("sendSongReview($id): received ok");
-        _newSongsStreamController.add(_convertSongResponseDto(state.data.song!, state.data));
+
+        if (state.data.song != null) {
+          _logger.debug("sendSongReview($id): state.data.song != null");
+          _newSongsStreamController.add(_convertSongResponseDto(state.data.song!, state.data));
+        } else {
+          _logger.debug("sendSongReview($id): state.data.song == null");
+          _newAlbumsStreamController.add(_convertAlbumResponseDto(state.data.album!, state.data));
+        }
+
         return true;
       },
     );

@@ -5,6 +5,8 @@ import 'package:musicday_mobile/application_di.dart';
 import 'package:musicday_mobile/core/di/bloc_inject.dart';
 import 'package:musicday_mobile/core/formatting/duration_formatting_extensions.dart';
 import 'package:musicday_mobile/core/ui/dialogs/yes_no_dialog.dart';
+import 'package:musicday_mobile/releases/models/album.dart';
+import 'package:musicday_mobile/releases/models/song.dart';
 import 'package:musicday_mobile/releases/ui/song_info/song_info_bloc.dart';
 import 'package:musicday_mobile/releases/ui/song_info/song_info_state.dart';
 import 'package:musicday_mobile/releases/ui/widgets/another_user_review_widget.dart';
@@ -13,10 +15,12 @@ import 'package:musicday_mobile/releases/ui/write_review/write_review_dialog.dar
 
 class SongInfoScreen extends StatefulWidget {
   final String songId;
+  final bool isSong;
 
   const SongInfoScreen({
     super.key,
     required this.songId,
+    required this.isSong,
   });
 
   @override
@@ -29,6 +33,7 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
     return BlocInject<SongInfoBloc>(
       getIt: getIt,
       param1: widget.songId,
+      param2: widget.isSong,
       child: Scaffold(
         body: BlocBuilder<SongInfoBloc, SongInfoState>(builder: (context, state) {
           return state.when(loading: () {
@@ -63,7 +68,11 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                             child: Icon(Icons.circle, size: 4, color: Theme.of(context).hintColor),
                           ),
                           const SizedBox(width: 4),
-                          Text(song.durationInSeconds.formatSecondsToDuration(), style: const TextStyle(fontSize: 12)),
+                          if (song is Song) ...[
+                            Text(song.durationInSeconds.formatSecondsToDuration(), style: const TextStyle(fontSize: 12))
+                          ] else if (song is Album) ...[
+                            Text("${song.songsCount} songs", style: const TextStyle(fontSize: 12))
+                          ],
                         ],
                       ),
                     ],
@@ -76,12 +85,20 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                     return UserReviewWidget(
                       review: review,
                       onWriteClick: () => WriteReviewDialog.open(context, widget.songId),
-                      onDeleteClick: () {
-                        YesNoDialog.show(
+                      onDeleteClick: () async {
+                        final result = await YesNoDialog.show(
                           context,
                           title: AppLocalizations.of(context)!.reviewDeletingTitle,
                           content: AppLocalizations.of(context)!.reviewDeletingConfirm,
                         );
+
+                        if (result == true) {
+                          // todo: уйти от этого костыля
+                          // ignore: use_build_context_synchronously
+                          BlocProvider.of<SongInfoBloc>(context).removeReview(review!.id);
+                          // ignore: use_build_context_synchronously
+                          Navigator.pop(context);
+                        }
                       },
                     );
                   } else if (index == 1) {

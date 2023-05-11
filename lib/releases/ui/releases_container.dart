@@ -19,7 +19,7 @@ class _ReleasesContainerState extends State<ReleasesContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return const SongInfoScreen(songId: "bcba17a9-f724-4641-a881-80c223fe8e6b");
+    return const SongInfoScreen(songId: "bc89401b-5a45-4f44-80bf-7118bed427c8", isSong: false);
   }
 
   @override

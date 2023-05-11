@@ -19,19 +19,19 @@ mixin _$SongInfoState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(Song song, Review? review) data,
+    required TResult Function(Release release, Review? review) data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(Song song, Review? review)? data,
+    TResult? Function(Release release, Review? review)? data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Song song, Review? review)? data,
+    TResult Function(Release release, Review? review)? data,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -111,7 +111,7 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(Song song, Review? review) data,
+    required TResult Function(Release release, Review? review) data,
   }) {
     return loading();
   }
@@ -120,7 +120,7 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(Song song, Review? review)? data,
+    TResult? Function(Release release, Review? review)? data,
   }) {
     return loading?.call();
   }
@@ -129,7 +129,7 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Song song, Review? review)? data,
+    TResult Function(Release release, Review? review)? data,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -179,9 +179,8 @@ abstract class _$$DataCopyWith<$Res> {
   factory _$$DataCopyWith(_$Data value, $Res Function(_$Data) then) =
       __$$DataCopyWithImpl<$Res>;
   @useResult
-  $Res call({Song song, Review? review});
+  $Res call({Release release, Review? review});
 
-  $SongCopyWith<$Res> get song;
   $ReviewCopyWith<$Res>? get review;
 }
 
@@ -195,27 +194,19 @@ class __$$DataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? song = null,
+    Object? release = null,
     Object? review = freezed,
   }) {
     return _then(_$Data(
-      null == song
-          ? _value.song
-          : song // ignore: cast_nullable_to_non_nullable
-              as Song,
+      null == release
+          ? _value.release
+          : release // ignore: cast_nullable_to_non_nullable
+              as Release,
       freezed == review
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
               as Review?,
     ));
-  }
-
-  @override
-  @pragma('vm:prefer-inline')
-  $SongCopyWith<$Res> get song {
-    return $SongCopyWith<$Res>(_value.song, (value) {
-      return _then(_value.copyWith(song: value));
-    });
   }
 
   @override
@@ -234,16 +225,16 @@ class __$$DataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$Data implements Data {
-  const _$Data(this.song, this.review);
+  const _$Data(this.release, this.review);
 
   @override
-  final Song song;
+  final Release release;
   @override
   final Review? review;
 
   @override
   String toString() {
-    return 'SongInfoState.data(song: $song, review: $review)';
+    return 'SongInfoState.data(release: $release, review: $review)';
   }
 
   @override
@@ -251,12 +242,12 @@ class _$Data implements Data {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$Data &&
-            (identical(other.song, song) || other.song == song) &&
+            (identical(other.release, release) || other.release == release) &&
             (identical(other.review, review) || other.review == review));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, song, review);
+  int get hashCode => Object.hash(runtimeType, release, review);
 
   @JsonKey(ignore: true)
   @override
@@ -268,29 +259,29 @@ class _$Data implements Data {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(Song song, Review? review) data,
+    required TResult Function(Release release, Review? review) data,
   }) {
-    return data(song, review);
+    return data(release, review);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(Song song, Review? review)? data,
+    TResult? Function(Release release, Review? review)? data,
   }) {
-    return data?.call(song, review);
+    return data?.call(release, review);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Song song, Review? review)? data,
+    TResult Function(Release release, Review? review)? data,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(song, review);
+      return data(release, review);
     }
     return orElse();
   }
@@ -328,9 +319,9 @@ class _$Data implements Data {
 }
 
 abstract class Data implements SongInfoState {
-  const factory Data(final Song song, final Review? review) = _$Data;
+  const factory Data(final Release release, final Review? review) = _$Data;
 
-  Song get song;
+  Release get release;
   Review? get review;
   @JsonKey(ignore: true)
   _$$DataCopyWith<_$Data> get copyWith => throw _privateConstructorUsedError;
