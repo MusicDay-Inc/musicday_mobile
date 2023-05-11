@@ -174,6 +174,7 @@ _i1.GetIt initReleasesScope(
       gh.singleton<_i11.ReleasesRepository>(
         _i25.ReleasesRepositoryImpl(
           releasesRemoteService: gh<_i24.ReleasesRemoteService>(),
+          pagedResponseFactory: gh<_i7.PagedResponseFactory>(),
           loggerFactory: gh<_i5.LoggerFactory>(),
         ),
         dispose: (i) => i.dispose(),

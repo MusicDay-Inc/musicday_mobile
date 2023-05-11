@@ -38,7 +38,7 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
         body: BlocBuilder<SongInfoBloc, SongInfoState>(builder: (context, state) {
           return state.when(loading: () {
             return const Center(child: CircularProgressIndicator());
-          }, data: (song, review) {
+          }, data: (song, review, mean, userReviews) {
             return CustomScrollView(slivers: [
               SliverAppBar.large(
                 expandedHeight: 300,
@@ -110,23 +110,24 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                             style: const TextStyle(fontSize: 18),
                           ),
                           Expanded(child: Container()),
-                          Text("2.1", style: TextStyle(color: Theme.of(context).hintColor)),
+                          Text(mean.toStringAsFixed(1), style: TextStyle(color: Theme.of(context).hintColor)),
                           Icon(Icons.star, size: 14, color: Theme.of(context).buttonTheme.colorScheme!.primary),
                         ],
                       ),
                     );
                   }
 
+                  final userReview = userReviews[index - 2];
                   return Column(
                     children: [
                       const SizedBox(height: 8),
                       AnotherUserReviewWidget(
-                        reviewTimestamp: 1683402042,
-                        authorId: "Maxim Mityushkin",
-                        authorName: "Maxim Mityushkin",
+                        reviewTimestamp: userReview.review.publishTime.millisecondsSinceEpoch ~/ 1000,
+                        authorId: userReview.user.id,
+                        authorName: userReview.user.nickname,
                         authorAvatar: null,
-                        comment: "M" * 150,
-                        rating: 4,
+                        comment: userReview.review.text,
+                        rating: userReview.review.rating,
                       ),
                       const SizedBox(height: 14),
                       if (index < 11)
@@ -135,7 +136,7 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                         const SizedBox(height: 24),
                     ],
                   );
-                }, childCount: 12),
+                }, childCount: userReviews.isEmpty ? 1 : 2 + userReviews.length),
               )
             ]);
           });

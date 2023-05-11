@@ -4,26 +4,38 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:musicday_mobile/core/common/pair.dart';
 import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/network/dtos/error_response.dart';
+import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart';
+import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
+import 'package:musicday_mobile/profiles/models/user.dart';
 import 'package:musicday_mobile/releases/dtos/album_by_id_response.dart';
 import 'package:musicday_mobile/releases/dtos/album_dto.dart';
 import 'package:musicday_mobile/releases/dtos/delete_review_response.dart';
+import 'package:musicday_mobile/releases/dtos/get_reviews_response.dart';
 import 'package:musicday_mobile/releases/dtos/review_dto.dart';
 import 'package:musicday_mobile/releases/dtos/send_review_response.dart';
 import 'package:musicday_mobile/releases/dtos/song_by_id_response.dart';
 import 'package:musicday_mobile/releases/dtos/song_dto.dart';
+import 'package:musicday_mobile/releases/dtos/user_review_dto.dart';
 import 'package:musicday_mobile/releases/models/album.dart';
 import 'package:musicday_mobile/releases/models/review.dart';
 import 'package:musicday_mobile/releases/models/song.dart';
+import 'package:musicday_mobile/releases/models/user_review.dart';
 import 'package:musicday_mobile/releases/network/releases_remote_service.dart';
 import 'package:musicday_mobile/releases/repositories/releases_repository_impl.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:rxdart/rxdart.dart';
 import 'releases_repository_impl_test.mocks.dart';
 
-@GenerateNiceMocks([MockSpec<ReleasesRemoteService>(), MockSpec<LoggerFactory>(), MockSpec<Logger>()])
+@GenerateNiceMocks([
+  MockSpec<PagedResponseFactory>(),
+  MockSpec<ReleasesRemoteService>(),
+  MockSpec<LoggerFactory>(),
+  MockSpec<Logger>(),
+])
 void main() {
   final loggerFactory = MockLoggerFactory();
   when(loggerFactory.create(any)).thenReturn(MockLogger());
@@ -37,7 +49,9 @@ void main() {
           response:
               Response(data: ErrorResponse(code: 1, message: "Stub!").toJson(), requestOptions: RequestOptions())));
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final events = await repository.getSongById("stub").toList();
       expect(events, [null]);
     });
@@ -66,7 +80,9 @@ void main() {
         );
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final pair = await repository.getSongById("stub_id").first;
       expect(
         pair?.first,
@@ -105,7 +121,9 @@ void main() {
         );
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final pair = await repository.getSongById("stub").first;
       expect(pair?.second, null);
     });
@@ -134,7 +152,9 @@ void main() {
         );
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final pair = await repository.getSongById("stub").first;
       expect(pair?.second,
           Review(id: "review_stub", text: "", publishTime: DateTime.fromMillisecondsSinceEpoch(0), rating: 4));
@@ -164,7 +184,9 @@ void main() {
         );
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final pair = await repository.getSongById("stub").first;
       expect(
           pair?.second,
@@ -182,7 +204,9 @@ void main() {
           response:
               Response(data: ErrorResponse(code: 1, message: "Stub!").toJson(), requestOptions: RequestOptions())));
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final events = await repository.getAlbumById("stub").toList();
       expect(events, [null]);
     });
@@ -211,7 +235,9 @@ void main() {
         );
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final pair = await repository.getAlbumById("stub_id").first;
       expect(
         pair?.first,
@@ -250,7 +276,9 @@ void main() {
         );
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final pair = await repository.getAlbumById("stub").first;
       expect(pair?.second, null);
     });
@@ -279,7 +307,9 @@ void main() {
         );
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final pair = await repository.getAlbumById("stub").first;
       expect(pair?.second,
           Review(id: "review_stub", text: "", publishTime: DateTime.fromMillisecondsSinceEpoch(0), rating: 4));
@@ -309,7 +339,9 @@ void main() {
         );
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final pair = await repository.getAlbumById("stub").first;
       expect(
           pair?.second,
@@ -327,7 +359,9 @@ void main() {
           response:
               Response(data: ErrorResponse(code: 1, message: "Stub!").toJson(), requestOptions: RequestOptions())));
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       expect(await repository.sendAlbumReview("stub", 5), false);
     });
 
@@ -339,7 +373,9 @@ void main() {
           response:
               Response(data: ErrorResponse(code: 1, message: "Stub!").toJson(), requestOptions: RequestOptions())));
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       expect(await repository.sendSongReview("stub", 5), false);
     });
 
@@ -348,7 +384,9 @@ void main() {
       when(service.sendReview(any, any)).thenAnswer(
           (realInvocation) async => throw DioError.connectionError(requestOptions: RequestOptions(), reason: ""));
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       expect(await repository.sendAlbumReview("stub", 5), false);
     });
 
@@ -357,7 +395,9 @@ void main() {
       when(service.sendReview(any, any)).thenAnswer(
           (realInvocation) async => throw DioError.connectionError(requestOptions: RequestOptions(), reason: ""));
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       expect(await repository.sendSongReview("stub", 5), false);
     });
 
@@ -383,7 +423,9 @@ void main() {
         return HttpResponse(response, Response(requestOptions: RequestOptions()));
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       expect(await repository.sendAlbumReview("id", 5), true);
     });
 
@@ -409,7 +451,9 @@ void main() {
         return HttpResponse(response, Response(requestOptions: RequestOptions()));
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       expect(await repository.sendSongReview("id", 5), true);
     });
 
@@ -456,7 +500,9 @@ void main() {
         return HttpResponse(response, Response(requestOptions: RequestOptions()));
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final stream = repository.getAlbumById("id").shareReplay()..listen((event) {});
 
       await stream.first;
@@ -511,7 +557,9 @@ void main() {
         return HttpResponse(response, Response(requestOptions: RequestOptions()));
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final stream = repository.getSongById("id").shareReplay()..listen((event) {});
 
       await stream.first;
@@ -530,7 +578,9 @@ void main() {
       when(service.deleteReview(any)).thenAnswer(
           (realInvocation) async => throw DioError.connectionError(requestOptions: RequestOptions(), reason: "Stub!"));
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       expect(await repository.removeAlbumReview("id"), false);
     });
 
@@ -539,7 +589,9 @@ void main() {
       when(service.deleteReview(any)).thenAnswer(
           (realInvocation) async => throw DioError.connectionError(requestOptions: RequestOptions(), reason: "Stub!"));
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       expect(await repository.removeAlbumReview("id"), false);
     });
 
@@ -551,7 +603,9 @@ void main() {
           response:
               Response(data: ErrorResponse(code: 1, message: "Stub!").toJson(), requestOptions: RequestOptions())));
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       expect(await repository.removeAlbumReview("id"), false);
     });
 
@@ -563,7 +617,9 @@ void main() {
           response:
               Response(data: ErrorResponse(code: 1, message: "Stub!").toJson(), requestOptions: RequestOptions())));
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       expect(await repository.removeAlbumReview("id"), false);
     });
 
@@ -589,7 +645,9 @@ void main() {
         return HttpResponse(response, Response(requestOptions: RequestOptions()));
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       expect(await repository.removeAlbumReview("id"), true);
     });
 
@@ -615,7 +673,9 @@ void main() {
         return HttpResponse(response, Response(requestOptions: RequestOptions()));
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       expect(await repository.removeSongReview("id"), true);
     });
 
@@ -662,7 +722,9 @@ void main() {
         return HttpResponse(response, Response(requestOptions: RequestOptions()));
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final stream = repository.getAlbumById("id").shareReplay()..listen((event) {});
 
       await stream.first;
@@ -716,7 +778,9 @@ void main() {
         return HttpResponse(response, Response(requestOptions: RequestOptions()));
       });
 
-      final repository = ReleasesRepositoryImpl(releasesRemoteService: service, loggerFactory: loggerFactory);
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
       final stream = repository.getSongById("id").shareReplay()..listen((event) {});
 
       await stream.first;
@@ -725,6 +789,122 @@ void main() {
       final events = await stream.take(2).toList();
       expect(events.length, 2);
       expect(events[1]?.second, null);
+    });
+  });
+
+  group("getSubscribersReviews", () {
+    test("If server not available, stream return nothing", () async {
+      final service = MockReleasesRemoteService();
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+
+      try {
+        await repository.getSubscribersReviews("stub").first.timeout(const Duration(seconds: 5));
+        fail("Stream returns value");
+      } catch (ex) {
+        // All in normal!
+      }
+    });
+
+    test("If server returns error, stream return nothing", () async {
+      final service = MockReleasesRemoteService();
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+
+      when(service.getReviews(any)).thenAnswer((realInvocation) async => throw DioError.badResponse(
+          statusCode: HttpStatus.badRequest,
+          requestOptions: RequestOptions(),
+          response:
+              Response(data: ErrorResponse(code: 1, message: "Stub!").toJson(), requestOptions: RequestOptions())));
+
+      try {
+        await repository.getSubscribersReviews("stub").first.timeout(const Duration(seconds: 5));
+        fail("Stream returns value");
+      } catch (ex) {
+        // All in normal!
+      }
+    });
+
+    test("If server returns data, stream return it", () async {
+      final service = MockReleasesRemoteService();
+      final pagedResponseFactory = MockPagedResponseFactory();
+      final repository = ReleasesRepositoryImpl(
+          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+
+      when(service.getReviews(any)).thenAnswer((realInvocation) async {
+        return HttpResponse(
+            GetReviewsResponse(meanScore: 4.0, reviews: [
+              UserReviewDto(
+                id: 'first',
+                publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
+                score: 5,
+                text: 'First',
+                user: UserDto(
+                  id: "first_user",
+                  username: "username",
+                  nickname: "nickname",
+                  hasPicture: false,
+                  subscriberAmount: 0,
+                  subscriptionsAmount: 0,
+                ),
+              ),
+              UserReviewDto(
+                id: 'second',
+                publishedAt: DateTime.fromMillisecondsSinceEpoch(1),
+                score: 3,
+                text: 'Second',
+                user: UserDto(
+                  id: "second_user",
+                  username: "username",
+                  nickname: "nickname",
+                  hasPicture: false,
+                  subscriberAmount: 0,
+                  subscriptionsAmount: 0,
+                ),
+              ),
+            ]),
+            Response(requestOptions: RequestOptions()));
+      });
+
+      final events = await repository.getSubscribersReviews("releaseId").toList();
+      expect(events, [
+        Pair(first: [
+          UserReview(
+            review: Review(
+              id: "first",
+              text: 'First',
+              publishTime: DateTime.fromMillisecondsSinceEpoch(0),
+              rating: 5,
+            ),
+            user: const User(
+              id: "first_user",
+              username: "username",
+              nickname: "nickname",
+              subscriberAmount: 0,
+              subscriptionsAmount: 0,
+              avatarUrl: null,
+            ),
+          ),
+          UserReview(
+            review: Review(
+              id: "second",
+              text: 'Second',
+              publishTime: DateTime.fromMillisecondsSinceEpoch(1),
+              rating: 3,
+            ),
+            user: const User(
+              id: "second_user",
+              username: "username",
+              nickname: "nickname",
+              subscriberAmount: 0,
+              subscriptionsAmount: 0,
+              avatarUrl: null,
+            ),
+          ),
+        ], second: 4.0)
+      ]);
     });
   });
 }

@@ -19,19 +19,25 @@ mixin _$SongInfoState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(Release release, Review? review) data,
+    required TResult Function(Release release, Review? review, double mean,
+            List<UserReview> userReviews)
+        data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(Release release, Review? review)? data,
+    TResult? Function(Release release, Review? review, double mean,
+            List<UserReview> userReviews)?
+        data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Release release, Review? review)? data,
+    TResult Function(Release release, Review? review, double mean,
+            List<UserReview> userReviews)?
+        data,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -111,7 +117,9 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(Release release, Review? review) data,
+    required TResult Function(Release release, Review? review, double mean,
+            List<UserReview> userReviews)
+        data,
   }) {
     return loading();
   }
@@ -120,7 +128,9 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(Release release, Review? review)? data,
+    TResult? Function(Release release, Review? review, double mean,
+            List<UserReview> userReviews)?
+        data,
   }) {
     return loading?.call();
   }
@@ -129,7 +139,9 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Release release, Review? review)? data,
+    TResult Function(Release release, Review? review, double mean,
+            List<UserReview> userReviews)?
+        data,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -179,7 +191,11 @@ abstract class _$$DataCopyWith<$Res> {
   factory _$$DataCopyWith(_$Data value, $Res Function(_$Data) then) =
       __$$DataCopyWithImpl<$Res>;
   @useResult
-  $Res call({Release release, Review? review});
+  $Res call(
+      {Release release,
+      Review? review,
+      double mean,
+      List<UserReview> userReviews});
 
   $ReviewCopyWith<$Res>? get review;
 }
@@ -196,6 +212,8 @@ class __$$DataCopyWithImpl<$Res>
   $Res call({
     Object? release = null,
     Object? review = freezed,
+    Object? mean = null,
+    Object? userReviews = null,
   }) {
     return _then(_$Data(
       null == release
@@ -206,6 +224,14 @@ class __$$DataCopyWithImpl<$Res>
           ? _value.review
           : review // ignore: cast_nullable_to_non_nullable
               as Review?,
+      null == mean
+          ? _value.mean
+          : mean // ignore: cast_nullable_to_non_nullable
+              as double,
+      null == userReviews
+          ? _value._userReviews
+          : userReviews // ignore: cast_nullable_to_non_nullable
+              as List<UserReview>,
     ));
   }
 
@@ -225,16 +251,27 @@ class __$$DataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$Data implements Data {
-  const _$Data(this.release, this.review);
+  const _$Data(
+      this.release, this.review, this.mean, final List<UserReview> userReviews)
+      : _userReviews = userReviews;
 
   @override
   final Release release;
   @override
   final Review? review;
+  @override
+  final double mean;
+  final List<UserReview> _userReviews;
+  @override
+  List<UserReview> get userReviews {
+    if (_userReviews is EqualUnmodifiableListView) return _userReviews;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_userReviews);
+  }
 
   @override
   String toString() {
-    return 'SongInfoState.data(release: $release, review: $review)';
+    return 'SongInfoState.data(release: $release, review: $review, mean: $mean, userReviews: $userReviews)';
   }
 
   @override
@@ -243,11 +280,15 @@ class _$Data implements Data {
         (other.runtimeType == runtimeType &&
             other is _$Data &&
             (identical(other.release, release) || other.release == release) &&
-            (identical(other.review, review) || other.review == review));
+            (identical(other.review, review) || other.review == review) &&
+            (identical(other.mean, mean) || other.mean == mean) &&
+            const DeepCollectionEquality()
+                .equals(other._userReviews, _userReviews));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, release, review);
+  int get hashCode => Object.hash(runtimeType, release, review, mean,
+      const DeepCollectionEquality().hash(_userReviews));
 
   @JsonKey(ignore: true)
   @override
@@ -259,29 +300,35 @@ class _$Data implements Data {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(Release release, Review? review) data,
+    required TResult Function(Release release, Review? review, double mean,
+            List<UserReview> userReviews)
+        data,
   }) {
-    return data(release, review);
+    return data(release, review, mean, userReviews);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(Release release, Review? review)? data,
+    TResult? Function(Release release, Review? review, double mean,
+            List<UserReview> userReviews)?
+        data,
   }) {
-    return data?.call(release, review);
+    return data?.call(release, review, mean, userReviews);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(Release release, Review? review)? data,
+    TResult Function(Release release, Review? review, double mean,
+            List<UserReview> userReviews)?
+        data,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(release, review);
+      return data(release, review, mean, userReviews);
     }
     return orElse();
   }
@@ -319,10 +366,13 @@ class _$Data implements Data {
 }
 
 abstract class Data implements SongInfoState {
-  const factory Data(final Release release, final Review? review) = _$Data;
+  const factory Data(final Release release, final Review? review,
+      final double mean, final List<UserReview> userReviews) = _$Data;
 
   Release get release;
   Review? get review;
+  double get mean;
+  List<UserReview> get userReviews;
   @JsonKey(ignore: true)
   _$$DataCopyWith<_$Data> get copyWith => throw _privateConstructorUsedError;
 }

@@ -5,15 +5,19 @@ import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/network/extensions/future_http_response_extensions.dart';
 import 'package:musicday_mobile/core/network/helpers/network_retry_helper.dart';
+import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart';
+import 'package:musicday_mobile/profiles/models/user.dart';
 import 'package:musicday_mobile/releases/di/releases_scope.dart';
 import 'package:musicday_mobile/releases/dtos/album_dto.dart';
 import 'package:musicday_mobile/releases/dtos/review_dto.dart';
 import 'package:musicday_mobile/releases/dtos/send_review_request.dart';
 import 'package:musicday_mobile/releases/dtos/song_dto.dart';
+import 'package:musicday_mobile/releases/dtos/user_review_dto.dart';
 import 'package:musicday_mobile/releases/models/album.dart';
 import 'package:musicday_mobile/releases/models/song.dart';
 import 'package:musicday_mobile/releases/models/review.dart';
 import 'package:musicday_mobile/core/common/pair.dart';
+import 'package:musicday_mobile/releases/models/user_review.dart';
 import 'package:musicday_mobile/releases/network/releases_remote_service.dart';
 import 'package:musicday_mobile/releases/repositories/releases_repository.dart';
 import 'package:rxdart/rxdart.dart';
@@ -23,10 +27,12 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
   final _newSongsStreamController = StreamController<Pair<Song, Review?>>.broadcast();
   final _newAlbumsStreamController = StreamController<Pair<Album, Review?>>.broadcast();
   final ReleasesRemoteService releasesRemoteService;
+  final PagedResponseFactory pagedResponseFactory;
   final Logger _logger;
 
   ReleasesRepositoryImpl({
     required this.releasesRemoteService,
+    required this.pagedResponseFactory,
     required LoggerFactory loggerFactory,
   }) : _logger = loggerFactory.create("ReleasesRepositoryImpl");
 
@@ -94,6 +100,19 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
     }).takeWhileInclusive((pair) {
       return pair?.second == null;
     }).map((event) => event?.first);
+  }
+
+  @override
+  Stream<Pair<List<UserReview>, double>> getSubscribersReviews(String releaseId) {
+    return NetworkRetryHelper.retry(() => releasesRemoteService.getReviews(releaseId), _logger)
+        .map((event) => event.mapOrNull(ok: (value) => value)?.data)
+        .whereNotNull()
+        .map((event) {
+      return Pair(
+        first: event.reviews.map(_convertUserReviewDto).toList(growable: true),
+        second: event.meanScore,
+      );
+    }).takeWhileInclusive((element) => true);
   }
 
   @override
@@ -238,6 +257,20 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
     final text = dto.text;
     final score = dto.score;
     return score != null ? Review(id: dto.id, publishTime: dto.publishedAt, rating: score, text: text ?? "") : null;
+  }
+
+  UserReview _convertUserReviewDto(UserReviewDto dto) {
+    return UserReview(
+      review: Review(id: dto.id, text: dto.text ?? "", publishTime: dto.publishedAt, rating: dto.score!),
+      user: User(
+        id: dto.user.id,
+        username: dto.user.username,
+        nickname: dto.user.nickname,
+        avatarUrl: null,
+        subscriberAmount: dto.user.subscriberAmount,
+        subscriptionsAmount: dto.user.subscriptionsAmount,
+      ),
+    );
   }
 
   bool _isSongNull(SongDto dto) => dto.id == "00000000-0000-0000-0000-000000000000";

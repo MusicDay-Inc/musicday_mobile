@@ -5,6 +5,7 @@ import 'package:musicday_mobile/core/network/network_consts.dart';
 import 'package:musicday_mobile/releases/di/releases_scope.dart';
 import 'package:musicday_mobile/releases/dtos/album_by_id_response.dart';
 import 'package:musicday_mobile/releases/dtos/delete_review_response.dart';
+import 'package:musicday_mobile/releases/dtos/get_reviews_response.dart';
 import 'package:musicday_mobile/releases/dtos/send_review_request.dart';
 import 'package:musicday_mobile/releases/dtos/send_review_response.dart';
 import 'package:musicday_mobile/releases/dtos/song_by_id_response.dart';
@@ -29,4 +30,7 @@ abstract class ReleasesRemoteService {
 
   @POST("action/delete_review/{id}")
   Future<HttpResponse<DeleteReviewResponse>> deleteReview(@Path("id") String id);
+
+  @GET("reviews/to_release/{id}")
+  Future<HttpResponse<GetReviewsResponse>> getReviews(@Path("id") String id);
 }

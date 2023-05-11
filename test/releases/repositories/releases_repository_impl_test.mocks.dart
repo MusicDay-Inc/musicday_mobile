@@ -3,20 +3,26 @@
 // Do not manually edit this file.
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'dart:async' as _i5;
+import 'dart:async' as _i6;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:musicday_mobile/core/logging/logger.dart' as _i3;
-import 'package:musicday_mobile/core/logging/logger_factory.dart' as _i11;
-import 'package:musicday_mobile/releases/dtos/album_by_id_response.dart' as _i7;
+import 'package:musicday_mobile/core/logging/logger.dart' as _i4;
+import 'package:musicday_mobile/core/logging/logger_factory.dart' as _i14;
+import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart'
+    as _i5;
+import 'package:musicday_mobile/core/paging/paged_response.dart' as _i2;
+import 'package:musicday_mobile/releases/dtos/album_by_id_response.dart' as _i9;
 import 'package:musicday_mobile/releases/dtos/delete_review_response.dart'
+    as _i12;
+import 'package:musicday_mobile/releases/dtos/get_reviews_response.dart'
+    as _i13;
+import 'package:musicday_mobile/releases/dtos/send_review_request.dart' as _i11;
+import 'package:musicday_mobile/releases/dtos/send_review_response.dart'
     as _i10;
-import 'package:musicday_mobile/releases/dtos/send_review_request.dart' as _i9;
-import 'package:musicday_mobile/releases/dtos/send_review_response.dart' as _i8;
-import 'package:musicday_mobile/releases/dtos/song_by_id_response.dart' as _i6;
+import 'package:musicday_mobile/releases/dtos/song_by_id_response.dart' as _i8;
 import 'package:musicday_mobile/releases/network/releases_remote_service.dart'
-    as _i4;
-import 'package:retrofit/retrofit.dart' as _i2;
+    as _i7;
+import 'package:retrofit/retrofit.dart' as _i3;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -29,9 +35,9 @@ import 'package:retrofit/retrofit.dart' as _i2;
 // ignore_for_file: camel_case_types
 // ignore_for_file: subtype_of_sealed_class
 
-class _FakeHttpResponse_0<T> extends _i1.SmartFake
-    implements _i2.HttpResponse<T> {
-  _FakeHttpResponse_0(
+class _FakePagedResponse_0<T> extends _i1.SmartFake
+    implements _i2.PagedResponse<T> {
+  _FakePagedResponse_0(
     Object parent,
     Invocation parentInvocation,
   ) : super(
@@ -40,30 +46,85 @@ class _FakeHttpResponse_0<T> extends _i1.SmartFake
         );
 }
 
-class _FakeLogger_1 extends _i1.SmartFake implements _i3.Logger {
-  _FakeLogger_1(
+class _FakeHttpResponse_1<T> extends _i1.SmartFake
+    implements _i3.HttpResponse<T> {
+  _FakeHttpResponse_1(
     Object parent,
     Invocation parentInvocation,
   ) : super(
           parent,
           parentInvocation,
         );
+}
+
+class _FakeLogger_2 extends _i1.SmartFake implements _i4.Logger {
+  _FakeLogger_2(
+    Object parent,
+    Invocation parentInvocation,
+  ) : super(
+          parent,
+          parentInvocation,
+        );
+}
+
+/// A class which mocks [PagedResponseFactory].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockPagedResponseFactory extends _i1.Mock
+    implements _i5.PagedResponseFactory {
+  @override
+  _i2.PagedResponse<T> create<T>(
+    _i6.Stream<List<T>> Function(
+      int,
+      int,
+    )? getPartItemsStream,
+    int? pageSize,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #create,
+          [
+            getPartItemsStream,
+            pageSize,
+          ],
+        ),
+        returnValue: _FakePagedResponse_0<T>(
+          this,
+          Invocation.method(
+            #create,
+            [
+              getPartItemsStream,
+              pageSize,
+            ],
+          ),
+        ),
+        returnValueForMissingStub: _FakePagedResponse_0<T>(
+          this,
+          Invocation.method(
+            #create,
+            [
+              getPartItemsStream,
+              pageSize,
+            ],
+          ),
+        ),
+      ) as _i2.PagedResponse<T>);
 }
 
 /// A class which mocks [ReleasesRemoteService].
 ///
 /// See the documentation for Mockito's code generation for more information.
 class MockReleasesRemoteService extends _i1.Mock
-    implements _i4.ReleasesRemoteService {
+    implements _i7.ReleasesRemoteService {
   @override
-  _i5.Future<_i2.HttpResponse<_i6.SongByIdResponse>> getSongById(String? id) =>
+  _i6.Future<_i3.HttpResponse<_i8.SongByIdResponse>> getSongById(String? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #getSongById,
           [id],
         ),
-        returnValue: _i5.Future<_i2.HttpResponse<_i6.SongByIdResponse>>.value(
-            _FakeHttpResponse_0<_i6.SongByIdResponse>(
+        returnValue: _i6.Future<_i3.HttpResponse<_i8.SongByIdResponse>>.value(
+            _FakeHttpResponse_1<_i8.SongByIdResponse>(
           this,
           Invocation.method(
             #getSongById,
@@ -71,25 +132,25 @@ class MockReleasesRemoteService extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i2.HttpResponse<_i6.SongByIdResponse>>.value(
-                _FakeHttpResponse_0<_i6.SongByIdResponse>(
+            _i6.Future<_i3.HttpResponse<_i8.SongByIdResponse>>.value(
+                _FakeHttpResponse_1<_i8.SongByIdResponse>(
           this,
           Invocation.method(
             #getSongById,
             [id],
           ),
         )),
-      ) as _i5.Future<_i2.HttpResponse<_i6.SongByIdResponse>>);
+      ) as _i6.Future<_i3.HttpResponse<_i8.SongByIdResponse>>);
   @override
-  _i5.Future<_i2.HttpResponse<_i7.AlbumByIdResponse>> getAlbumById(
+  _i6.Future<_i3.HttpResponse<_i9.AlbumByIdResponse>> getAlbumById(
           String? id) =>
       (super.noSuchMethod(
         Invocation.method(
           #getAlbumById,
           [id],
         ),
-        returnValue: _i5.Future<_i2.HttpResponse<_i7.AlbumByIdResponse>>.value(
-            _FakeHttpResponse_0<_i7.AlbumByIdResponse>(
+        returnValue: _i6.Future<_i3.HttpResponse<_i9.AlbumByIdResponse>>.value(
+            _FakeHttpResponse_1<_i9.AlbumByIdResponse>(
           this,
           Invocation.method(
             #getAlbumById,
@@ -97,19 +158,19 @@ class MockReleasesRemoteService extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i2.HttpResponse<_i7.AlbumByIdResponse>>.value(
-                _FakeHttpResponse_0<_i7.AlbumByIdResponse>(
+            _i6.Future<_i3.HttpResponse<_i9.AlbumByIdResponse>>.value(
+                _FakeHttpResponse_1<_i9.AlbumByIdResponse>(
           this,
           Invocation.method(
             #getAlbumById,
             [id],
           ),
         )),
-      ) as _i5.Future<_i2.HttpResponse<_i7.AlbumByIdResponse>>);
+      ) as _i6.Future<_i3.HttpResponse<_i9.AlbumByIdResponse>>);
   @override
-  _i5.Future<_i2.HttpResponse<_i8.SendReviewResponse>> sendReview(
+  _i6.Future<_i3.HttpResponse<_i10.SendReviewResponse>> sendReview(
     String? id,
-    _i9.SendReviewRequest? body,
+    _i11.SendReviewRequest? body,
   ) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -119,8 +180,9 @@ class MockReleasesRemoteService extends _i1.Mock
             body,
           ],
         ),
-        returnValue: _i5.Future<_i2.HttpResponse<_i8.SendReviewResponse>>.value(
-            _FakeHttpResponse_0<_i8.SendReviewResponse>(
+        returnValue:
+            _i6.Future<_i3.HttpResponse<_i10.SendReviewResponse>>.value(
+                _FakeHttpResponse_1<_i10.SendReviewResponse>(
           this,
           Invocation.method(
             #sendReview,
@@ -131,8 +193,8 @@ class MockReleasesRemoteService extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i2.HttpResponse<_i8.SendReviewResponse>>.value(
-                _FakeHttpResponse_0<_i8.SendReviewResponse>(
+            _i6.Future<_i3.HttpResponse<_i10.SendReviewResponse>>.value(
+                _FakeHttpResponse_1<_i10.SendReviewResponse>(
           this,
           Invocation.method(
             #sendReview,
@@ -142,9 +204,9 @@ class MockReleasesRemoteService extends _i1.Mock
             ],
           ),
         )),
-      ) as _i5.Future<_i2.HttpResponse<_i8.SendReviewResponse>>);
+      ) as _i6.Future<_i3.HttpResponse<_i10.SendReviewResponse>>);
   @override
-  _i5.Future<_i2.HttpResponse<_i10.DeleteReviewResponse>> deleteReview(
+  _i6.Future<_i3.HttpResponse<_i12.DeleteReviewResponse>> deleteReview(
           String? id) =>
       (super.noSuchMethod(
         Invocation.method(
@@ -152,8 +214,8 @@ class MockReleasesRemoteService extends _i1.Mock
           [id],
         ),
         returnValue:
-            _i5.Future<_i2.HttpResponse<_i10.DeleteReviewResponse>>.value(
-                _FakeHttpResponse_0<_i10.DeleteReviewResponse>(
+            _i6.Future<_i3.HttpResponse<_i12.DeleteReviewResponse>>.value(
+                _FakeHttpResponse_1<_i12.DeleteReviewResponse>(
           this,
           Invocation.method(
             #deleteReview,
@@ -161,48 +223,75 @@ class MockReleasesRemoteService extends _i1.Mock
           ),
         )),
         returnValueForMissingStub:
-            _i5.Future<_i2.HttpResponse<_i10.DeleteReviewResponse>>.value(
-                _FakeHttpResponse_0<_i10.DeleteReviewResponse>(
+            _i6.Future<_i3.HttpResponse<_i12.DeleteReviewResponse>>.value(
+                _FakeHttpResponse_1<_i12.DeleteReviewResponse>(
           this,
           Invocation.method(
             #deleteReview,
             [id],
           ),
         )),
-      ) as _i5.Future<_i2.HttpResponse<_i10.DeleteReviewResponse>>);
+      ) as _i6.Future<_i3.HttpResponse<_i12.DeleteReviewResponse>>);
+  @override
+  _i6.Future<_i3.HttpResponse<_i13.GetReviewsResponse>> getReviews(
+          String? id) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #getReviews,
+          [id],
+        ),
+        returnValue:
+            _i6.Future<_i3.HttpResponse<_i13.GetReviewsResponse>>.value(
+                _FakeHttpResponse_1<_i13.GetReviewsResponse>(
+          this,
+          Invocation.method(
+            #getReviews,
+            [id],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i3.HttpResponse<_i13.GetReviewsResponse>>.value(
+                _FakeHttpResponse_1<_i13.GetReviewsResponse>(
+          this,
+          Invocation.method(
+            #getReviews,
+            [id],
+          ),
+        )),
+      ) as _i6.Future<_i3.HttpResponse<_i13.GetReviewsResponse>>);
 }
 
 /// A class which mocks [LoggerFactory].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoggerFactory extends _i1.Mock implements _i11.LoggerFactory {
+class MockLoggerFactory extends _i1.Mock implements _i14.LoggerFactory {
   @override
-  _i3.Logger create(String? tag) => (super.noSuchMethod(
+  _i4.Logger create(String? tag) => (super.noSuchMethod(
         Invocation.method(
           #create,
           [tag],
         ),
-        returnValue: _FakeLogger_1(
+        returnValue: _FakeLogger_2(
           this,
           Invocation.method(
             #create,
             [tag],
           ),
         ),
-        returnValueForMissingStub: _FakeLogger_1(
+        returnValueForMissingStub: _FakeLogger_2(
           this,
           Invocation.method(
             #create,
             [tag],
           ),
         ),
-      ) as _i3.Logger);
+      ) as _i4.Logger);
 }
 
 /// A class which mocks [Logger].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLogger extends _i1.Mock implements _i3.Logger {
+class MockLogger extends _i1.Mock implements _i4.Logger {
   @override
   void debug(String? message) => super.noSuchMethod(
         Invocation.method(

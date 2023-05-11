@@ -6,6 +6,7 @@ import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/releases/repositories/releases_repository.dart';
 import 'package:musicday_mobile/releases/ui/song_info/song_info_state.dart';
+import 'package:rxdart/rxdart.dart';
 
 @Injectable()
 class SongInfoBloc extends Cubit<SongInfoState> {
@@ -25,25 +26,27 @@ class SongInfoBloc extends Cubit<SongInfoState> {
     _logger.debug("init: songId = $songId, isSong = $isSong");
 
     if (isSong) {
-      _subscription = releasesRepository.getSongById(songId).listen((event) {
+      _subscription = Rx.combineLatest2(
+          releasesRepository.getSongById(songId), releasesRepository.getSubscribersReviews(songId), (event, reviews) {
         if (event == null) {
           _logger.debug("init, getSongById: event == null");
           return;
         }
 
         _logger.debug("init, getSongById: event != null");
-        emit(SongInfoState.data(event.first, event.second));
-      });
+        emit(SongInfoState.data(event.first, event.second, reviews.second, reviews.first));
+      }).listen((event) {});
     } else {
-      _subscription = releasesRepository.getAlbumById(songId).listen((event) {
+      _subscription = Rx.combineLatest2(
+          releasesRepository.getAlbumById(songId), releasesRepository.getSubscribersReviews(songId), (event, reviews) {
         if (event == null) {
           _logger.debug("init, getAlbumById: event == null");
           return;
         }
 
         _logger.debug("init, getAlbumById: event != null");
-        emit(SongInfoState.data(event.first, event.second));
-      });
+        emit(SongInfoState.data(event.first, event.second, reviews.second, reviews.first));
+      }).listen((event) {});
     }
   }
 
