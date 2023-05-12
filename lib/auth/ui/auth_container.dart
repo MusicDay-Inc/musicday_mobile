@@ -6,7 +6,6 @@ import 'package:musicday_mobile/auth/ui/auth_container_state.dart';
 import 'package:musicday_mobile/auth/ui/intro/intro_screen.dart';
 import 'package:musicday_mobile/auth/ui/sign_up/sign_up_screen.dart';
 import 'package:musicday_mobile/core/di/bloc_inject.dart';
-import 'package:musicday_mobile/profiles/ui/profile_container.dart';
 import 'package:musicday_mobile/releases/ui/releases_container.dart';
 
 class AuthContainer extends StatefulWidget {
