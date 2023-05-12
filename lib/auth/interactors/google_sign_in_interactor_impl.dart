@@ -1,6 +1,5 @@
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:injectable/injectable.dart';
-import 'package:musicday_mobile/auth/di/auth_scope.dart';
 import 'package:musicday_mobile/auth/dtos/google_sign_in_start_request.dart';
 import 'package:musicday_mobile/auth/interactors/google_sign_in_interactor.dart';
 import 'package:musicday_mobile/auth/models/session.dart';
@@ -11,7 +10,7 @@ import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/network/extensions/future_http_response_extensions.dart';
 
-@Singleton(as: GoogleSignInInteractor, scope: AuthScope.name)
+@Singleton(as: GoogleSignInInteractor)
 class GoogleSignInInteractorImpl implements GoogleSignInInteractor {
   final AuthSessionRepository authSessionRepository;
   final AuthRemoteService authRemoteService;

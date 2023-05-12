@@ -3,7 +3,6 @@ import 'dart:async';
 import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
-import 'package:musicday_mobile/auth/di/auth_scope.dart';
 import 'package:musicday_mobile/auth/models/session.dart';
 import 'package:musicday_mobile/auth/repositories/auth_session_repository.dart';
 import 'package:musicday_mobile/core/logging/logger.dart';
@@ -11,7 +10,7 @@ import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/extensions/strings_extensions.dart';
 import 'package:rxdart/rxdart.dart';
 
-@Singleton(scope: AuthScope.name, as: AuthSessionRepository)
+@Singleton(as: AuthSessionRepository)
 class AuthSessionRepositoryImpl implements AuthSessionRepository {
   static const String _isAuthorizationToken = "is_authorization_token";
   static const String _tokenKey = "token";

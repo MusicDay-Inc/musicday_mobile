@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:musicday_mobile/application_di.config.dart';
 import 'package:musicday_mobile/application_di.dart';
 import 'package:musicday_mobile/auth/ui/auth_container_bloc.dart';
 import 'package:musicday_mobile/auth/ui/auth_container_state.dart';
@@ -17,12 +16,6 @@ class AuthContainer extends StatefulWidget {
 }
 
 class _AuthContainerState extends State<AuthContainer> {
-  @override
-  void initState() {
-    initAuthScope(getIt);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocInject<AuthContainerBloc>(
@@ -59,11 +52,5 @@ class _AuthContainerState extends State<AuthContainer> {
         ]
       ],
     );
-  }
-
-  @override
-  void dispose() {
-    getIt.popScope();
-    super.dispose();
   }
 }

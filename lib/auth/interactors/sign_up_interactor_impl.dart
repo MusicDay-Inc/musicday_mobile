@@ -1,5 +1,4 @@
 import 'package:injectable/injectable.dart';
-import 'package:musicday_mobile/auth/di/auth_scope.dart';
 import 'package:musicday_mobile/auth/dtos/sign_up_request.dart';
 import 'package:musicday_mobile/auth/interactors/sign_up_interactor.dart';
 import 'package:musicday_mobile/auth/models/session.dart';
@@ -13,7 +12,7 @@ import 'package:musicday_mobile/core/network/network_consts.dart';
 import 'package:musicday_mobile/core/validation/di/validators_names.dart';
 import 'package:musicday_mobile/core/validation/validator.dart';
 
-@Singleton(as: SignUpInteractor, scope: AuthScope.name)
+@Singleton(as: SignUpInteractor)
 class SignUpInteractorImpl implements SignUpInteractor {
   final Logger _logger;
   final AuthRemoteService authRemoteService;
