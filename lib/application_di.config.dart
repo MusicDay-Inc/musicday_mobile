@@ -14,7 +14,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i4;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:google_sign_in/google_sign_in.dart' as _i21;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:musicday_mobile/auth/di/auth_module.dart' as _i26;
+import 'package:musicday_mobile/auth/di/auth_module.dart' as _i27;
 import 'package:musicday_mobile/auth/interactors/google_sign_in_interactor.dart'
     as _i18;
 import 'package:musicday_mobile/auth/interactors/google_sign_in_interactor_impl.dart'
@@ -35,15 +35,17 @@ import 'package:musicday_mobile/auth/ui/sign_up/sign_up_screen_bloc.dart'
 import 'package:musicday_mobile/core/logging/impl/logger_factory_impl.dart'
     as _i6;
 import 'package:musicday_mobile/core/logging/logger_factory.dart' as _i5;
-import 'package:musicday_mobile/core/network/di/network_module.dart' as _i27;
-import 'package:musicday_mobile/core/paging/di/paging_module.dart' as _i30;
+import 'package:musicday_mobile/core/network/di/network_module.dart' as _i28;
+import 'package:musicday_mobile/core/paging/di/paging_module.dart' as _i31;
 import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart'
     as _i7;
-import 'package:musicday_mobile/core/storage/di/storage_module.dart' as _i28;
+import 'package:musicday_mobile/core/storage/di/storage_module.dart' as _i29;
 import 'package:musicday_mobile/core/validation/impl/name_validator.dart'
     as _i13;
 import 'package:musicday_mobile/core/validation/validator.dart' as _i12;
-import 'package:musicday_mobile/releases/di/releases_module.dart' as _i29;
+import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_bloc.dart'
+    as _i26;
+import 'package:musicday_mobile/releases/di/releases_module.dart' as _i30;
 import 'package:musicday_mobile/releases/network/releases_remote_service.dart'
     as _i24;
 import 'package:musicday_mobile/releases/repositories/releases_repository.dart'
@@ -181,14 +183,31 @@ _i1.GetIt initReleasesScope(
       );
     },
   );
+} // initializes the registration of profile-scope dependencies inside of GetIt
+
+_i1.GetIt initProfileScope(
+  _i1.GetIt getIt, {
+  _i1.ScopeDisposeFunc? dispose,
+}) {
+  return _i2.GetItHelper(getIt).initScope(
+    'profile',
+    dispose: dispose,
+    init: (_i2.GetItHelper gh) {
+      gh.factoryParam<_i26.ProfileInfoBloc, String?, dynamic>((
+        userId,
+        _,
+      ) =>
+          _i26.ProfileInfoBloc(userId: userId));
+    },
+  );
 }
 
-class _$AuthModule extends _i26.AuthModule {}
+class _$AuthModule extends _i27.AuthModule {}
 
-class _$NetworkModule extends _i27.NetworkModule {}
+class _$NetworkModule extends _i28.NetworkModule {}
 
-class _$StorageModule extends _i28.StorageModule {}
+class _$StorageModule extends _i29.StorageModule {}
 
-class _$ReleasesModule extends _i29.ReleasesModule {}
+class _$ReleasesModule extends _i30.ReleasesModule {}
 
-class _$PagingModule extends _i30.PagingModule {}
+class _$PagingModule extends _i31.PagingModule {}
