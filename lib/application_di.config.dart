@@ -30,7 +30,7 @@ import 'package:musicday_mobile/auth/repositories/auth_session_repository.dart'
     as _i19;
 import 'package:musicday_mobile/auth/repositories/auth_session_repository_impl.dart'
     as _i20;
-import 'package:musicday_mobile/auth/ui/auth_container_bloc.dart' as _i27;
+import 'package:musicday_mobile/auth/ui/auth_container_bloc.dart' as _i30;
 import 'package:musicday_mobile/auth/ui/intro/intro_screen_bloc.dart' as _i23;
 import 'package:musicday_mobile/auth/ui/sign_up/sign_up_screen_bloc.dart'
     as _i26;
@@ -51,20 +51,20 @@ import 'package:musicday_mobile/profiles/di/profiles_module.dart' as _i39;
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart' as _i4;
 import 'package:musicday_mobile/profiles/models/user.dart' as _i5;
 import 'package:musicday_mobile/profiles/network/users_remote_service.dart'
-    as _i30;
+    as _i27;
 import 'package:musicday_mobile/profiles/repositories/users_repository.dart'
-    as _i31;
+    as _i28;
 import 'package:musicday_mobile/profiles/repositories/users_repository_impl.dart'
-    as _i32;
+    as _i29;
 import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_bloc.dart'
-    as _i33;
+    as _i31;
 import 'package:musicday_mobile/releases/di/releases_module.dart' as _i38;
 import 'package:musicday_mobile/releases/network/releases_remote_service.dart'
-    as _i28;
+    as _i32;
 import 'package:musicday_mobile/releases/repositories/releases_repository.dart'
     as _i14;
 import 'package:musicday_mobile/releases/repositories/releases_repository_impl.dart'
-    as _i29;
+    as _i33;
 import 'package:musicday_mobile/releases/ui/song_info/song_info_bloc.dart'
     as _i13;
 import 'package:musicday_mobile/releases/ui/write_review/write_review_dialog_bloc.dart'
@@ -87,6 +87,7 @@ _i1.GetIt init(
   final storageModule = _$StorageModule();
   final authModule = _$AuthModule();
   final pagingModule = _$PagingModule();
+  final profilesModule = _$ProfilesModule();
   gh.singleton<_i3.Converter<_i4.UserDto, _i5.User>>(_i6.UserDtoConverter());
   gh.singleton<_i7.Dio>(networkModule.dio);
   gh.singleton<_i8.FlutterSecureStorage>(storageModule.flutterSecureStorage);
@@ -156,9 +157,30 @@ _i1.GetIt init(
         loggerFactory: gh<_i10.LoggerFactory>(),
         signUpInteractor: gh<_i24.SignUpInteractor>(),
       ));
-  gh.factory<_i27.AuthContainerBloc>(() => _i27.AuthContainerBloc(
+  gh.singleton<_i27.UsersRemoteService>(profilesModule
+      .provideUsersRemoteService(gh<_i7.Dio>(instanceName: 'authorizedDio')));
+  gh.singleton<_i28.UsersRepository>(
+    _i29.UsersRepositoryImpl(
+      loggerFactory: gh<_i10.LoggerFactory>(),
+      pagedResponseFactory: gh<_i12.PagedResponseFactory>(),
+      usersRemoteService: gh<_i27.UsersRemoteService>(),
+      userDtoConverter: gh<_i3.Converter<_i4.UserDto, _i5.User>>(),
+    ),
+    dispose: (i) => i.dispose(),
+  );
+  gh.factory<_i30.AuthContainerBloc>(() => _i30.AuthContainerBloc(
         loggerFactory: gh<_i10.LoggerFactory>(),
         authSessionRepository: gh<_i19.AuthSessionRepository>(),
+      ));
+  gh.factoryParam<_i31.ProfileInfoBloc, String?, dynamic>((
+    userId,
+    _,
+  ) =>
+      _i31.ProfileInfoBloc(
+        userId: userId,
+        authSessionRepository: gh<_i19.AuthSessionRepository>(),
+        usersRepository: gh<_i28.UsersRepository>(),
+        loggerFactory: gh<_i10.LoggerFactory>(),
       ));
   return getIt;
 } // initializes the registration of releases-scope dependencies inside of GetIt
@@ -172,53 +194,18 @@ _i1.GetIt initReleasesScope(
     dispose: dispose,
     init: (_i2.GetItHelper gh) {
       final releasesModule = _$ReleasesModule();
-      gh.singleton<_i28.ReleasesRemoteService>(
+      gh.singleton<_i32.ReleasesRemoteService>(
           releasesModule.provideReleasesRemoteService(
               gh<_i7.Dio>(instanceName: 'authorizedDio')));
       gh.singleton<_i14.ReleasesRepository>(
-        _i29.ReleasesRepositoryImpl(
-          releasesRemoteService: gh<_i28.ReleasesRemoteService>(),
+        _i33.ReleasesRepositoryImpl(
+          releasesRemoteService: gh<_i32.ReleasesRemoteService>(),
           pagedResponseFactory: gh<_i12.PagedResponseFactory>(),
           userDtoConverter: gh<_i3.Converter<_i4.UserDto, _i5.User>>(),
           loggerFactory: gh<_i10.LoggerFactory>(),
         ),
         dispose: (i) => i.dispose(),
       );
-    },
-  );
-} // initializes the registration of profile-scope dependencies inside of GetIt
-
-_i1.GetIt initProfileScope(
-  _i1.GetIt getIt, {
-  _i1.ScopeDisposeFunc? dispose,
-}) {
-  return _i2.GetItHelper(getIt).initScope(
-    'profile',
-    dispose: dispose,
-    init: (_i2.GetItHelper gh) {
-      final profilesModule = _$ProfilesModule();
-      gh.singleton<_i30.UsersRemoteService>(
-          profilesModule.provideUsersRemoteService(
-              gh<_i7.Dio>(instanceName: 'authorizedDio')));
-      gh.singleton<_i31.UsersRepository>(
-        _i32.UsersRepositoryImpl(
-          loggerFactory: gh<_i10.LoggerFactory>(),
-          pagedResponseFactory: gh<_i12.PagedResponseFactory>(),
-          usersRemoteService: gh<_i30.UsersRemoteService>(),
-          userDtoConverter: gh<_i3.Converter<_i4.UserDto, _i5.User>>(),
-        ),
-        dispose: (i) => i.dispose(),
-      );
-      gh.factoryParam<_i33.ProfileInfoBloc, String?, dynamic>((
-        userId,
-        _,
-      ) =>
-          _i33.ProfileInfoBloc(
-            userId: userId,
-            authSessionRepository: gh<_i19.AuthSessionRepository>(),
-            usersRepository: gh<_i31.UsersRepository>(),
-            loggerFactory: gh<_i10.LoggerFactory>(),
-          ));
     },
   );
 }

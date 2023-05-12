@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:musicday_mobile/auth/di/auth_named.dart';
 import 'package:musicday_mobile/core/network/network_consts.dart';
-import 'package:musicday_mobile/profiles/di/profiles_scope.dart';
 import 'package:musicday_mobile/profiles/dtos/activity_dto.dart';
 import 'package:musicday_mobile/profiles/dtos/get_profile_response.dart';
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
@@ -12,7 +11,7 @@ part 'users_remote_service.g.dart';
 
 @RestApi(baseUrl: NetworkConsts.baseUrl)
 abstract class UsersRemoteService {
-  @Singleton(scope: ProfilesScope.name, as: UsersRemoteService)
+  @Singleton(as: UsersRemoteService)
   @factoryMethod
   factory UsersRemoteService(@Named(AuthNamed.authorizedDio) Dio dio, {String baseUrl}) = _UsersRemoteService;
 

@@ -7,7 +7,6 @@ import 'package:musicday_mobile/core/common/pair.dart';
 import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/paging/paged_response.dart';
-import 'package:musicday_mobile/profiles/di/profiles_scope.dart';
 import 'package:musicday_mobile/profiles/models/user.dart';
 import 'package:musicday_mobile/profiles/repositories/users_repository.dart';
 import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_event.dart';
@@ -15,7 +14,7 @@ import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_state.dart
 import 'package:musicday_mobile/releases/models/activity.dart';
 import 'package:rxdart/rxdart.dart';
 
-@Injectable(scope: ProfilesScope.name)
+@Injectable()
 class ProfileInfoBloc extends Bloc<ProfileInfoEvent, ProfileInfoState> {
   final Logger _logger;
   late StreamSubscription subscription;

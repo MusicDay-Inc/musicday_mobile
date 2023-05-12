@@ -9,7 +9,6 @@ import 'package:musicday_mobile/core/network/extensions/future_http_response_ext
 import 'package:musicday_mobile/core/network/helpers/network_retry_helper.dart';
 import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart';
 import 'package:musicday_mobile/core/paging/paged_response.dart';
-import 'package:musicday_mobile/profiles/di/profiles_scope.dart';
 import 'package:musicday_mobile/profiles/dtos/activity_dto.dart';
 import 'package:musicday_mobile/profiles/dtos/get_profile_response.dart';
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
@@ -25,7 +24,7 @@ import 'package:musicday_mobile/releases/models/review.dart';
 import 'package:musicday_mobile/releases/models/song.dart';
 import 'package:rxdart/rxdart.dart';
 
-@Singleton(as: UsersRepository, scope: ProfilesScope.name)
+@Singleton(as: UsersRepository)
 class UsersRepositoryImpl extends UsersRepository {
   final Logger _logger;
   final UsersRemoteService usersRemoteService;
