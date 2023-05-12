@@ -9,6 +9,7 @@ import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/network/dtos/error_response.dart';
 import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart';
+import 'package:musicday_mobile/profiles/converters/user_dto_converter.dart';
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
 import 'package:musicday_mobile/profiles/models/user.dart';
 import 'package:musicday_mobile/releases/dtos/album_by_id_response.dart';
@@ -37,6 +38,7 @@ import 'releases_repository_impl_test.mocks.dart';
   MockSpec<Logger>(),
 ])
 void main() {
+  final userDtoConverter = UserDtoConverter();
   final loggerFactory = MockLoggerFactory();
   when(loggerFactory.create(any)).thenReturn(MockLogger());
 
@@ -51,7 +53,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final events = await repository.getSongById("stub").toList();
       expect(events, [null]);
     });
@@ -82,7 +87,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final pair = await repository.getSongById("stub_id").first;
       expect(
         pair?.first,
@@ -123,7 +131,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final pair = await repository.getSongById("stub").first;
       expect(pair?.second, null);
     });
@@ -154,7 +165,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final pair = await repository.getSongById("stub").first;
       expect(pair?.second,
           Review(id: "review_stub", text: "", publishTime: DateTime.fromMillisecondsSinceEpoch(0), rating: 4));
@@ -186,7 +200,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final pair = await repository.getSongById("stub").first;
       expect(
           pair?.second,
@@ -206,7 +223,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final events = await repository.getAlbumById("stub").toList();
       expect(events, [null]);
     });
@@ -237,7 +257,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final pair = await repository.getAlbumById("stub_id").first;
       expect(
         pair?.first,
@@ -278,7 +301,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final pair = await repository.getAlbumById("stub").first;
       expect(pair?.second, null);
     });
@@ -309,7 +335,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final pair = await repository.getAlbumById("stub").first;
       expect(pair?.second,
           Review(id: "review_stub", text: "", publishTime: DateTime.fromMillisecondsSinceEpoch(0), rating: 4));
@@ -341,7 +370,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final pair = await repository.getAlbumById("stub").first;
       expect(
           pair?.second,
@@ -361,7 +393,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       expect(await repository.sendAlbumReview("stub", 5), false);
     });
 
@@ -375,7 +410,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       expect(await repository.sendSongReview("stub", 5), false);
     });
 
@@ -386,7 +424,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       expect(await repository.sendAlbumReview("stub", 5), false);
     });
 
@@ -397,7 +438,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       expect(await repository.sendSongReview("stub", 5), false);
     });
 
@@ -425,7 +469,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       expect(await repository.sendAlbumReview("id", 5), true);
     });
 
@@ -453,7 +500,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       expect(await repository.sendSongReview("id", 5), true);
     });
 
@@ -502,7 +552,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final stream = repository.getAlbumById("id").shareReplay()..listen((event) {});
 
       await stream.first;
@@ -559,7 +612,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final stream = repository.getSongById("id").shareReplay()..listen((event) {});
 
       await stream.first;
@@ -580,7 +636,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       expect(await repository.removeAlbumReview("id"), false);
     });
 
@@ -591,7 +650,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       expect(await repository.removeAlbumReview("id"), false);
     });
 
@@ -605,7 +667,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       expect(await repository.removeAlbumReview("id"), false);
     });
 
@@ -619,7 +684,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       expect(await repository.removeAlbumReview("id"), false);
     });
 
@@ -647,7 +715,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       expect(await repository.removeAlbumReview("id"), true);
     });
 
@@ -675,7 +746,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       expect(await repository.removeSongReview("id"), true);
     });
 
@@ -724,7 +798,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final stream = repository.getAlbumById("id").shareReplay()..listen((event) {});
 
       await stream.first;
@@ -780,7 +857,10 @@ void main() {
 
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
       final stream = repository.getSongById("id").shareReplay()..listen((event) {});
 
       await stream.first;
@@ -797,7 +877,10 @@ void main() {
       final service = MockReleasesRemoteService();
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
 
       try {
         await repository.getSubscribersReviews("stub").first.timeout(const Duration(seconds: 5));
@@ -811,7 +894,10 @@ void main() {
       final service = MockReleasesRemoteService();
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
 
       when(service.getReviews(any)).thenAnswer((realInvocation) async => throw DioError.badResponse(
           statusCode: HttpStatus.badRequest,
@@ -831,7 +917,10 @@ void main() {
       final service = MockReleasesRemoteService();
       final pagedResponseFactory = MockPagedResponseFactory();
       final repository = ReleasesRepositoryImpl(
-          releasesRemoteService: service, loggerFactory: loggerFactory, pagedResponseFactory: pagedResponseFactory);
+          releasesRemoteService: service,
+          loggerFactory: loggerFactory,
+          pagedResponseFactory: pagedResponseFactory,
+          userDtoConverter: userDtoConverter);
 
       when(service.getReviews(any)).thenAnswer((realInvocation) async {
         return HttpResponse(

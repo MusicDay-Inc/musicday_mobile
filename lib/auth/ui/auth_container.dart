@@ -34,7 +34,7 @@ class _AuthContainerState extends State<AuthContainer> {
               loading: () => Container(),
               nonAuthorized: () => _buildAuthNavigator(context, false),
               inRegistration: () => _buildAuthNavigator(context, true),
-              authorized: () => const ProfileContainer(),
+              authorized: () => const ProfileContainer(userId: "34f88b46-08c4-4d30-95ae-f29c75e50a5f"),
             );
           },
         ),

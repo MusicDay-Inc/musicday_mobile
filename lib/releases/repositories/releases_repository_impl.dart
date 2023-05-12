@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
 import 'package:musicday_mobile/core/logging/logger.dart';
@@ -6,6 +7,7 @@ import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/network/extensions/future_http_response_extensions.dart';
 import 'package:musicday_mobile/core/network/helpers/network_retry_helper.dart';
 import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart';
+import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
 import 'package:musicday_mobile/profiles/models/user.dart';
 import 'package:musicday_mobile/releases/di/releases_scope.dart';
 import 'package:musicday_mobile/releases/dtos/album_dto.dart';
@@ -28,11 +30,13 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
   final _newAlbumsStreamController = StreamController<Pair<Album, Review?>>.broadcast();
   final ReleasesRemoteService releasesRemoteService;
   final PagedResponseFactory pagedResponseFactory;
+  final Converter<UserDto, User> userDtoConverter;
   final Logger _logger;
 
   ReleasesRepositoryImpl({
     required this.releasesRemoteService,
     required this.pagedResponseFactory,
+    required this.userDtoConverter,
     required LoggerFactory loggerFactory,
   }) : _logger = loggerFactory.create("ReleasesRepositoryImpl");
 
@@ -262,14 +266,7 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
   UserReview _convertUserReviewDto(UserReviewDto dto) {
     return UserReview(
       review: Review(id: dto.id, text: dto.text ?? "", publishTime: dto.publishedAt, rating: dto.score!),
-      user: User(
-        id: dto.user.id,
-        username: dto.user.username,
-        nickname: dto.user.nickname,
-        avatarUrl: null,
-        subscriberAmount: dto.user.subscriberAmount,
-        subscriptionsAmount: dto.user.subscriptionsAmount,
-      ),
+      user: userDtoConverter.convert(dto.user),
     );
   }
 

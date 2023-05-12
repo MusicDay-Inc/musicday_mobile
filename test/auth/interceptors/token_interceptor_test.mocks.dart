@@ -63,6 +63,15 @@ class MockAuthSessionRepository extends _i1.Mock
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
   @override
+  _i4.Future<String?> getCurrentUserId() => (super.noSuchMethod(
+        Invocation.method(
+          #getCurrentUserId,
+          [],
+        ),
+        returnValue: _i4.Future<String?>.value(),
+        returnValueForMissingStub: _i4.Future<String?>.value(),
+      ) as _i4.Future<String?>);
+  @override
   _i4.Future<void> deleteSession() => (super.noSuchMethod(
         Invocation.method(
           #deleteSession,

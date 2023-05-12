@@ -19,22 +19,24 @@ mixin _$ProfileInfoState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(
-            User user, List<Activity> reviews, bool reviewsLoading)
+    required TResult Function(User user, List<Activity> reviews,
+            bool reviewsLoading, bool isSubscribed)
         data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(User user, List<Activity> reviews, bool reviewsLoading)?
+    TResult? Function(User user, List<Activity> reviews, bool reviewsLoading,
+            bool isSubscribed)?
         data,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(User user, List<Activity> reviews, bool reviewsLoading)?
+    TResult Function(User user, List<Activity> reviews, bool reviewsLoading,
+            bool isSubscribed)?
         data,
     required TResult orElse(),
   }) =>
@@ -115,8 +117,8 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(
-            User user, List<Activity> reviews, bool reviewsLoading)
+    required TResult Function(User user, List<Activity> reviews,
+            bool reviewsLoading, bool isSubscribed)
         data,
   }) {
     return loading();
@@ -126,7 +128,8 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(User user, List<Activity> reviews, bool reviewsLoading)?
+    TResult? Function(User user, List<Activity> reviews, bool reviewsLoading,
+            bool isSubscribed)?
         data,
   }) {
     return loading?.call();
@@ -136,7 +139,8 @@ class _$Loading implements Loading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(User user, List<Activity> reviews, bool reviewsLoading)?
+    TResult Function(User user, List<Activity> reviews, bool reviewsLoading,
+            bool isSubscribed)?
         data,
     required TResult orElse(),
   }) {
@@ -187,7 +191,11 @@ abstract class _$$DataCopyWith<$Res> {
   factory _$$DataCopyWith(_$Data value, $Res Function(_$Data) then) =
       __$$DataCopyWithImpl<$Res>;
   @useResult
-  $Res call({User user, List<Activity> reviews, bool reviewsLoading});
+  $Res call(
+      {User user,
+      List<Activity> reviews,
+      bool reviewsLoading,
+      bool isSubscribed});
 
   $UserCopyWith<$Res> get user;
 }
@@ -205,6 +213,7 @@ class __$$DataCopyWithImpl<$Res>
     Object? user = null,
     Object? reviews = null,
     Object? reviewsLoading = null,
+    Object? isSubscribed = null,
   }) {
     return _then(_$Data(
       null == user
@@ -218,6 +227,10 @@ class __$$DataCopyWithImpl<$Res>
       null == reviewsLoading
           ? _value.reviewsLoading
           : reviewsLoading // ignore: cast_nullable_to_non_nullable
+              as bool,
+      null == isSubscribed
+          ? _value.isSubscribed
+          : isSubscribed // ignore: cast_nullable_to_non_nullable
               as bool,
     ));
   }
@@ -234,7 +247,8 @@ class __$$DataCopyWithImpl<$Res>
 /// @nodoc
 
 class _$Data implements Data {
-  const _$Data(this.user, final List<Activity> reviews, this.reviewsLoading)
+  const _$Data(this.user, final List<Activity> reviews, this.reviewsLoading,
+      this.isSubscribed)
       : _reviews = reviews;
 
   @override
@@ -249,10 +263,12 @@ class _$Data implements Data {
 
   @override
   final bool reviewsLoading;
+  @override
+  final bool isSubscribed;
 
   @override
   String toString() {
-    return 'ProfileInfoState.data(user: $user, reviews: $reviews, reviewsLoading: $reviewsLoading)';
+    return 'ProfileInfoState.data(user: $user, reviews: $reviews, reviewsLoading: $reviewsLoading, isSubscribed: $isSubscribed)';
   }
 
   @override
@@ -263,12 +279,18 @@ class _$Data implements Data {
             (identical(other.user, user) || other.user == user) &&
             const DeepCollectionEquality().equals(other._reviews, _reviews) &&
             (identical(other.reviewsLoading, reviewsLoading) ||
-                other.reviewsLoading == reviewsLoading));
+                other.reviewsLoading == reviewsLoading) &&
+            (identical(other.isSubscribed, isSubscribed) ||
+                other.isSubscribed == isSubscribed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, user,
-      const DeepCollectionEquality().hash(_reviews), reviewsLoading);
+  int get hashCode => Object.hash(
+      runtimeType,
+      user,
+      const DeepCollectionEquality().hash(_reviews),
+      reviewsLoading,
+      isSubscribed);
 
   @JsonKey(ignore: true)
   @override
@@ -280,33 +302,35 @@ class _$Data implements Data {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
-    required TResult Function(
-            User user, List<Activity> reviews, bool reviewsLoading)
+    required TResult Function(User user, List<Activity> reviews,
+            bool reviewsLoading, bool isSubscribed)
         data,
   }) {
-    return data(user, reviews, reviewsLoading);
+    return data(user, reviews, reviewsLoading, isSubscribed);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
-    TResult? Function(User user, List<Activity> reviews, bool reviewsLoading)?
+    TResult? Function(User user, List<Activity> reviews, bool reviewsLoading,
+            bool isSubscribed)?
         data,
   }) {
-    return data?.call(user, reviews, reviewsLoading);
+    return data?.call(user, reviews, reviewsLoading, isSubscribed);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
-    TResult Function(User user, List<Activity> reviews, bool reviewsLoading)?
+    TResult Function(User user, List<Activity> reviews, bool reviewsLoading,
+            bool isSubscribed)?
         data,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(user, reviews, reviewsLoading);
+      return data(user, reviews, reviewsLoading, isSubscribed);
     }
     return orElse();
   }
@@ -345,11 +369,12 @@ class _$Data implements Data {
 
 abstract class Data implements ProfileInfoState {
   const factory Data(final User user, final List<Activity> reviews,
-      final bool reviewsLoading) = _$Data;
+      final bool reviewsLoading, final bool isSubscribed) = _$Data;
 
   User get user;
   List<Activity> get reviews;
   bool get reviewsLoading;
+  bool get isSubscribed;
   @JsonKey(ignore: true)
   _$$DataCopyWith<_$Data> get copyWith => throw _privateConstructorUsedError;
 }

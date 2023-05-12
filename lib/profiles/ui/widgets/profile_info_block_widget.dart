@@ -55,7 +55,7 @@ class ProfileInfoBlockWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 16),
                       child: FilledButton(
-                        onPressed: () {},
+                        onPressed: onSubscribe,
                         style: ButtonStyle(minimumSize: MaterialStateProperty.all(const Size.fromHeight(32))),
                         child: const Text("Subscribe"),
                       ),
@@ -64,7 +64,7 @@ class ProfileInfoBlockWidget extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.only(right: 16),
                       child: OutlinedButton(
-                        onPressed: () {},
+                        onPressed: onUnsubscribe,
                         style: ButtonStyle(minimumSize: MaterialStateProperty.all(const Size.fromHeight(32))),
                         child: const Text("Unsubscribe"),
                       ),

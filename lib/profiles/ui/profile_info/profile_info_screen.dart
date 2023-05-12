@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicday_mobile/application_di.dart';
 import 'package:musicday_mobile/core/di/bloc_inject.dart';
 import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_bloc.dart';
+import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_event.dart';
 import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_state.dart';
 import 'package:musicday_mobile/profiles/ui/widgets/profile_info_block_widget.dart';
 import 'package:musicday_mobile/releases/ui/widgets/activity_item_widget.dart';
@@ -28,7 +29,7 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
       child: BlocBuilder<ProfileInfoBloc, ProfileInfoState>(builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            title: Text(state.when(loading: () => "...", data: (user, f, s) => "@${user.username}")),
+            title: Text(state.when(loading: () => "...", data: (user, f, s, t) => "@${user.username}")),
             centerTitle: true,
           ),
           body: state.when(loading: () {
@@ -36,7 +37,7 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
               padding: EdgeInsets.only(bottom: 60.0),
               child: Center(child: CircularProgressIndicator()),
             );
-          }, data: (user, reviews, isLoading) {
+          }, data: (user, reviews, isLoading, isSubscribed) {
             var itemsCount = 4;
 
             if (reviews.isEmpty && isLoading) {
@@ -53,7 +54,15 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
               padding: const EdgeInsets.only(bottom: 32),
               itemBuilder: (context, index) {
                 if (index == 0) {
-                  return ProfileInfoBlockWidget(user: user, onSubscribe: () {}, onUnsubscribe: () {});
+                  return ProfileInfoBlockWidget(
+                    user: user,
+                    onSubscribe: !isSubscribed
+                        ? () => BlocProvider.of<ProfileInfoBloc>(context).add(const ProfileInfoEvent.subscribe())
+                        : null,
+                    onUnsubscribe: isSubscribed
+                        ? () => BlocProvider.of<ProfileInfoBloc>(context).add(const ProfileInfoEvent.unsubscribe())
+                        : null,
+                  );
                 } else if (index == 1) {
                   return const Padding(padding: EdgeInsets.only(left: 16, right: 16), child: Divider());
                 } else if (index == 2) {

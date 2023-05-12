@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:dart_jsonwebtoken/dart_jsonwebtoken.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 import 'package:musicday_mobile/auth/di/auth_scope.dart';
@@ -67,6 +68,20 @@ class AuthSessionRepositoryImpl implements AuthSessionRepository {
 
     _logger.debug("_loadInitialSession(), isAuthorizationToken = $isAuthorizationToken, token != null");
     _sessionStreamController.sink.add(Session(token: token, isAuthorizationToken: isAuthorizationToken));
+  }
+
+  @override
+  Future<String?> getCurrentUserId() async {
+    _logger.debug("getCurrentUserId()");
+    return currentSession.map((event) => event?.token).map((token) {
+      if (token == null) {
+        _logger.debug("getCurrentUser(): token == null");
+        return null;
+      }
+
+      _logger.debug("getCurrentUser(): token != null");
+      return JWT.decode(token).payload["user_id"] as String;
+    }).first;
   }
 
   @override

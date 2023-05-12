@@ -7,6 +7,9 @@ abstract class AuthSessionRepository {
   /// Сохраняет сессию авторизации/регистрации.
   Future<void> saveSession(Session session);
 
+  /// Выдает ID текущего пользователя.
+  Future<String?> getCurrentUserId();
+
   /// Удаляет сессию авторизации/регистрации.
   Future<void> deleteSession();
 
