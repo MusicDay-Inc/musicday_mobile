@@ -18,20 +18,20 @@ import 'package:google_sign_in/google_sign_in.dart' as _i9;
 import 'package:injectable/injectable.dart' as _i2;
 import 'package:musicday_mobile/auth/di/auth_module.dart' as _i34;
 import 'package:musicday_mobile/auth/interactors/google_sign_in_interactor.dart'
-    as _i21;
+    as _i18;
 import 'package:musicday_mobile/auth/interactors/google_sign_in_interactor_impl.dart'
-    as _i22;
+    as _i19;
 import 'package:musicday_mobile/auth/interactors/sign_up_interactor.dart'
     as _i24;
 import 'package:musicday_mobile/auth/interactors/sign_up_interactor_impl.dart'
     as _i25;
-import 'package:musicday_mobile/auth/network/auth_remote_service.dart' as _i18;
+import 'package:musicday_mobile/auth/network/auth_remote_service.dart' as _i15;
 import 'package:musicday_mobile/auth/repositories/auth_session_repository.dart'
-    as _i19;
+    as _i16;
 import 'package:musicday_mobile/auth/repositories/auth_session_repository_impl.dart'
-    as _i20;
-import 'package:musicday_mobile/auth/ui/auth_container_bloc.dart' as _i30;
-import 'package:musicday_mobile/auth/ui/intro/intro_screen_bloc.dart' as _i23;
+    as _i17;
+import 'package:musicday_mobile/auth/ui/auth_container_bloc.dart' as _i32;
+import 'package:musicday_mobile/auth/ui/intro/intro_screen_bloc.dart' as _i20;
 import 'package:musicday_mobile/auth/ui/sign_up/sign_up_screen_bloc.dart'
     as _i26;
 import 'package:musicday_mobile/core/logging/impl/logger_factory_impl.dart'
@@ -43,32 +43,32 @@ import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart'
     as _i12;
 import 'package:musicday_mobile/core/storage/di/storage_module.dart' as _i36;
 import 'package:musicday_mobile/core/validation/impl/name_validator.dart'
-    as _i16;
-import 'package:musicday_mobile/core/validation/validator.dart' as _i15;
+    as _i14;
+import 'package:musicday_mobile/core/validation/validator.dart' as _i13;
 import 'package:musicday_mobile/profiles/converters/user_dto_converter.dart'
     as _i6;
 import 'package:musicday_mobile/profiles/di/profiles_module.dart' as _i39;
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart' as _i4;
 import 'package:musicday_mobile/profiles/models/user.dart' as _i5;
 import 'package:musicday_mobile/profiles/network/users_remote_service.dart'
-    as _i27;
-import 'package:musicday_mobile/profiles/repositories/users_repository.dart'
     as _i28;
-import 'package:musicday_mobile/profiles/repositories/users_repository_impl.dart'
+import 'package:musicday_mobile/profiles/repositories/users_repository.dart'
     as _i29;
+import 'package:musicday_mobile/profiles/repositories/users_repository_impl.dart'
+    as _i30;
 import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_bloc.dart'
-    as _i31;
+    as _i33;
 import 'package:musicday_mobile/releases/di/releases_module.dart' as _i38;
 import 'package:musicday_mobile/releases/network/releases_remote_service.dart'
-    as _i32;
+    as _i21;
 import 'package:musicday_mobile/releases/repositories/releases_repository.dart'
-    as _i14;
+    as _i22;
 import 'package:musicday_mobile/releases/repositories/releases_repository_impl.dart'
-    as _i33;
+    as _i23;
 import 'package:musicday_mobile/releases/ui/song_info/song_info_bloc.dart'
-    as _i13;
+    as _i27;
 import 'package:musicday_mobile/releases/ui/write_review/write_review_dialog_bloc.dart'
-    as _i17;
+    as _i31;
 
 // ignore_for_file: unnecessary_lambdas
 // ignore_for_file: lines_longer_than_80_chars
@@ -87,6 +87,7 @@ _i1.GetIt init(
   final storageModule = _$StorageModule();
   final authModule = _$AuthModule();
   final pagingModule = _$PagingModule();
+  final releasesModule = _$ReleasesModule();
   final profilesModule = _$ProfilesModule();
   gh.singleton<_i3.Converter<_i4.UserDto, _i5.User>>(_i6.UserDtoConverter());
   gh.singleton<_i7.Dio>(networkModule.dio);
@@ -95,33 +96,14 @@ _i1.GetIt init(
   gh.singleton<_i10.LoggerFactory>(_i11.LoggerFactoryImpl());
   gh.singleton<_i12.PagedResponseFactory>(
       pagingModule.providePagedResponseFactory(gh<_i10.LoggerFactory>()));
-  gh.factoryParam<_i13.SongInfoBloc, String, bool>((
-    songId,
-    isSong,
-  ) =>
-      _i13.SongInfoBloc(
-        songId: songId,
-        isSong: isSong,
-        releasesRepository: gh<_i14.ReleasesRepository>(),
-        loggerFactory: gh<_i10.LoggerFactory>(),
-      ));
-  gh.singleton<_i15.Validator<String>>(
-    _i16.NameValidator(loggerFactory: gh<_i10.LoggerFactory>()),
+  gh.singleton<_i13.Validator<String>>(
+    _i14.NameValidator(loggerFactory: gh<_i10.LoggerFactory>()),
     instanceName: 'nameValidator',
   );
-  gh.factoryParam<_i17.WriteReviewDialogBloc, String, dynamic>((
-    id,
-    _,
-  ) =>
-      _i17.WriteReviewDialogBloc(
-        id: id,
-        loggerFactory: gh<_i10.LoggerFactory>(),
-        releasesRepository: gh<_i14.ReleasesRepository>(),
-      ));
-  gh.singleton<_i18.AuthRemoteService>(
+  gh.singleton<_i15.AuthRemoteService>(
       authModule.provideAuthRemoteService(gh<_i7.Dio>()));
-  gh.singleton<_i19.AuthSessionRepository>(
-    _i20.AuthSessionRepositoryImpl(
+  gh.singleton<_i16.AuthSessionRepository>(
+    _i17.AuthSessionRepositoryImpl(
       loggerFactory: gh<_i10.LoggerFactory>(),
       flutterSecureStorage: gh<_i8.FlutterSecureStorage>(),
     ),
@@ -129,85 +111,91 @@ _i1.GetIt init(
   );
   gh.singleton<_i7.Dio>(
     authModule.provideDio(
-      gh<_i19.AuthSessionRepository>(),
+      gh<_i16.AuthSessionRepository>(),
       gh<_i10.LoggerFactory>(),
     ),
     instanceName: 'authorizedDio',
   );
-  gh.singleton<_i21.GoogleSignInInteractor>(_i22.GoogleSignInInteractorImpl(
+  gh.singleton<_i18.GoogleSignInInteractor>(_i19.GoogleSignInInteractorImpl(
     loggerFactory: gh<_i10.LoggerFactory>(),
-    authSessionRepository: gh<_i19.AuthSessionRepository>(),
-    authRemoteService: gh<_i18.AuthRemoteService>(),
+    authSessionRepository: gh<_i16.AuthSessionRepository>(),
+    authRemoteService: gh<_i15.AuthRemoteService>(),
     googleSignIn: gh<_i9.GoogleSignIn>(),
   ));
-  gh.factory<_i23.IntroScreenBloc>(() => _i23.IntroScreenBloc(
+  gh.factory<_i20.IntroScreenBloc>(() => _i20.IntroScreenBloc(
         loggerFactory: gh<_i10.LoggerFactory>(),
-        googleSignInInteractor: gh<_i21.GoogleSignInInteractor>(),
+        googleSignInInteractor: gh<_i18.GoogleSignInInteractor>(),
       ));
+  gh.singleton<_i21.ReleasesRemoteService>(
+      releasesModule.provideReleasesRemoteService(
+          gh<_i7.Dio>(instanceName: 'authorizedDio')));
+  gh.singleton<_i22.ReleasesRepository>(
+    _i23.ReleasesRepositoryImpl(
+      releasesRemoteService: gh<_i21.ReleasesRemoteService>(),
+      pagedResponseFactory: gh<_i12.PagedResponseFactory>(),
+      userDtoConverter: gh<_i3.Converter<_i4.UserDto, _i5.User>>(),
+      loggerFactory: gh<_i10.LoggerFactory>(),
+    ),
+    dispose: (i) => i.dispose(),
+  );
   gh.singleton<_i24.SignUpInteractor>(_i25.SignUpInteractorImpl(
     nicknameValidator:
-        gh<_i15.Validator<String>>(instanceName: 'nameValidator'),
+        gh<_i13.Validator<String>>(instanceName: 'nameValidator'),
     usernameValidator:
-        gh<_i15.Validator<String>>(instanceName: 'nameValidator'),
+        gh<_i13.Validator<String>>(instanceName: 'nameValidator'),
     loggerFactory: gh<_i10.LoggerFactory>(),
-    authSessionRepository: gh<_i19.AuthSessionRepository>(),
-    authRemoteService: gh<_i18.AuthRemoteService>(),
+    authSessionRepository: gh<_i16.AuthSessionRepository>(),
+    authRemoteService: gh<_i15.AuthRemoteService>(),
   ));
   gh.factory<_i26.SignUpScreenBloc>(() => _i26.SignUpScreenBloc(
         loggerFactory: gh<_i10.LoggerFactory>(),
         signUpInteractor: gh<_i24.SignUpInteractor>(),
       ));
-  gh.singleton<_i27.UsersRemoteService>(profilesModule
+  gh.factoryParam<_i27.SongInfoBloc, String, bool>((
+    songId,
+    isSong,
+  ) =>
+      _i27.SongInfoBloc(
+        songId: songId,
+        isSong: isSong,
+        releasesRepository: gh<_i22.ReleasesRepository>(),
+        loggerFactory: gh<_i10.LoggerFactory>(),
+      ));
+  gh.singleton<_i28.UsersRemoteService>(profilesModule
       .provideUsersRemoteService(gh<_i7.Dio>(instanceName: 'authorizedDio')));
-  gh.singleton<_i28.UsersRepository>(
-    _i29.UsersRepositoryImpl(
+  gh.singleton<_i29.UsersRepository>(
+    _i30.UsersRepositoryImpl(
       loggerFactory: gh<_i10.LoggerFactory>(),
       pagedResponseFactory: gh<_i12.PagedResponseFactory>(),
-      usersRemoteService: gh<_i27.UsersRemoteService>(),
+      usersRemoteService: gh<_i28.UsersRemoteService>(),
       userDtoConverter: gh<_i3.Converter<_i4.UserDto, _i5.User>>(),
     ),
     dispose: (i) => i.dispose(),
   );
-  gh.factory<_i30.AuthContainerBloc>(() => _i30.AuthContainerBloc(
+  gh.factoryParam<_i31.WriteReviewDialogBloc, String, dynamic>((
+    id,
+    _,
+  ) =>
+      _i31.WriteReviewDialogBloc(
+        id: id,
         loggerFactory: gh<_i10.LoggerFactory>(),
-        authSessionRepository: gh<_i19.AuthSessionRepository>(),
+        releasesRepository: gh<_i22.ReleasesRepository>(),
       ));
-  gh.factoryParam<_i31.ProfileInfoBloc, String?, dynamic>((
+  gh.factory<_i32.AuthContainerBloc>(() => _i32.AuthContainerBloc(
+        loggerFactory: gh<_i10.LoggerFactory>(),
+        authSessionRepository: gh<_i16.AuthSessionRepository>(),
+      ));
+  gh.factoryParam<_i33.ProfileInfoBloc, String?, dynamic>((
     userId,
     _,
   ) =>
-      _i31.ProfileInfoBloc(
+      _i33.ProfileInfoBloc(
         userId: userId,
-        authSessionRepository: gh<_i19.AuthSessionRepository>(),
-        usersRepository: gh<_i28.UsersRepository>(),
+        authSessionRepository: gh<_i16.AuthSessionRepository>(),
+        usersRepository: gh<_i29.UsersRepository>(),
         loggerFactory: gh<_i10.LoggerFactory>(),
       ));
   return getIt;
-} // initializes the registration of releases-scope dependencies inside of GetIt
-
-_i1.GetIt initReleasesScope(
-  _i1.GetIt getIt, {
-  _i1.ScopeDisposeFunc? dispose,
-}) {
-  return _i2.GetItHelper(getIt).initScope(
-    'releases',
-    dispose: dispose,
-    init: (_i2.GetItHelper gh) {
-      final releasesModule = _$ReleasesModule();
-      gh.singleton<_i32.ReleasesRemoteService>(
-          releasesModule.provideReleasesRemoteService(
-              gh<_i7.Dio>(instanceName: 'authorizedDio')));
-      gh.singleton<_i14.ReleasesRepository>(
-        _i33.ReleasesRepositoryImpl(
-          releasesRemoteService: gh<_i32.ReleasesRemoteService>(),
-          pagedResponseFactory: gh<_i12.PagedResponseFactory>(),
-          userDtoConverter: gh<_i3.Converter<_i4.UserDto, _i5.User>>(),
-          loggerFactory: gh<_i10.LoggerFactory>(),
-        ),
-        dispose: (i) => i.dispose(),
-      );
-    },
-  );
 }
 
 class _$AuthModule extends _i34.AuthModule {}

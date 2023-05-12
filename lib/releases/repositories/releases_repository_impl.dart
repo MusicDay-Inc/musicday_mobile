@@ -9,7 +9,6 @@ import 'package:musicday_mobile/core/network/helpers/network_retry_helper.dart';
 import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart';
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
 import 'package:musicday_mobile/profiles/models/user.dart';
-import 'package:musicday_mobile/releases/di/releases_scope.dart';
 import 'package:musicday_mobile/releases/dtos/album_dto.dart';
 import 'package:musicday_mobile/releases/dtos/review_dto.dart';
 import 'package:musicday_mobile/releases/dtos/send_review_request.dart';
@@ -24,7 +23,7 @@ import 'package:musicday_mobile/releases/network/releases_remote_service.dart';
 import 'package:musicday_mobile/releases/repositories/releases_repository.dart';
 import 'package:rxdart/rxdart.dart';
 
-@Singleton(scope: ReleasesScope.name, as: ReleasesRepository)
+@Singleton(as: ReleasesRepository)
 class ReleasesRepositoryImpl implements ReleasesRepository {
   final _newSongsStreamController = StreamController<Pair<Song, Review?>>.broadcast();
   final _newAlbumsStreamController = StreamController<Pair<Album, Review?>>.broadcast();
