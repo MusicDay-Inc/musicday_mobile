@@ -117,13 +117,38 @@ class UsersRepositoryImpl extends UsersRepository {
 
   @override
   PagedResponse<Activity> getActivities(String id) {
+    _logger.debug("getActivities($id)");
     return pagedResponseFactory.create((size, offset) {
       return NetworkRetryHelper.retry(() => usersRemoteService.getLibraryAll(id, offset, size), _logger)
           .map((event) => event.maybeMap(ok: (ok) => ok.data, orElse: () => null))
           .whereNotNull()
           .map((event) => event.map(_convertActivityDto))
           .map((event) => event.toList(growable: false));
-    }, 2);
+    }, 20);
+  }
+
+  @override
+  PagedResponse<User> getSubscribers(String id) {
+    _logger.debug("getSubscribers($id)");
+    return pagedResponseFactory.create((size, offset) {
+      return NetworkRetryHelper.retry(() => usersRemoteService.getSubscribers(id, offset, size), _logger)
+          .map((event) => event.maybeMap(ok: (ok) => ok.data, orElse: () => null))
+          .whereNotNull()
+          .map((event) => event.map(userDtoConverter.convert))
+          .map((event) => event.toList(growable: false));
+    }, 20);
+  }
+
+  @override
+  PagedResponse<User> getSubscriptions(String id) {
+    _logger.debug("getSubscriptions($id)");
+    return pagedResponseFactory.create((size, offset) {
+      return NetworkRetryHelper.retry(() => usersRemoteService.getSubscriptions(id, offset, size), _logger)
+          .map((event) => event.maybeMap(ok: (ok) => ok.data, orElse: () => null))
+          .whereNotNull()
+          .map((event) => event.map(userDtoConverter.convert))
+          .map((event) => event.toList(growable: false));
+    }, 20);
   }
 
   Activity _convertActivityDto(ActivityDto dto) {

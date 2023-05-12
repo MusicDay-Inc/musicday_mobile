@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:musicday_mobile/application_di.config.dart';
 import 'package:musicday_mobile/application_di.dart';
-import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_screen.dart';
+import 'package:musicday_mobile/profiles/ui/subscribers_list/subscribers_list_screen.dart';
 
 class ProfileContainer extends StatefulWidget {
   final String? userId;
@@ -24,7 +24,7 @@ class _ProfileContainerState extends State<ProfileContainer> {
 
   @override
   Widget build(BuildContext context) {
-    return ProfileInfoScreen(userId: widget.userId);
+    return SubscribersListScreen(id: widget.userId!, showSubscribers: true);
   }
 
   @override

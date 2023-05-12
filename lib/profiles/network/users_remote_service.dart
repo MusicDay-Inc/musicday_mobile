@@ -5,6 +5,7 @@ import 'package:musicday_mobile/core/network/network_consts.dart';
 import 'package:musicday_mobile/profiles/di/profiles_scope.dart';
 import 'package:musicday_mobile/profiles/dtos/activity_dto.dart';
 import 'package:musicday_mobile/profiles/dtos/get_profile_response.dart';
+import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
 import 'package:retrofit/retrofit.dart';
 
 part 'users_remote_service.g.dart';
@@ -26,6 +27,20 @@ abstract class UsersRemoteService {
 
   @GET("/library/all/{id}")
   Future<HttpResponse<List<ActivityDto>>> getLibraryAll(
+    @Path("id") String id,
+    @Query("offset") int offset,
+    @Query("limit") int limit,
+  );
+
+  @GET("/profile/subscribers/{id}")
+  Future<HttpResponse<List<UserDto>>> getSubscribers(
+    @Path("id") String id,
+    @Query("offset") int offset,
+    @Query("limit") int limit,
+  );
+
+  @GET("/profile/subscriptions/{id}")
+  Future<HttpResponse<List<UserDto>>> getSubscriptions(
     @Path("id") String id,
     @Query("offset") int offset,
     @Query("limit") int limit,
