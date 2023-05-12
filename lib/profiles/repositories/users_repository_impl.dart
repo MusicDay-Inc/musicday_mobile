@@ -7,12 +7,22 @@ import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/network/extensions/future_http_response_extensions.dart';
 import 'package:musicday_mobile/core/network/helpers/network_retry_helper.dart';
+import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart';
+import 'package:musicday_mobile/core/paging/paged_response.dart';
 import 'package:musicday_mobile/profiles/di/profiles_scope.dart';
+import 'package:musicday_mobile/profiles/dtos/activity_dto.dart';
 import 'package:musicday_mobile/profiles/dtos/get_profile_response.dart';
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
 import 'package:musicday_mobile/profiles/models/user.dart';
 import 'package:musicday_mobile/profiles/network/users_remote_service.dart';
 import 'package:musicday_mobile/profiles/repositories/users_repository.dart';
+import 'package:musicday_mobile/releases/dtos/review_dto.dart';
+import 'package:musicday_mobile/releases/dtos/song_dto.dart';
+import 'package:musicday_mobile/releases/models/activity.dart';
+import 'package:musicday_mobile/releases/models/album.dart';
+import 'package:musicday_mobile/releases/models/release.dart';
+import 'package:musicday_mobile/releases/models/review.dart';
+import 'package:musicday_mobile/releases/models/song.dart';
 import 'package:rxdart/rxdart.dart';
 
 @Singleton(as: UsersRepository, scope: ProfilesScope.name)
@@ -20,10 +30,12 @@ class UsersRepositoryImpl extends UsersRepository {
   final Logger _logger;
   final UsersRemoteService usersRemoteService;
   final Converter<UserDto, User> userDtoConverter;
+  final PagedResponseFactory pagedResponseFactory;
   final _newUsersController = StreamController<Pair<User, bool>>.broadcast();
 
   UsersRepositoryImpl({
     required LoggerFactory loggerFactory,
+    required this.pagedResponseFactory,
     required this.usersRemoteService,
     required this.userDtoConverter,
   }) : _logger = loggerFactory.create("UsersRepositoryImpl");
@@ -102,6 +114,50 @@ class UsersRepositoryImpl extends UsersRepository {
       },
     );
   }
+
+  @override
+  PagedResponse<Activity> getActivities(String id) {
+    return pagedResponseFactory.create((size, offset) {
+      return NetworkRetryHelper.retry(() => usersRemoteService.getLibraryAll(id, offset, size), _logger)
+          .map((event) => event.maybeMap(ok: (ok) => ok.data, orElse: () => null))
+          .whereNotNull()
+          .map((event) => event.map(_convertActivityDto))
+          .map((event) => event.toList(growable: false));
+    }, 2);
+  }
+
+  Activity _convertActivityDto(ActivityDto dto) {
+    Release release;
+    if (dto.song != null && !_isSongNull(dto.song!)) {
+      release = Song(
+        id: dto.song!.id,
+        name: dto.song!.name,
+        author: dto.song!.author,
+        durationInSeconds: dto.song!.durationInNanoseconds ~/ 1000 ~/ 1000 ~/ 1000,
+        year: dto.song!.date.year,
+        avatarUrl: null,
+      );
+    } else {
+      release = Album(
+        id: dto.album!.id,
+        name: dto.album!.name,
+        author: dto.album!.author,
+        songsCount: dto.album!.songsCount,
+        year: dto.album!.date.year,
+        avatarUrl: null,
+      );
+    }
+
+    return Activity(release: release, review: _convertReviewDto(dto)!);
+  }
+
+  Review? _convertReviewDto(ReviewDto dto) {
+    final text = dto.text;
+    final score = dto.score;
+    return score != null ? Review(id: dto.id, publishTime: dto.publishedAt, rating: score, text: text ?? "") : null;
+  }
+
+  bool _isSongNull(SongDto dto) => dto.id == "00000000-0000-0000-0000-000000000000";
 
   @override
   @disposeMethod

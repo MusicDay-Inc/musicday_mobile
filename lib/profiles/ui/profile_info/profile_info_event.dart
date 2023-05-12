@@ -6,4 +6,5 @@ part 'profile_info_event.freezed.dart';
 class ProfileInfoEvent with _$ProfileInfoEvent {
   const factory ProfileInfoEvent.subscribe() = Subscribe;
   const factory ProfileInfoEvent.unsubscribe() = Unsubscribe;
+  const factory ProfileInfoEvent.loadMore() = LoadMore;
 }

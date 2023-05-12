@@ -20,18 +20,21 @@ mixin _$ProfileInfoEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() subscribe,
     required TResult Function() unsubscribe,
+    required TResult Function() loadMore,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? subscribe,
     TResult? Function()? unsubscribe,
+    TResult? Function()? loadMore,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? subscribe,
     TResult Function()? unsubscribe,
+    TResult Function()? loadMore,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -39,18 +42,21 @@ mixin _$ProfileInfoEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(Subscribe value) subscribe,
     required TResult Function(Unsubscribe value) unsubscribe,
+    required TResult Function(LoadMore value) loadMore,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Subscribe value)? subscribe,
     TResult? Function(Unsubscribe value)? unsubscribe,
+    TResult? Function(LoadMore value)? loadMore,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Subscribe value)? subscribe,
     TResult Function(Unsubscribe value)? unsubscribe,
+    TResult Function(LoadMore value)? loadMore,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -114,6 +120,7 @@ class _$Subscribe implements Subscribe {
   TResult when<TResult extends Object?>({
     required TResult Function() subscribe,
     required TResult Function() unsubscribe,
+    required TResult Function() loadMore,
   }) {
     return subscribe();
   }
@@ -123,6 +130,7 @@ class _$Subscribe implements Subscribe {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? subscribe,
     TResult? Function()? unsubscribe,
+    TResult? Function()? loadMore,
   }) {
     return subscribe?.call();
   }
@@ -132,6 +140,7 @@ class _$Subscribe implements Subscribe {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? subscribe,
     TResult Function()? unsubscribe,
+    TResult Function()? loadMore,
     required TResult orElse(),
   }) {
     if (subscribe != null) {
@@ -145,6 +154,7 @@ class _$Subscribe implements Subscribe {
   TResult map<TResult extends Object?>({
     required TResult Function(Subscribe value) subscribe,
     required TResult Function(Unsubscribe value) unsubscribe,
+    required TResult Function(LoadMore value) loadMore,
   }) {
     return subscribe(this);
   }
@@ -154,6 +164,7 @@ class _$Subscribe implements Subscribe {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Subscribe value)? subscribe,
     TResult? Function(Unsubscribe value)? unsubscribe,
+    TResult? Function(LoadMore value)? loadMore,
   }) {
     return subscribe?.call(this);
   }
@@ -163,6 +174,7 @@ class _$Subscribe implements Subscribe {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Subscribe value)? subscribe,
     TResult Function(Unsubscribe value)? unsubscribe,
+    TResult Function(LoadMore value)? loadMore,
     required TResult orElse(),
   }) {
     if (subscribe != null) {
@@ -216,6 +228,7 @@ class _$Unsubscribe implements Unsubscribe {
   TResult when<TResult extends Object?>({
     required TResult Function() subscribe,
     required TResult Function() unsubscribe,
+    required TResult Function() loadMore,
   }) {
     return unsubscribe();
   }
@@ -225,6 +238,7 @@ class _$Unsubscribe implements Unsubscribe {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? subscribe,
     TResult? Function()? unsubscribe,
+    TResult? Function()? loadMore,
   }) {
     return unsubscribe?.call();
   }
@@ -234,6 +248,7 @@ class _$Unsubscribe implements Unsubscribe {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? subscribe,
     TResult Function()? unsubscribe,
+    TResult Function()? loadMore,
     required TResult orElse(),
   }) {
     if (unsubscribe != null) {
@@ -247,6 +262,7 @@ class _$Unsubscribe implements Unsubscribe {
   TResult map<TResult extends Object?>({
     required TResult Function(Subscribe value) subscribe,
     required TResult Function(Unsubscribe value) unsubscribe,
+    required TResult Function(LoadMore value) loadMore,
   }) {
     return unsubscribe(this);
   }
@@ -256,6 +272,7 @@ class _$Unsubscribe implements Unsubscribe {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(Subscribe value)? subscribe,
     TResult? Function(Unsubscribe value)? unsubscribe,
+    TResult? Function(LoadMore value)? loadMore,
   }) {
     return unsubscribe?.call(this);
   }
@@ -265,6 +282,7 @@ class _$Unsubscribe implements Unsubscribe {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(Subscribe value)? subscribe,
     TResult Function(Unsubscribe value)? unsubscribe,
+    TResult Function(LoadMore value)? loadMore,
     required TResult orElse(),
   }) {
     if (unsubscribe != null) {
@@ -276,4 +294,111 @@ class _$Unsubscribe implements Unsubscribe {
 
 abstract class Unsubscribe implements ProfileInfoEvent {
   const factory Unsubscribe() = _$Unsubscribe;
+}
+
+/// @nodoc
+abstract class _$$LoadMoreCopyWith<$Res> {
+  factory _$$LoadMoreCopyWith(
+          _$LoadMore value, $Res Function(_$LoadMore) then) =
+      __$$LoadMoreCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LoadMoreCopyWithImpl<$Res>
+    extends _$ProfileInfoEventCopyWithImpl<$Res, _$LoadMore>
+    implements _$$LoadMoreCopyWith<$Res> {
+  __$$LoadMoreCopyWithImpl(_$LoadMore _value, $Res Function(_$LoadMore) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$LoadMore implements LoadMore {
+  const _$LoadMore();
+
+  @override
+  String toString() {
+    return 'ProfileInfoEvent.loadMore()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LoadMore);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() subscribe,
+    required TResult Function() unsubscribe,
+    required TResult Function() loadMore,
+  }) {
+    return loadMore();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? subscribe,
+    TResult? Function()? unsubscribe,
+    TResult? Function()? loadMore,
+  }) {
+    return loadMore?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? subscribe,
+    TResult Function()? unsubscribe,
+    TResult Function()? loadMore,
+    required TResult orElse(),
+  }) {
+    if (loadMore != null) {
+      return loadMore();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Subscribe value) subscribe,
+    required TResult Function(Unsubscribe value) unsubscribe,
+    required TResult Function(LoadMore value) loadMore,
+  }) {
+    return loadMore(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Subscribe value)? subscribe,
+    TResult? Function(Unsubscribe value)? unsubscribe,
+    TResult? Function(LoadMore value)? loadMore,
+  }) {
+    return loadMore?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Subscribe value)? subscribe,
+    TResult Function(Unsubscribe value)? unsubscribe,
+    TResult Function(LoadMore value)? loadMore,
+    required TResult orElse(),
+  }) {
+    if (loadMore != null) {
+      return loadMore(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LoadMore implements ProfileInfoEvent {
+  const factory LoadMore() = _$LoadMore;
 }

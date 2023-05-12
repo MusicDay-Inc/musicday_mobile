@@ -38,7 +38,6 @@ class PagedResponseImpl<T> implements PagedResponse<T> {
 
   @override
   Future<void> loadMore() async {
-    _logger.debug("loadMore()");
     _eventsController.add(const PagedResponseEvent.loadMore());
   }
 

@@ -215,6 +215,7 @@ _i1.GetIt initProfileScope(
       gh.singleton<_i31.UsersRepository>(
         _i32.UsersRepositoryImpl(
           loggerFactory: gh<_i9.LoggerFactory>(),
+          pagedResponseFactory: gh<_i11.PagedResponseFactory>(),
           usersRemoteService: gh<_i30.UsersRemoteService>(),
           userDtoConverter: gh<_i3.Converter<_i4.UserDto, _i5.User>>(),
         ),

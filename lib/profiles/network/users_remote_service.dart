@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:musicday_mobile/auth/di/auth_named.dart';
 import 'package:musicday_mobile/core/network/network_consts.dart';
 import 'package:musicday_mobile/profiles/di/profiles_scope.dart';
+import 'package:musicday_mobile/profiles/dtos/activity_dto.dart';
 import 'package:musicday_mobile/profiles/dtos/get_profile_response.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -22,4 +23,11 @@ abstract class UsersRemoteService {
 
   @POST("/action/unsubscribe/{id}")
   Future<HttpResponse<GetProfileResponse>> unsubscribe(@Path("id") String id);
+
+  @GET("/library/all/{id}")
+  Future<HttpResponse<List<ActivityDto>>> getLibraryAll(
+    @Path("id") String id,
+    @Query("offset") int offset,
+    @Query("limit") int limit,
+  );
 }

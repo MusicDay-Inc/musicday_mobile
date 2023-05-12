@@ -67,39 +67,59 @@ class ActivityItemWidget extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 10),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text(activity.release.name, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
-                  const SizedBox(width: 4),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 2),
-                    child: Icon(Icons.circle, size: 5, color: Theme.of(context).hintColor),
-                  ),
-                  const SizedBox(width: 4),
-                  Text("${activity.release.year}", style: TextStyle(fontSize: 14, color: Theme.of(context).hintColor)),
-                  const SizedBox(width: 4),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 2),
-                    child: Icon(Icons.circle, size: 5, color: Theme.of(context).hintColor),
-                  ),
-                  const SizedBox(width: 4),
-                  if (release is Album) ...[
-                    Text("${release.songsCount} songs",
-                        style: TextStyle(fontSize: 14, color: Theme.of(context).hintColor)),
-                  ] else if (release is Song) ...[
-                    Text(release.durationInSeconds.formatSecondsToDuration(),
-                        style: TextStyle(fontSize: 14, color: Theme.of(context).hintColor)),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text.rich(
+                        TextSpan(children: [
+                          TextSpan(
+                              text: activity.release.name,
+                              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                          const WidgetSpan(child: SizedBox(width: 4)),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 3),
+                              child: Icon(Icons.circle, size: 5, color: Theme.of(context).hintColor),
+                            ),
+                          ),
+                          const WidgetSpan(child: SizedBox(width: 4)),
+                          TextSpan(
+                              text: "${activity.release.year}",
+                              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold)),
+                          const WidgetSpan(child: SizedBox(width: 4)),
+                          WidgetSpan(
+                            alignment: PlaceholderAlignment.middle,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 3),
+                              child: Icon(Icons.circle, size: 5, color: Theme.of(context).hintColor),
+                            ),
+                          ),
+                          const WidgetSpan(child: SizedBox(width: 4)),
+                          if (release is Album) ...[
+                            TextSpan(
+                                text: "${release.songsCount} songs",
+                                style: TextStyle(fontSize: 14, color: Theme.of(context).hintColor)),
+                          ] else if (release is Song) ...[
+                            TextSpan(
+                                text: release.durationInSeconds.formatSecondsToDuration(),
+                                style: TextStyle(fontSize: 14, color: Theme.of(context).hintColor)),
+                          ],
+                        ]),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ),
                   ],
-                ],
-              ),
-              Text(activity.release.author, style: const TextStyle(fontSize: 12)),
-            ],
+                ),
+                Text(activity.release.author, style: const TextStyle(fontSize: 12)),
+              ],
+            ),
           ),
-          Expanded(child: Container()),
-          Icon(Icons.keyboard_arrow_right, size: 24, color: Theme.of(context).hintColor),
         ]),
         if (activity.review.text.isNotEmpty) ...[
           const Divider(),
