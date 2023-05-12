@@ -4,10 +4,14 @@ import 'package:musicday_mobile/profiles/models/user.dart';
 
 class ProfileInfoBlockWidget extends StatelessWidget {
   final User user;
+  final VoidCallback? onSubscribe;
+  final VoidCallback? onUnsubscribe;
 
   const ProfileInfoBlockWidget({
     super.key,
     required this.user,
+    this.onSubscribe,
+    this.onUnsubscribe,
   });
 
   @override
@@ -44,7 +48,29 @@ class ProfileInfoBlockWidget extends StatelessWidget {
                     const SizedBox(width: 6),
                     Text("${user.subscriptionsAmount} subscriptions"),
                   ],
-                )
+                ),
+                if (onSubscribe != null || onUnsubscribe != null) ...[
+                  const SizedBox(height: 7),
+                  if (onSubscribe != null) ...[
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: FilledButton(
+                        onPressed: () {},
+                        style: ButtonStyle(minimumSize: MaterialStateProperty.all(const Size.fromHeight(32))),
+                        child: const Text("Subscribe"),
+                      ),
+                    ),
+                  ] else ...[
+                    Padding(
+                      padding: const EdgeInsets.only(right: 16),
+                      child: OutlinedButton(
+                        onPressed: () {},
+                        style: ButtonStyle(minimumSize: MaterialStateProperty.all(const Size.fromHeight(32))),
+                        child: const Text("Unsubscribe"),
+                      ),
+                    ),
+                  ]
+                ],
               ],
             ),
           ]),

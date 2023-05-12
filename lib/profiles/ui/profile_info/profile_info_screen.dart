@@ -53,7 +53,7 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
               padding: const EdgeInsets.only(bottom: 32),
               itemBuilder: (context, index) {
                 if (index == 0) {
-                  return ProfileInfoBlockWidget(user: user);
+                  return ProfileInfoBlockWidget(user: user, onSubscribe: () {}, onUnsubscribe: () {});
                 } else if (index == 1) {
                   return const Padding(padding: EdgeInsets.only(left: 16, right: 16), child: Divider());
                 } else if (index == 2) {
