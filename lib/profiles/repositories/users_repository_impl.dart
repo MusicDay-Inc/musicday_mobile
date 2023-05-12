@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
@@ -7,6 +8,7 @@ import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/network/extensions/future_http_response_extensions.dart';
 import 'package:musicday_mobile/core/network/helpers/network_retry_helper.dart';
 import 'package:musicday_mobile/profiles/di/profiles_scope.dart';
+import 'package:musicday_mobile/profiles/dtos/get_profile_response.dart';
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
 import 'package:musicday_mobile/profiles/models/user.dart';
 import 'package:musicday_mobile/profiles/network/users_remote_service.dart';
@@ -18,12 +20,13 @@ class UsersRepositoryImpl extends UsersRepository {
   final Logger _logger;
   final UsersRemoteService usersRemoteService;
   final Converter<UserDto, User> userDtoConverter;
+  final _newUsersController = StreamController<Pair<User, bool>>.broadcast();
 
   UsersRepositoryImpl({
     required LoggerFactory loggerFactory,
     required this.usersRemoteService,
     required this.userDtoConverter,
-  }) : _logger = loggerFactory.create("UsersRepositoryImpl") {}
+  }) : _logger = loggerFactory.create("UsersRepositoryImpl");
 
   @override
   Stream<Pair<User, bool>?> getUserById(String id) {
@@ -40,16 +43,25 @@ class UsersRepositoryImpl extends UsersRepository {
         },
         ok: (data) {
           _logger.debug("getUserById($id): ok");
-          return Pair(
-            first: Pair(first: userDtoConverter.convert(data.user), second: data.isClientSubscribed),
-            second: null,
-          );
+          return Pair(first: _convertGetProfileResponse(data), second: null);
         },
       );
+    }).switchMap((data) {
+      if (data?.first != null) {
+        return _newUsersController.stream
+            .startWith(data!.first!)
+            .where((event) => event.first.id == id)
+            .map((event) => Pair(first: event, second: null));
+      }
+
+      return Stream.value(data);
     }).takeWhileInclusive((pair) {
       return pair?.second == null;
     }).map((event) => event?.first);
   }
+
+  Pair<User, bool> _convertGetProfileResponse(GetProfileResponse data) =>
+      Pair(first: userDtoConverter.convert(data.user), second: data.isClientSubscribed);
 
   @override
   Future<bool> subscribeToUser(String id) async {
@@ -65,6 +77,7 @@ class UsersRepositoryImpl extends UsersRepository {
       },
       ok: (data) {
         _logger.debug("subscribeToUser($id): ok");
+        _newUsersController.add(_convertGetProfileResponse(data));
         return true;
       },
     );
@@ -84,14 +97,16 @@ class UsersRepositoryImpl extends UsersRepository {
       },
       ok: (data) {
         _logger.debug("unsubscribeToUser($id): ok");
+        _newUsersController.add(_convertGetProfileResponse(data));
         return true;
       },
     );
   }
 
   @override
-  Future<void> dispose() {
-    // TODO: implement dispose
-    throw UnimplementedError();
+  @disposeMethod
+  Future<void> dispose() async {
+    _logger.debug("dispose()");
+    await _newUsersController.close();
   }
 }

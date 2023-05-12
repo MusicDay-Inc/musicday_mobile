@@ -212,11 +212,14 @@ _i1.GetIt initProfileScope(
       gh.singleton<_i30.UsersRemoteService>(
           profilesModule.provideUsersRemoteService(
               gh<_i7.Dio>(instanceName: 'authorizedDio')));
-      gh.singleton<_i31.UsersRepository>(_i32.UsersRepositoryImpl(
-        loggerFactory: gh<_i9.LoggerFactory>(),
-        usersRemoteService: gh<_i30.UsersRemoteService>(),
-        userDtoConverter: gh<_i3.Converter<_i4.UserDto, _i5.User>>(),
-      ));
+      gh.singleton<_i31.UsersRepository>(
+        _i32.UsersRepositoryImpl(
+          loggerFactory: gh<_i9.LoggerFactory>(),
+          usersRemoteService: gh<_i30.UsersRemoteService>(),
+          userDtoConverter: gh<_i3.Converter<_i4.UserDto, _i5.User>>(),
+        ),
+        dispose: (i) => i.dispose(),
+      );
       gh.factoryParam<_i33.ProfileInfoBloc, String?, dynamic>((
         userId,
         _,
@@ -225,6 +228,7 @@ _i1.GetIt initProfileScope(
             userId: userId,
             authSessionRepository: gh<_i20.AuthSessionRepository>(),
             usersRepository: gh<_i31.UsersRepository>(),
+            loggerFactory: gh<_i9.LoggerFactory>(),
           ));
     },
   );
