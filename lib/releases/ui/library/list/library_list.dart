@@ -56,8 +56,17 @@ class _LibraryListState extends State<LibraryList> {
                 return true;
               },
               child: ListView.builder(
+                padding: const EdgeInsets.only(top: 8, bottom: 8),
                 itemCount: snapshot.data!.isLoading ? snapshot.data!.items.length + 1 : snapshot.data!.items.length,
                 itemBuilder: (context, index) {
+                  if (snapshot.data!.items.length == index && snapshot.data!.isLoading) {
+                    return const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 12.0),
+                      child: Center(
+                          child: SizedBox(height: 20, width: 20, child: CircularProgressIndicator(strokeWidth: 2))),
+                    );
+                  }
+
                   return Column(
                     children: [
                       ReleaseItemWidget(activity: snapshot.data!.items[index]),
