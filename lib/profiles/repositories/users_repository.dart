@@ -16,6 +16,12 @@ abstract class UsersRepository {
   /// Возвращает постраничный ответ с активностями пользователя.
   PagedResponse<Activity> getActivities(String id);
 
+  /// Возвращает постраничный ответ с активностями пользователя, только песни.
+  PagedResponse<Activity> getOnlySongActivities(String id);
+
+  /// Возвращает постраничный ответ с активностями пользователя, только альбомы.
+  PagedResponse<Activity> getOnlyAlbumActivities(String id);
+
   /// Возвращает постраничный ответ с подписчиками пользователя.
   PagedResponse<User> getSubscribers(String id);
 

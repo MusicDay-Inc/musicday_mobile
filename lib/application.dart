@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:musicday_mobile/application_di.dart';
 import 'package:musicday_mobile/auth/ui/auth_container.dart';
 
 class Application extends StatefulWidget {
@@ -11,6 +12,12 @@ class Application extends StatefulWidget {
 }
 
 class _ApplicationState extends State<Application> {
+  @override
+  void initState() {
+    configureDependencies();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

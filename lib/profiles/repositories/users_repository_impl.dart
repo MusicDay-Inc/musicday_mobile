@@ -150,6 +150,30 @@ class UsersRepositoryImpl extends UsersRepository {
     }, 20);
   }
 
+  @override
+  PagedResponse<Activity> getOnlyAlbumActivities(String id) {
+    _logger.debug("getOnlyAlbumActivities($id)");
+    return pagedResponseFactory.create((size, offset) {
+      return NetworkRetryHelper.retry(() => usersRemoteService.getLibraryAlbum(id, offset, size), _logger)
+          .map((event) => event.maybeMap(ok: (ok) => ok.data, orElse: () => null))
+          .whereNotNull()
+          .map((event) => event.map(_convertActivityDto))
+          .map((event) => event.toList(growable: false));
+    }, 20);
+  }
+
+  @override
+  PagedResponse<Activity> getOnlySongActivities(String id) {
+    _logger.debug("getOnlySongActivities($id)");
+    return pagedResponseFactory.create((size, offset) {
+      return NetworkRetryHelper.retry(() => usersRemoteService.getLibrarySong(id, offset, size), _logger)
+          .map((event) => event.maybeMap(ok: (ok) => ok.data, orElse: () => null))
+          .whereNotNull()
+          .map((event) => event.map(_convertActivityDto))
+          .map((event) => event.toList(growable: false));
+    }, 20);
+  }
+
   Activity _convertActivityDto(ActivityDto dto) {
     Release release;
     if (dto.song != null && !_isSongNull(dto.song!)) {

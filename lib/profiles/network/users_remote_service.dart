@@ -31,6 +31,20 @@ abstract class UsersRemoteService {
     @Query("limit") int limit,
   );
 
+  @GET("/library/albums/{id}")
+  Future<HttpResponse<List<ActivityDto>>> getLibraryAlbum(
+    @Path("id") String id,
+    @Query("offset") int offset,
+    @Query("limit") int limit,
+  );
+
+  @GET("/library/songs/{id}")
+  Future<HttpResponse<List<ActivityDto>>> getLibrarySong(
+    @Path("id") String id,
+    @Query("offset") int offset,
+    @Query("limit") int limit,
+  );
+
   @GET("/profile/subscribers/{id}")
   Future<HttpResponse<List<UserDto>>> getSubscribers(
     @Path("id") String id,

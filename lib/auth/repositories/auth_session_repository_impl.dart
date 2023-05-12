@@ -78,7 +78,7 @@ class AuthSessionRepositoryImpl implements AuthSessionRepository {
         return null;
       }
 
-      _logger.debug("getCurrentUser(): token != null");
+      _logger.debug("getCurrentUser(): token != null ($token)");
       return JWT.decode(token).payload["user_id"] as String;
     }).first;
   }
