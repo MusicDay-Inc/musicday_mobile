@@ -43,6 +43,7 @@ class ProfileInfoBloc extends Bloc<ProfileInfoEvent, ProfileInfoState> {
         _logger.debug("init, stream event != null");
         // ignore: invalid_use_of_visible_for_testing_member
         emit(ProfileInfoState.data(event.first, state.items, state.isLoading, event.second));
+        return null;
       });
     } else {
       stream = Stream.fromFuture(authSessionRepository.getCurrentUserId()).switchMap((id) {
@@ -57,6 +58,7 @@ class ProfileInfoBloc extends Bloc<ProfileInfoEvent, ProfileInfoState> {
           _logger.debug("init, stream event != null");
           // ignore: invalid_use_of_visible_for_testing_member
           emit(ProfileInfoState.data(event.first, state.items, state.isLoading, event.second));
+          return null;
         });
       });
     }
