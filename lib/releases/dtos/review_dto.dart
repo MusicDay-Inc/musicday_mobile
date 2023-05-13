@@ -6,8 +6,6 @@ part 'review_dto.g.dart';
 class ReviewDto {
   @JsonKey(name: "id")
   final String id;
-  @JsonKey(name: "user_id")
-  final String userId;
   @JsonKey(name: "published_at")
   final DateTime publishedAt;
   @JsonKey(name: "review_text")
@@ -17,7 +15,6 @@ class ReviewDto {
 
   ReviewDto({
     required this.id,
-    required this.userId,
     required this.publishedAt,
     required this.text,
     required this.score,

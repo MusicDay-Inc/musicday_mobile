@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musicday_mobile/activity/ui/activity_screen.dart';
 import 'package:musicday_mobile/application_di.dart';
 import 'package:musicday_mobile/auth/ui/auth_container_bloc.dart';
 import 'package:musicday_mobile/auth/ui/auth_container_state.dart';
 import 'package:musicday_mobile/auth/ui/intro/intro_screen.dart';
 import 'package:musicday_mobile/auth/ui/sign_up/sign_up_screen.dart';
 import 'package:musicday_mobile/core/di/bloc_inject.dart';
-import 'package:musicday_mobile/releases/ui/releases_container.dart';
 
 class AuthContainer extends StatefulWidget {
   const AuthContainer({super.key});
@@ -27,7 +27,7 @@ class _AuthContainerState extends State<AuthContainer> {
               loading: () => Container(),
               nonAuthorized: () => _buildAuthNavigator(context, false),
               inRegistration: () => _buildAuthNavigator(context, true),
-              authorized: () => const ReleasesContainer(),
+              authorized: () => const ActivityScreen(),
             );
           },
         ),

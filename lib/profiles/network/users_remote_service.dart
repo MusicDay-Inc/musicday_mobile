@@ -45,6 +45,12 @@ abstract class UsersRemoteService {
     @Query("limit") int limit,
   );
 
+  @GET("/user/activity")
+  Future<HttpResponse<List<ActivityDto>>> getFeed(
+    @Query("offset") int offset,
+    @Query("limit") int limit,
+  );
+
   @GET("/profile/subscribers/{id}")
   Future<HttpResponse<List<UserDto>>> getSubscribers(
     @Path("id") String id,

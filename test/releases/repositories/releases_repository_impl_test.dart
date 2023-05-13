@@ -76,7 +76,6 @@ void main() {
             review: ReviewDto(
               id: '0',
               publishedAt: DateTime.now(),
-              userId: "0",
               text: null,
               score: null,
             ),
@@ -120,7 +119,6 @@ void main() {
             review: ReviewDto(
               id: '0',
               publishedAt: DateTime.now(),
-              userId: "0",
               text: null,
               score: null,
             ),
@@ -154,7 +152,6 @@ void main() {
             review: ReviewDto(
               id: 'review_stub',
               publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
-              userId: "review_stub",
               text: null,
               score: 4,
             ),
@@ -189,7 +186,6 @@ void main() {
             review: ReviewDto(
               id: 'review_stub',
               publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
-              userId: "review_stub",
               text: "review_stub",
               score: 4,
             ),
@@ -246,7 +242,6 @@ void main() {
             review: ReviewDto(
               id: '0',
               publishedAt: DateTime.now(),
-              userId: "0",
               text: null,
               score: null,
             ),
@@ -290,7 +285,6 @@ void main() {
             review: ReviewDto(
               id: '0',
               publishedAt: DateTime.now(),
-              userId: "0",
               text: null,
               score: null,
             ),
@@ -324,7 +318,6 @@ void main() {
             review: ReviewDto(
               id: 'review_stub',
               publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
-              userId: "review_stub",
               text: null,
               score: 4,
             ),
@@ -359,7 +352,6 @@ void main() {
             review: ReviewDto(
               id: 'review_stub',
               publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
-              userId: "review_stub",
               text: "review_stub",
               score: 4,
             ),
@@ -450,7 +442,6 @@ void main() {
       when(service.sendReview(any, any)).thenAnswer((realInvocation) async {
         final response = SendReviewResponse(
           id: "id",
-          userId: "user_id",
           publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
           text: "text",
           score: 10,
@@ -481,7 +472,6 @@ void main() {
       when(service.sendReview(any, any)).thenAnswer((realInvocation) async {
         final response = SendReviewResponse(
           id: "id",
-          userId: "user_id",
           publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
           text: "text",
           score: 10,
@@ -522,7 +512,6 @@ void main() {
             review: ReviewDto(
               id: '0',
               publishedAt: DateTime.now(),
-              userId: "0",
               text: null,
               score: null,
             ),
@@ -533,7 +522,6 @@ void main() {
       when(service.sendReview(any, any)).thenAnswer((realInvocation) async {
         final response = SendReviewResponse(
           id: "id",
-          userId: "user_id",
           publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
           text: "text",
           score: 4,
@@ -582,7 +570,6 @@ void main() {
             review: ReviewDto(
               id: '0',
               publishedAt: DateTime.now(),
-              userId: "0",
               text: null,
               score: null,
             ),
@@ -593,7 +580,6 @@ void main() {
       when(service.sendReview(any, any)).thenAnswer((realInvocation) async {
         final response = SendReviewResponse(
           id: "id",
-          userId: "user_id",
           publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
           text: "text",
           score: 4,
@@ -696,7 +682,6 @@ void main() {
       when(service.deleteReview(any)).thenAnswer((realInvocation) async {
         final response = DeleteReviewResponse(
           id: "id",
-          userId: "user_id",
           publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
           text: "text",
           score: 4,
@@ -727,7 +712,6 @@ void main() {
       when(service.deleteReview(any)).thenAnswer((realInvocation) async {
         final response = DeleteReviewResponse(
           id: "id",
-          userId: "user_id",
           publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
           text: "text",
           score: 4,
@@ -768,7 +752,6 @@ void main() {
             review: ReviewDto(
               id: "review_id",
               publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
-              userId: "user_id",
               text: "text",
               score: 4,
             ),
@@ -779,7 +762,6 @@ void main() {
       when(service.deleteReview(any)).thenAnswer((realInvocation) async {
         final response = DeleteReviewResponse(
           id: "0",
-          userId: "0",
           publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
           text: null,
           score: null,
@@ -827,7 +809,6 @@ void main() {
             review: ReviewDto(
               id: "review_id",
               publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
-              userId: "user_id",
               text: "text",
               score: 4,
             ),
@@ -838,7 +819,6 @@ void main() {
       when(service.deleteReview(any)).thenAnswer((realInvocation) async {
         final response = DeleteReviewResponse(
           id: "0",
-          userId: "0",
           publishedAt: DateTime.fromMillisecondsSinceEpoch(0),
           text: null,
           score: null,

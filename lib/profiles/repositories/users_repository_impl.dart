@@ -174,6 +174,19 @@ class UsersRepositoryImpl extends UsersRepository {
     }, 20);
   }
 
+  @override
+  PagedResponse<UserActivity> getFeed() {
+    _logger.debug("getFeed()");
+    return pagedResponseFactory.create((size, offset) {
+      return NetworkRetryHelper.retry(() => usersRemoteService.getFeed(offset, size), _logger)
+          .map((event) => event.maybeMap(ok: (ok) => ok.data, orElse: () => null))
+          .whereNotNull()
+          .map((event) =>
+              event.map((e) => UserActivity(activity: _convertActivityDto(e), user: userDtoConverter.convert(e.user!))))
+          .map((event) => event.toList(growable: false));
+    }, 20);
+  }
+
   Activity _convertActivityDto(ActivityDto dto) {
     Release release;
     if (dto.song != null && !_isSongNull(dto.song!)) {

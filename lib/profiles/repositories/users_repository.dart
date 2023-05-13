@@ -13,6 +13,9 @@ abstract class UsersRepository {
   /// Отписывает от пользователя.
   Future<bool> unsubscribeToUser(String id);
 
+  /// Возвращает постраничный ответ с активностями подписок.
+  PagedResponse<UserActivity> getFeed();
+
   /// Возвращает постраничный ответ с активностями пользователя.
   PagedResponse<Activity> getActivities(String id);
 

@@ -14,7 +14,6 @@ class SendReviewResponse extends ReviewDto {
 
   SendReviewResponse({
     required super.id,
-    required super.userId,
     required super.publishedAt,
     required super.text,
     required super.score,

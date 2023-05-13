@@ -14,7 +14,6 @@ class DeleteReviewResponse extends ReviewDto {
 
   DeleteReviewResponse({
     required super.id,
-    required super.userId,
     required super.publishedAt,
     required super.text,
     required super.score,
