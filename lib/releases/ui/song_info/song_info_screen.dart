@@ -10,6 +10,7 @@ import 'package:musicday_mobile/releases/models/song.dart';
 import 'package:musicday_mobile/releases/ui/song_info/song_info_bloc.dart';
 import 'package:musicday_mobile/releases/ui/song_info/song_info_state.dart';
 import 'package:musicday_mobile/releases/ui/widgets/another_user_review_widget.dart';
+import 'package:musicday_mobile/releases/ui/widgets/rating_stars_theme.dart';
 import 'package:musicday_mobile/releases/ui/widgets/user_review_widget.dart';
 import 'package:musicday_mobile/releases/ui/write_review/write_review_dialog.dart';
 
@@ -111,7 +112,7 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                           ),
                           Expanded(child: Container()),
                           Text(mean.toStringAsFixed(1), style: TextStyle(color: Theme.of(context).hintColor)),
-                          Icon(Icons.star, size: 14, color: Theme.of(context).buttonTheme.colorScheme!.primary),
+                          Icon(Icons.star, size: 14, color: RatingStarsTheme.of(context).starsColor),
                         ],
                       ),
                     );

@@ -3,6 +3,7 @@ import 'package:musicday_mobile/core/formatting/duration_formatting_extensions.d
 import 'package:musicday_mobile/releases/models/activity.dart';
 import 'package:musicday_mobile/releases/models/album.dart';
 import 'package:musicday_mobile/releases/models/song.dart';
+import 'package:musicday_mobile/releases/ui/widgets/rating_stars_theme.dart';
 
 class ReleaseItemWidget extends StatelessWidget {
   final Activity activity;
@@ -37,7 +38,7 @@ class ReleaseItemWidget extends StatelessWidget {
                   Text(activity.release.name, style: const TextStyle(fontWeight: FontWeight.bold)),
                   Row(mainAxisSize: MainAxisSize.min, children: [
                     Text(activity.review.rating.toStringAsFixed(1)),
-                    Icon(Icons.star, size: 15, color: Theme.of(context).colorScheme.primary),
+                    Icon(Icons.star, size: 15, color: RatingStarsTheme.of(context).starsColor),
                   ]),
                 ],
               ),

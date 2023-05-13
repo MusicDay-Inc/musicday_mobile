@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:musicday_mobile/releases/ui/widgets/rating_stars_theme.dart';
 
 class RatingStarsWidget extends StatelessWidget {
   final double size;
@@ -26,7 +27,7 @@ class RatingStarsWidget extends StatelessWidget {
             onTap: onSelect != null ? () => onSelect!(i + 1) : null,
             child: Icon(
               i < filled ? Icons.star : Icons.star_outline,
-              color: Theme.of(context).buttonTheme.colorScheme!.primary,
+              color: RatingStarsTheme.of(context).starsColor,
               size: size,
             ),
           ),
