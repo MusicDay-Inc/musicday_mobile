@@ -6,7 +6,7 @@ import 'package:musicday_mobile/auth/ui/auth_container_state.dart';
 import 'package:musicday_mobile/auth/ui/intro/intro_screen.dart';
 import 'package:musicday_mobile/auth/ui/sign_up/sign_up_screen.dart';
 import 'package:musicday_mobile/core/di/bloc_inject.dart';
-import 'package:musicday_mobile/search/ui/search_container.dart';
+import 'package:musicday_mobile/main/main_container.dart';
 
 class AuthContainer extends StatefulWidget {
   const AuthContainer({super.key});
@@ -27,7 +27,7 @@ class _AuthContainerState extends State<AuthContainer> {
               loading: () => Container(),
               nonAuthorized: () => _buildAuthNavigator(context, false),
               inRegistration: () => _buildAuthNavigator(context, true),
-              authorized: () => const SearchContainer(),
+              authorized: () => const MainContainer(),
             );
           },
         ),

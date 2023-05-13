@@ -7,6 +7,7 @@ import 'package:musicday_mobile/core/formatting/duration_formatting_extensions.d
 import 'package:musicday_mobile/core/ui/dialogs/yes_no_dialog.dart';
 import 'package:musicday_mobile/releases/models/album.dart';
 import 'package:musicday_mobile/releases/models/song.dart';
+import 'package:musicday_mobile/releases/ui/song_info/song_info_arguments.dart';
 import 'package:musicday_mobile/releases/ui/song_info/song_info_bloc.dart';
 import 'package:musicday_mobile/releases/ui/song_info/song_info_state.dart';
 import 'package:musicday_mobile/releases/ui/widgets/another_user_review_widget.dart';
@@ -15,13 +16,11 @@ import 'package:musicday_mobile/releases/ui/widgets/user_review_widget.dart';
 import 'package:musicday_mobile/releases/ui/write_review/write_review_dialog.dart';
 
 class SongInfoScreen extends StatefulWidget {
-  final String songId;
-  final bool isSong;
+  final SongInfoArguments arguments;
 
   const SongInfoScreen({
     super.key,
-    required this.songId,
-    required this.isSong,
+    required this.arguments,
   });
 
   @override
@@ -33,8 +32,8 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
   Widget build(BuildContext context) {
     return BlocInject<SongInfoBloc>(
       getIt: getIt,
-      param1: widget.songId,
-      param2: widget.isSong,
+      param1: widget.arguments.songId,
+      param2: widget.arguments.isSong,
       child: Scaffold(
         body: BlocBuilder<SongInfoBloc, SongInfoState>(builder: (context, state) {
           return state.when(loading: () {
@@ -86,7 +85,7 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                     return UserReviewWidget(
                       review: review,
                       key: UniqueKey(),
-                      onWriteClick: () => WriteReviewDialog.open(context, widget.songId),
+                      onWriteClick: () => WriteReviewDialog.open(context, widget.arguments.songId),
                       onDeleteClick: () async {
                         final result = await YesNoDialog.show(
                           context,

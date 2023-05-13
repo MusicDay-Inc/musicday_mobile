@@ -64,10 +64,10 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
                   if (index == 0) {
                     return ProfileInfoBlockWidget(
                       user: user,
-                      onSubscribe: !isSubscribed
+                      onSubscribe: widget.userId != null && !isSubscribed
                           ? () => BlocProvider.of<ProfileInfoBloc>(context).add(const ProfileInfoEvent.subscribe())
                           : null,
-                      onUnsubscribe: isSubscribed
+                      onUnsubscribe: widget.userId != null && isSubscribed
                           ? () => BlocProvider.of<ProfileInfoBloc>(context).add(const ProfileInfoEvent.unsubscribe())
                           : null,
                     );
