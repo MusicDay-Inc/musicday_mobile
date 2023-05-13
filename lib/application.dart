@@ -32,7 +32,7 @@ class _ApplicationState extends State<Application> {
       theme: ThemeData(
         useMaterial3: true,
         brightness: Brightness.dark,
-        colorSchemeSeed: Colors.amber[800],
+        colorSchemeSeed: Colors.blue[300],
         dividerTheme: DividerThemeData(color: const Color(0xFF9E8E82).withAlpha(25)),
       ),
     );
