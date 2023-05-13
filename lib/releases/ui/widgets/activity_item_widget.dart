@@ -31,7 +31,7 @@ class ActivityItemWidget extends StatelessWidget {
         InkWell(
           onTap: () => Navigator.pushNamed(context, "profile", arguments: user.id),
           child: Row(children: [
-            const AvatarWidget(size: 17),
+            AvatarWidget(size: 17, avatarUrl: user.avatarUrl),
             const SizedBox(width: 10),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -68,10 +68,12 @@ class ActivityItemWidget extends StatelessWidget {
             Container(
               width: 32,
               height: 34,
+              clipBehavior: Clip.hardEdge,
               decoration: BoxDecoration(
-                color: Theme.of(context).colorScheme.primaryContainer,
+                color: release.avatarUrl == null ? Theme.of(context).colorScheme.primaryContainer : null,
                 borderRadius: BorderRadius.circular(4),
               ),
+              child: release.avatarUrl != null ? Image.network(release.avatarUrl!) : null,
             ),
             const SizedBox(width: 10),
             Expanded(

@@ -125,7 +125,7 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                         reviewTimestamp: userReview.review.publishTime.millisecondsSinceEpoch ~/ 1000,
                         authorId: userReview.user.id,
                         authorName: userReview.user.nickname,
-                        authorAvatar: null,
+                        authorAvatar: userReview.user.avatarUrl,
                         comment: userReview.review.text,
                         rating: userReview.review.rating,
                       ),

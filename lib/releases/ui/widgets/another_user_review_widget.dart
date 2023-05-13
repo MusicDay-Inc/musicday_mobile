@@ -20,7 +20,7 @@ class AnotherUserReviewWidget extends StatelessWidget {
     required this.authorId,
     required this.authorName,
     required this.reviewTimestamp,
-    this.authorAvatar,
+    required this.authorAvatar,
   });
 
   @override
@@ -34,7 +34,7 @@ class AnotherUserReviewWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(children: [
-                const AvatarWidget(size: 16),
+                AvatarWidget(size: 16, avatarUrl: authorAvatar),
                 const SizedBox(width: 6),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

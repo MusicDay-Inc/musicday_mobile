@@ -21,10 +21,12 @@ class ReleaseItemWidget extends StatelessWidget {
         Container(
           width: 70,
           height: 70,
+          clipBehavior: Clip.hardEdge,
           decoration: BoxDecoration(
-            color: Theme.of(context).colorScheme.primaryContainer,
+            color: activity.release.avatarUrl == null ? Theme.of(context).colorScheme.primaryContainer : null,
             borderRadius: BorderRadius.circular(4),
           ),
+          child: activity.release.avatarUrl != null ? Image.network(activity.release.avatarUrl!) : null,
         ),
         const SizedBox(width: 12),
         Expanded(

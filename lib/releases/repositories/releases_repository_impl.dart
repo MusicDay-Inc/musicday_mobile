@@ -6,6 +6,7 @@ import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/network/extensions/future_http_response_extensions.dart';
 import 'package:musicday_mobile/core/network/helpers/network_retry_helper.dart';
+import 'package:musicday_mobile/core/network/network_consts.dart';
 import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart';
 import 'package:musicday_mobile/core/paging/paged_response.dart';
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
@@ -269,7 +270,7 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
       author: songDto.author,
       durationInSeconds: songDto.durationInNanoseconds ~/ 1000 ~/ 1000 ~/ 1000,
       year: songDto.date.year,
-      avatarUrl: null,
+      avatarUrl: "${NetworkConsts.baseUrl}/image/release/${songDto.id}",
     );
   }
 
@@ -287,7 +288,7 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
       author: albumDto.author,
       songsCount: albumDto.songsCount,
       year: albumDto.date.year,
-      avatarUrl: null,
+      avatarUrl: "${NetworkConsts.baseUrl}/image/release/${albumDto.id}",
     );
   }
 

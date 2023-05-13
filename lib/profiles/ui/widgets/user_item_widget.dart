@@ -15,7 +15,7 @@ class UserItemWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       child: Row(children: [
-        const AvatarWidget(size: 22),
+        AvatarWidget(size: 22, avatarUrl: user.avatarUrl),
         const SizedBox(width: 8),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,

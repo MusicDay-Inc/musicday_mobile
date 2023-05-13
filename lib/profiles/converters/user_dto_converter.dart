@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:injectable/injectable.dart';
+import 'package:musicday_mobile/core/network/network_consts.dart';
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
 import 'package:musicday_mobile/profiles/models/user.dart';
 
@@ -12,7 +13,7 @@ class UserDtoConverter extends Converter<UserDto, User> {
       id: input.id,
       username: input.username,
       nickname: input.nickname,
-      avatarUrl: null,
+      avatarUrl: "${NetworkConsts.baseUrl}/image/avatar/${input.id}",
       subscriberAmount: input.subscriberAmount,
       subscriptionsAmount: input.subscriptionsAmount,
     );

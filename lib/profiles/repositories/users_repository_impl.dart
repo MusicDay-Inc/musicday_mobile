@@ -7,6 +7,7 @@ import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/network/extensions/future_http_response_extensions.dart';
 import 'package:musicday_mobile/core/network/helpers/network_retry_helper.dart';
+import 'package:musicday_mobile/core/network/network_consts.dart';
 import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart';
 import 'package:musicday_mobile/core/paging/paged_response.dart';
 import 'package:musicday_mobile/profiles/dtos/activity_dto.dart';
@@ -208,7 +209,7 @@ class UsersRepositoryImpl extends UsersRepository {
         author: dto.song!.author,
         durationInSeconds: dto.song!.durationInNanoseconds ~/ 1000 ~/ 1000 ~/ 1000,
         year: dto.song!.date.year,
-        avatarUrl: null,
+        avatarUrl: "${NetworkConsts.baseUrl}/image/release/${dto.song!.id}",
       );
     } else {
       release = Album(
@@ -217,7 +218,7 @@ class UsersRepositoryImpl extends UsersRepository {
         author: dto.album!.author,
         songsCount: dto.album!.songsCount,
         year: dto.album!.date.year,
-        avatarUrl: null,
+        avatarUrl: "${NetworkConsts.baseUrl}/image/release/${dto.album!.id}",
       );
     }
 

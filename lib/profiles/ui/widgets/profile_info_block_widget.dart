@@ -20,7 +20,7 @@ class ProfileInfoBlockWidget extends StatelessWidget {
       padding: const EdgeInsets.only(top: 12, bottom: 16),
       child: Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
         const SizedBox(width: 16),
-        const AvatarWidget(size: 46),
+        AvatarWidget(size: 46, avatarUrl: user.avatarUrl),
         const SizedBox(width: 16),
         Expanded(
           child: Column(children: [
