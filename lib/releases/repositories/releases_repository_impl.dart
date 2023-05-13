@@ -7,6 +7,7 @@ import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/network/extensions/future_http_response_extensions.dart';
 import 'package:musicday_mobile/core/network/helpers/network_retry_helper.dart';
 import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart';
+import 'package:musicday_mobile/core/paging/paged_response.dart';
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
 import 'package:musicday_mobile/profiles/models/user.dart';
 import 'package:musicday_mobile/releases/dtos/album_dto.dart';
@@ -221,6 +222,32 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
   }
 
   @override
+  PagedResponse<Album> searchAlbums(String query) {
+    _logger.debug("searchAlbums($query)");
+    return pagedResponseFactory.create((size, offset) {
+      return NetworkRetryHelper.retry(() => releasesRemoteService.searchAlbums(query, offset, size), _logger)
+          .map((event) => event.maybeMap(ok: (ok) => ok.data, orElse: () => null))
+          .whereNotNull()
+          .map((event) => event.map((e) => e.album))
+          .map((event) => event.map(_convertAlbumDto))
+          .map((event) => event.toList(growable: false));
+    }, 20);
+  }
+
+  @override
+  PagedResponse<Song> searchSongs(String query) {
+    _logger.debug("searchSongs($query)");
+    return pagedResponseFactory.create((size, offset) {
+      return NetworkRetryHelper.retry(() => releasesRemoteService.searchSongs(query, offset, size), _logger)
+          .map((event) => event.maybeMap(ok: (ok) => ok.data, orElse: () => null))
+          .whereNotNull()
+          .map((event) => event.map((e) => e.song))
+          .map((event) => event.map(_convertSongDto))
+          .map((event) => event.toList(growable: false));
+    }, 20);
+  }
+
+  @override
   @disposeMethod
   Future<void> dispose() async {
     _logger.debug("dispose()");
@@ -231,28 +258,36 @@ class ReleasesRepositoryImpl implements ReleasesRepository {
   Pair<Song, Review?> _convertSongResponseDto(SongDto songDto, ReviewDto reviewDto) {
     return Pair(
       second: _convertReviewDto(reviewDto),
-      first: Song(
-        id: songDto.id,
-        name: songDto.name,
-        author: songDto.author,
-        durationInSeconds: songDto.durationInNanoseconds ~/ 1000 ~/ 1000 ~/ 1000,
-        year: songDto.date.year,
-        avatarUrl: null,
-      ),
+      first: _convertSongDto(songDto),
+    );
+  }
+
+  Song _convertSongDto(SongDto songDto) {
+    return Song(
+      id: songDto.id,
+      name: songDto.name,
+      author: songDto.author,
+      durationInSeconds: songDto.durationInNanoseconds ~/ 1000 ~/ 1000 ~/ 1000,
+      year: songDto.date.year,
+      avatarUrl: null,
     );
   }
 
   Pair<Album, Review?> _convertAlbumResponseDto(AlbumDto albumDto, ReviewDto reviewDto) {
     return Pair(
       second: _convertReviewDto(reviewDto),
-      first: Album(
-        id: albumDto.id,
-        name: albumDto.name,
-        author: albumDto.author,
-        songsCount: albumDto.songsCount,
-        year: albumDto.date.year,
-        avatarUrl: null,
-      ),
+      first: _convertAlbumDto(albumDto),
+    );
+  }
+
+  Album _convertAlbumDto(AlbumDto albumDto) {
+    return Album(
+      id: albumDto.id,
+      name: albumDto.name,
+      author: albumDto.author,
+      songsCount: albumDto.songsCount,
+      year: albumDto.date.year,
+      avatarUrl: null,
     );
   }
 

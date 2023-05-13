@@ -1,4 +1,5 @@
 import 'package:musicday_mobile/core/common/pair.dart';
+import 'package:musicday_mobile/core/paging/paged_response.dart';
 import 'package:musicday_mobile/releases/models/album.dart';
 import 'package:musicday_mobile/releases/models/review.dart';
 import 'package:musicday_mobile/releases/models/song.dart';
@@ -10,6 +11,12 @@ abstract class ReleasesRepository {
 
   /// Выдает поток c информацией о комментарии и альбоме.
   Stream<Pair<Album, Review?>?> getAlbumById(String id);
+
+  /// Выдает разделенный список альбомов, удовлетворяющих запросу.
+  PagedResponse<Album> searchAlbums(String query);
+
+  /// Выдает разделенный список песен, удовлетворяющих запросу.
+  PagedResponse<Song> searchSongs(String query);
 
   /// Выдает разделенный список ревью подписчиков.
   Stream<Pair<List<UserReview>, double>> getSubscribersReviews(String releaseId);

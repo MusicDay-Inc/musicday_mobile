@@ -64,4 +64,11 @@ abstract class UsersRemoteService {
     @Query("offset") int offset,
     @Query("limit") int limit,
   );
+
+  @GET("/search/user")
+  Future<HttpResponse<List<UserDto>>> searchUsers(
+    @Query("query") String query,
+    @Query("offset") int offset,
+    @Query("limit") int limit,
+  );
 }

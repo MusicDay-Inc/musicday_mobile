@@ -31,6 +31,9 @@ abstract class UsersRepository {
   /// Возвращает постраничный ответ с подписками пользователя.
   PagedResponse<User> getSubscriptions(String id);
 
+  /// Возвращает постраничный ответ с пользователями, удовлетворяющих запросу.
+  PagedResponse<User> searchUsers(String query);
+
   /// Освобождает занятые ресурсы.
   Future<void> dispose();
 }

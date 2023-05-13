@@ -7,11 +7,12 @@ import 'dart:async' as _i6;
 
 import 'package:mockito/mockito.dart' as _i1;
 import 'package:musicday_mobile/core/logging/logger.dart' as _i4;
-import 'package:musicday_mobile/core/logging/logger_factory.dart' as _i14;
+import 'package:musicday_mobile/core/logging/logger_factory.dart' as _i16;
 import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart'
     as _i5;
 import 'package:musicday_mobile/core/paging/paged_response.dart' as _i2;
 import 'package:musicday_mobile/releases/dtos/album_by_id_response.dart' as _i9;
+import 'package:musicday_mobile/releases/dtos/album_search_entry.dart' as _i14;
 import 'package:musicday_mobile/releases/dtos/delete_review_response.dart'
     as _i12;
 import 'package:musicday_mobile/releases/dtos/get_reviews_response.dart'
@@ -20,6 +21,7 @@ import 'package:musicday_mobile/releases/dtos/send_review_request.dart' as _i11;
 import 'package:musicday_mobile/releases/dtos/send_review_response.dart'
     as _i10;
 import 'package:musicday_mobile/releases/dtos/song_by_id_response.dart' as _i8;
+import 'package:musicday_mobile/releases/dtos/song_search_entry.dart' as _i15;
 import 'package:musicday_mobile/releases/network/releases_remote_service.dart'
     as _i7;
 import 'package:retrofit/retrofit.dart' as _i3;
@@ -259,12 +261,96 @@ class MockReleasesRemoteService extends _i1.Mock
           ),
         )),
       ) as _i6.Future<_i3.HttpResponse<_i13.GetReviewsResponse>>);
+  @override
+  _i6.Future<_i3.HttpResponse<List<_i14.AlbumSearchEntry>>> searchAlbums(
+    String? query,
+    int? offset,
+    int? limit,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #searchAlbums,
+          [
+            query,
+            offset,
+            limit,
+          ],
+        ),
+        returnValue:
+            _i6.Future<_i3.HttpResponse<List<_i14.AlbumSearchEntry>>>.value(
+                _FakeHttpResponse_1<List<_i14.AlbumSearchEntry>>(
+          this,
+          Invocation.method(
+            #searchAlbums,
+            [
+              query,
+              offset,
+              limit,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i3.HttpResponse<List<_i14.AlbumSearchEntry>>>.value(
+                _FakeHttpResponse_1<List<_i14.AlbumSearchEntry>>(
+          this,
+          Invocation.method(
+            #searchAlbums,
+            [
+              query,
+              offset,
+              limit,
+            ],
+          ),
+        )),
+      ) as _i6.Future<_i3.HttpResponse<List<_i14.AlbumSearchEntry>>>);
+  @override
+  _i6.Future<_i3.HttpResponse<List<_i15.SongSearchEntry>>> searchSongs(
+    String? query,
+    int? offset,
+    int? limit,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #searchSongs,
+          [
+            query,
+            offset,
+            limit,
+          ],
+        ),
+        returnValue:
+            _i6.Future<_i3.HttpResponse<List<_i15.SongSearchEntry>>>.value(
+                _FakeHttpResponse_1<List<_i15.SongSearchEntry>>(
+          this,
+          Invocation.method(
+            #searchSongs,
+            [
+              query,
+              offset,
+              limit,
+            ],
+          ),
+        )),
+        returnValueForMissingStub:
+            _i6.Future<_i3.HttpResponse<List<_i15.SongSearchEntry>>>.value(
+                _FakeHttpResponse_1<List<_i15.SongSearchEntry>>(
+          this,
+          Invocation.method(
+            #searchSongs,
+            [
+              query,
+              offset,
+              limit,
+            ],
+          ),
+        )),
+      ) as _i6.Future<_i3.HttpResponse<List<_i15.SongSearchEntry>>>);
 }
 
 /// A class which mocks [LoggerFactory].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockLoggerFactory extends _i1.Mock implements _i14.LoggerFactory {
+class MockLoggerFactory extends _i1.Mock implements _i16.LoggerFactory {
   @override
   _i4.Logger create(String? tag) => (super.noSuchMethod(
         Invocation.method(

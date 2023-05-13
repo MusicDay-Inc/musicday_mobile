@@ -187,6 +187,18 @@ class UsersRepositoryImpl extends UsersRepository {
     }, 20);
   }
 
+  @override
+  PagedResponse<User> searchUsers(String query) {
+    _logger.debug("searchUsers($query)");
+    return pagedResponseFactory.create((size, offset) {
+      return NetworkRetryHelper.retry(() => usersRemoteService.searchUsers(query, offset, size), _logger)
+          .map((event) => event.maybeMap(ok: (ok) => ok.data, orElse: () => null))
+          .whereNotNull()
+          .map((event) => event.map(userDtoConverter.convert))
+          .map((event) => event.toList(growable: false));
+    }, 20);
+  }
+
   Activity _convertActivityDto(ActivityDto dto) {
     Release release;
     if (dto.song != null && !_isSongNull(dto.song!)) {
