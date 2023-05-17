@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:musicday_mobile/auth/interactors/google_sign_out_interactor.dart';
 import 'package:musicday_mobile/auth/repositories/auth_session_repository.dart';
 import 'package:musicday_mobile/core/common/pair.dart';
 import 'package:musicday_mobile/core/logging/logger.dart';
@@ -21,6 +22,7 @@ class ProfileInfoBloc extends Bloc<ProfileInfoEvent, ProfileInfoState> {
 
   ProfileInfoBloc({
     @factoryParam String? userId,
+    required GoogleSignOutInteractor googleSignOutInteractor,
     required AuthSessionRepository authSessionRepository,
     required UsersRepository usersRepository,
     required LoggerFactory loggerFactory,
@@ -65,6 +67,7 @@ class ProfileInfoBloc extends Bloc<ProfileInfoEvent, ProfileInfoState> {
     subscription = stream.listen((event) {});
     on<ProfileInfoEvent>((event, emit) async {
       await event.when(
+        logOut: () => googleSignOutInteractor.signOut(),
         loadMore: () => response?.loadMore(),
         subscribe: () async {
           _logger.debug("init, received ProfileInfoEvent subscribe");

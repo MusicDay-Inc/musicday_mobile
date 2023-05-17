@@ -21,6 +21,7 @@ mixin _$ProfileInfoEvent {
     required TResult Function() subscribe,
     required TResult Function() unsubscribe,
     required TResult Function() loadMore,
+    required TResult Function() logOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -28,6 +29,7 @@ mixin _$ProfileInfoEvent {
     TResult? Function()? subscribe,
     TResult? Function()? unsubscribe,
     TResult? Function()? loadMore,
+    TResult? Function()? logOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -35,6 +37,7 @@ mixin _$ProfileInfoEvent {
     TResult Function()? subscribe,
     TResult Function()? unsubscribe,
     TResult Function()? loadMore,
+    TResult Function()? logOut,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -43,6 +46,7 @@ mixin _$ProfileInfoEvent {
     required TResult Function(Subscribe value) subscribe,
     required TResult Function(Unsubscribe value) unsubscribe,
     required TResult Function(LoadMore value) loadMore,
+    required TResult Function(LogOut value) logOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -50,6 +54,7 @@ mixin _$ProfileInfoEvent {
     TResult? Function(Subscribe value)? subscribe,
     TResult? Function(Unsubscribe value)? unsubscribe,
     TResult? Function(LoadMore value)? loadMore,
+    TResult? Function(LogOut value)? logOut,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -57,6 +62,7 @@ mixin _$ProfileInfoEvent {
     TResult Function(Subscribe value)? subscribe,
     TResult Function(Unsubscribe value)? unsubscribe,
     TResult Function(LoadMore value)? loadMore,
+    TResult Function(LogOut value)? logOut,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -121,6 +127,7 @@ class _$Subscribe implements Subscribe {
     required TResult Function() subscribe,
     required TResult Function() unsubscribe,
     required TResult Function() loadMore,
+    required TResult Function() logOut,
   }) {
     return subscribe();
   }
@@ -131,6 +138,7 @@ class _$Subscribe implements Subscribe {
     TResult? Function()? subscribe,
     TResult? Function()? unsubscribe,
     TResult? Function()? loadMore,
+    TResult? Function()? logOut,
   }) {
     return subscribe?.call();
   }
@@ -141,6 +149,7 @@ class _$Subscribe implements Subscribe {
     TResult Function()? subscribe,
     TResult Function()? unsubscribe,
     TResult Function()? loadMore,
+    TResult Function()? logOut,
     required TResult orElse(),
   }) {
     if (subscribe != null) {
@@ -155,6 +164,7 @@ class _$Subscribe implements Subscribe {
     required TResult Function(Subscribe value) subscribe,
     required TResult Function(Unsubscribe value) unsubscribe,
     required TResult Function(LoadMore value) loadMore,
+    required TResult Function(LogOut value) logOut,
   }) {
     return subscribe(this);
   }
@@ -165,6 +175,7 @@ class _$Subscribe implements Subscribe {
     TResult? Function(Subscribe value)? subscribe,
     TResult? Function(Unsubscribe value)? unsubscribe,
     TResult? Function(LoadMore value)? loadMore,
+    TResult? Function(LogOut value)? logOut,
   }) {
     return subscribe?.call(this);
   }
@@ -175,6 +186,7 @@ class _$Subscribe implements Subscribe {
     TResult Function(Subscribe value)? subscribe,
     TResult Function(Unsubscribe value)? unsubscribe,
     TResult Function(LoadMore value)? loadMore,
+    TResult Function(LogOut value)? logOut,
     required TResult orElse(),
   }) {
     if (subscribe != null) {
@@ -229,6 +241,7 @@ class _$Unsubscribe implements Unsubscribe {
     required TResult Function() subscribe,
     required TResult Function() unsubscribe,
     required TResult Function() loadMore,
+    required TResult Function() logOut,
   }) {
     return unsubscribe();
   }
@@ -239,6 +252,7 @@ class _$Unsubscribe implements Unsubscribe {
     TResult? Function()? subscribe,
     TResult? Function()? unsubscribe,
     TResult? Function()? loadMore,
+    TResult? Function()? logOut,
   }) {
     return unsubscribe?.call();
   }
@@ -249,6 +263,7 @@ class _$Unsubscribe implements Unsubscribe {
     TResult Function()? subscribe,
     TResult Function()? unsubscribe,
     TResult Function()? loadMore,
+    TResult Function()? logOut,
     required TResult orElse(),
   }) {
     if (unsubscribe != null) {
@@ -263,6 +278,7 @@ class _$Unsubscribe implements Unsubscribe {
     required TResult Function(Subscribe value) subscribe,
     required TResult Function(Unsubscribe value) unsubscribe,
     required TResult Function(LoadMore value) loadMore,
+    required TResult Function(LogOut value) logOut,
   }) {
     return unsubscribe(this);
   }
@@ -273,6 +289,7 @@ class _$Unsubscribe implements Unsubscribe {
     TResult? Function(Subscribe value)? subscribe,
     TResult? Function(Unsubscribe value)? unsubscribe,
     TResult? Function(LoadMore value)? loadMore,
+    TResult? Function(LogOut value)? logOut,
   }) {
     return unsubscribe?.call(this);
   }
@@ -283,6 +300,7 @@ class _$Unsubscribe implements Unsubscribe {
     TResult Function(Subscribe value)? subscribe,
     TResult Function(Unsubscribe value)? unsubscribe,
     TResult Function(LoadMore value)? loadMore,
+    TResult Function(LogOut value)? logOut,
     required TResult orElse(),
   }) {
     if (unsubscribe != null) {
@@ -336,6 +354,7 @@ class _$LoadMore implements LoadMore {
     required TResult Function() subscribe,
     required TResult Function() unsubscribe,
     required TResult Function() loadMore,
+    required TResult Function() logOut,
   }) {
     return loadMore();
   }
@@ -346,6 +365,7 @@ class _$LoadMore implements LoadMore {
     TResult? Function()? subscribe,
     TResult? Function()? unsubscribe,
     TResult? Function()? loadMore,
+    TResult? Function()? logOut,
   }) {
     return loadMore?.call();
   }
@@ -356,6 +376,7 @@ class _$LoadMore implements LoadMore {
     TResult Function()? subscribe,
     TResult Function()? unsubscribe,
     TResult Function()? loadMore,
+    TResult Function()? logOut,
     required TResult orElse(),
   }) {
     if (loadMore != null) {
@@ -370,6 +391,7 @@ class _$LoadMore implements LoadMore {
     required TResult Function(Subscribe value) subscribe,
     required TResult Function(Unsubscribe value) unsubscribe,
     required TResult Function(LoadMore value) loadMore,
+    required TResult Function(LogOut value) logOut,
   }) {
     return loadMore(this);
   }
@@ -380,6 +402,7 @@ class _$LoadMore implements LoadMore {
     TResult? Function(Subscribe value)? subscribe,
     TResult? Function(Unsubscribe value)? unsubscribe,
     TResult? Function(LoadMore value)? loadMore,
+    TResult? Function(LogOut value)? logOut,
   }) {
     return loadMore?.call(this);
   }
@@ -390,6 +413,7 @@ class _$LoadMore implements LoadMore {
     TResult Function(Subscribe value)? subscribe,
     TResult Function(Unsubscribe value)? unsubscribe,
     TResult Function(LoadMore value)? loadMore,
+    TResult Function(LogOut value)? logOut,
     required TResult orElse(),
   }) {
     if (loadMore != null) {
@@ -401,4 +425,116 @@ class _$LoadMore implements LoadMore {
 
 abstract class LoadMore implements ProfileInfoEvent {
   const factory LoadMore() = _$LoadMore;
+}
+
+/// @nodoc
+abstract class _$$LogOutCopyWith<$Res> {
+  factory _$$LogOutCopyWith(_$LogOut value, $Res Function(_$LogOut) then) =
+      __$$LogOutCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$LogOutCopyWithImpl<$Res>
+    extends _$ProfileInfoEventCopyWithImpl<$Res, _$LogOut>
+    implements _$$LogOutCopyWith<$Res> {
+  __$$LogOutCopyWithImpl(_$LogOut _value, $Res Function(_$LogOut) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$LogOut implements LogOut {
+  const _$LogOut();
+
+  @override
+  String toString() {
+    return 'ProfileInfoEvent.logOut()';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$LogOut);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() subscribe,
+    required TResult Function() unsubscribe,
+    required TResult Function() loadMore,
+    required TResult Function() logOut,
+  }) {
+    return logOut();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? subscribe,
+    TResult? Function()? unsubscribe,
+    TResult? Function()? loadMore,
+    TResult? Function()? logOut,
+  }) {
+    return logOut?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? subscribe,
+    TResult Function()? unsubscribe,
+    TResult Function()? loadMore,
+    TResult Function()? logOut,
+    required TResult orElse(),
+  }) {
+    if (logOut != null) {
+      return logOut();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(Subscribe value) subscribe,
+    required TResult Function(Unsubscribe value) unsubscribe,
+    required TResult Function(LoadMore value) loadMore,
+    required TResult Function(LogOut value) logOut,
+  }) {
+    return logOut(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(Subscribe value)? subscribe,
+    TResult? Function(Unsubscribe value)? unsubscribe,
+    TResult? Function(LoadMore value)? loadMore,
+    TResult? Function(LogOut value)? logOut,
+  }) {
+    return logOut?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(Subscribe value)? subscribe,
+    TResult Function(Unsubscribe value)? unsubscribe,
+    TResult Function(LoadMore value)? loadMore,
+    TResult Function(LogOut value)? logOut,
+    required TResult orElse(),
+  }) {
+    if (logOut != null) {
+      return logOut(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class LogOut implements ProfileInfoEvent {
+  const factory LogOut() = _$LogOut;
 }

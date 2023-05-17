@@ -1,11 +1,7 @@
-import 'package:injectable/injectable.dart';
 import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
-import 'package:musicday_mobile/core/validation/di/validators_names.dart';
 import 'package:musicday_mobile/core/validation/validator.dart';
 
-@Named(ValidatorsNames.name)
-@Singleton(as: Validator)
 class NameValidator implements Validator<String> {
   final Logger _logger;
   final Set<int> _allowedSymbols =
@@ -13,7 +9,12 @@ class NameValidator implements Validator<String> {
 
   NameValidator({
     required LoggerFactory loggerFactory,
-  }) : _logger = loggerFactory.create("NameValidator");
+    required bool allowSpaces,
+  }) : _logger = loggerFactory.create("NameValidator") {
+    if (allowSpaces) {
+      _allowedSymbols.add(" ".codeUnits[0]);
+    }
+  }
 
   @override
   bool validate(String data) {

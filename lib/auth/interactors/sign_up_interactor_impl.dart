@@ -21,8 +21,8 @@ class SignUpInteractorImpl implements SignUpInteractor {
   final AuthSessionRepository authSessionRepository;
 
   SignUpInteractorImpl({
-    @Named(ValidatorsNames.name) required this.nicknameValidator,
-    @Named(ValidatorsNames.name) required this.usernameValidator,
+    @Named(ValidatorsNames.nickname) required this.nicknameValidator,
+    @Named(ValidatorsNames.username) required this.usernameValidator,
     required LoggerFactory loggerFactory,
     required this.authSessionRepository,
     required this.authRemoteService,

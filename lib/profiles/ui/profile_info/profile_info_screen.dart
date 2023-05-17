@@ -31,6 +31,13 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
           appBar: AppBar(
             title: Text(state.when(loading: () => "...", data: (user, f, s, t) => "@${user.username}")),
             centerTitle: true,
+            actions: [
+              if (widget.userId == null)
+                IconButton(
+                  onPressed: () => BlocProvider.of<ProfileInfoBloc>(context).add(const ProfileInfoEvent.logOut()),
+                  icon: const Icon(Icons.logout),
+                )
+            ],
           ),
           body: state.when(loading: () {
             return const Padding(
@@ -107,7 +114,7 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
 
                   return Column(children: [
                     const SizedBox(height: 12),
-                    ActivityItemWidget(user: user, activity: reviews[index - 5]),
+                    ActivityItemWidget(user: user, activity: reviews[index - 5], canSelectUser: false),
                     const SizedBox(height: 12),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),

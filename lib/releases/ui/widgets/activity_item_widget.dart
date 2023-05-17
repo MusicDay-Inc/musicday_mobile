@@ -14,11 +14,13 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 class ActivityItemWidget extends StatelessWidget {
   final User user;
   final Activity activity;
+  final bool canSelectUser;
 
   const ActivityItemWidget({
     super.key,
     required this.user,
     required this.activity,
+    this.canSelectUser = true,
   });
 
   @override
@@ -27,7 +29,7 @@ class ActivityItemWidget extends StatelessWidget {
 
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
       InkWell(
-        onTap: () => Navigator.pushNamed(context, "profile", arguments: user.id),
+        onTap: canSelectUser ? () => Navigator.pushNamed(context, "profile", arguments: user.id) : null,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(children: [

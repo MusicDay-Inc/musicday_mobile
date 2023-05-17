@@ -134,7 +134,8 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                     ],
                   );
                 }, childCount: userReviews.isEmpty ? 1 : 2 + userReviews.length),
-              )
+              ),
+              const SliverPadding(padding: EdgeInsets.only(top: 32)),
             ]);
           });
         }),

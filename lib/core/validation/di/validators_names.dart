@@ -1,3 +1,4 @@
 class ValidatorsNames {
-  static const String name = "nameValidator";
+  static const String nickname = "nicknameValidator";
+  static const String username = "usernameValidator";
 }
