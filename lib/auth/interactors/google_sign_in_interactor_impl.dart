@@ -6,6 +6,7 @@ import 'package:musicday_mobile/auth/models/session.dart';
 import 'package:musicday_mobile/auth/models/sign_in_result.dart';
 import 'package:musicday_mobile/auth/network/auth_remote_service.dart';
 import 'package:musicday_mobile/auth/repositories/auth_session_repository.dart';
+import 'package:musicday_mobile/core/common/pair.dart';
 import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
 import 'package:musicday_mobile/core/network/extensions/future_http_response_extensions.dart';
@@ -32,9 +33,12 @@ class GoogleSignInInteractorImpl implements GoogleSignInInteractor {
     if (idToken == null) {
       _logger.debug("start(): idToken == null");
       return const SignInResult.cancelled();
+    } else if (idToken.first == null) {
+      _logger.debug("start(): google_sign_in error");
+      return const SignInResult.serverError();
     }
 
-    final request = GoogleSignInStartRequest(idToken: idToken);
+    final request = GoogleSignInStartRequest(idToken: idToken.first!);
     final response = await authRemoteService.startGoogleSignIn(request).safe(_logger);
 
     return response.when(
@@ -55,7 +59,7 @@ class GoogleSignInInteractorImpl implements GoogleSignInInteractor {
     );
   }
 
-  Future<String?> _openFormAndGetIdToken() async {
+  Future<Pair<String?, bool>?> _openFormAndGetIdToken() async {
     _logger.debug("openFormAndGetIdToken()");
 
     try {
@@ -67,10 +71,10 @@ class GoogleSignInInteractorImpl implements GoogleSignInInteractor {
 
       final authentication = await account.authentication;
       _logger.debug("openFormAndGetIdToken: authentication loaded");
-      return authentication.idToken;
+      return Pair(first: authentication.idToken!, second: true);
     } on Exception catch (ex, trace) {
       _logger.error("openFormAndGetIdToken: error during request", exception: ex, stacktrace: trace);
-      return null;
+      return const Pair(first: null, second: false);
     }
   }
 }
