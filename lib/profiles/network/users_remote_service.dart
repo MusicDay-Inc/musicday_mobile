@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:musicday_mobile/auth/di/auth_named.dart';
@@ -64,6 +66,9 @@ abstract class UsersRemoteService {
     @Query("offset") int offset,
     @Query("limit") int limit,
   );
+
+  @POST("/action/avatar")
+  Future<HttpResponse<GetProfileResponse>> uploadAvatar(@Part(name: "picture") File file);
 
   @GET("/search/user")
   Future<HttpResponse<List<UserDto>>> searchUsers(

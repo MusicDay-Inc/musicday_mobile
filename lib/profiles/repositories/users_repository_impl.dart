@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:injectable/injectable.dart';
 import 'package:musicday_mobile/core/common/pair.dart';
@@ -117,6 +118,26 @@ class UsersRepositoryImpl extends UsersRepository {
       },
       ok: (data) {
         _logger.debug("unsubscribeToUser($id): ok");
+        _newUsersController.add(_convertGetProfileResponse(data));
+        return true;
+      },
+    );
+  }
+
+  @override
+  Future<bool> uploadAvatar(String id, File file) async {
+    _logger.debug("uploadAvatar($id, ${file.path})");
+    return (await usersRemoteService.uploadAvatar(file).safe(_logger)).when(
+      serverError: (code) {
+        _logger.debug("uploadAvatar($id): serverError($code)");
+        return false;
+      },
+      serverNotAvailable: () {
+        _logger.debug("uploadAvatar($id): serverNotAvailable");
+        return false;
+      },
+      ok: (data) {
+        _logger.debug("uploadAvatar($id): ok");
         _newUsersController.add(_convertGetProfileResponse(data));
         return true;
       },

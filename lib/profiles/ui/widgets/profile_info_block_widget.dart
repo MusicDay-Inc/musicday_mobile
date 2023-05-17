@@ -8,6 +8,7 @@ class ProfileInfoBlockWidget extends StatelessWidget {
   final UserInfo userInfo;
   final VoidCallback? onSubscribe;
   final VoidCallback? onUnsubscribe;
+  final VoidCallback? onAvatarClick;
 
   const ProfileInfoBlockWidget({
     super.key,
@@ -15,6 +16,7 @@ class ProfileInfoBlockWidget extends StatelessWidget {
     required this.userInfo,
     this.onSubscribe,
     this.onUnsubscribe,
+    this.onAvatarClick,
   });
 
   @override
@@ -23,7 +25,7 @@ class ProfileInfoBlockWidget extends StatelessWidget {
       padding: const EdgeInsets.only(top: 12, bottom: 16),
       child: Row(mainAxisAlignment: MainAxisAlignment.start, crossAxisAlignment: CrossAxisAlignment.start, children: [
         const SizedBox(width: 16),
-        AvatarWidget(size: 46, avatarUrl: user.avatarUrl),
+        GestureDetector(onTap: onAvatarClick, child: AvatarWidget(size: 46, avatarUrl: user.avatarUrl)),
         const SizedBox(width: 16),
         Expanded(
           child: Column(children: [

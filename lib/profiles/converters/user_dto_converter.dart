@@ -9,11 +9,14 @@ import 'package:musicday_mobile/profiles/models/user.dart';
 class UserDtoConverter extends Converter<UserDto, User> {
   @override
   User convert(UserDto input) {
+    final avatarUrl =
+        "${NetworkConsts.baseUrl}/image/avatar/${input.id}?${DateTime.now().millisecondsSinceEpoch.toString()}";
+
     return User(
       id: input.id,
       username: input.username,
       nickname: input.nickname,
-      avatarUrl: "${NetworkConsts.baseUrl}/image/avatar/${input.id}",
+      avatarUrl: avatarUrl,
       subscriberAmount: input.subscriberAmount,
       subscriptionsAmount: input.subscriptionsAmount,
     );

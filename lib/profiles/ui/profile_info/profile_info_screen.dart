@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musicday_mobile/application_di.dart';
 import 'package:musicday_mobile/core/di/bloc_inject.dart';
+import 'package:musicday_mobile/profiles/interactors/avatar_upload_interactor.dart';
 import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_bloc.dart';
 import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_event.dart';
 import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_state.dart';
@@ -72,6 +73,9 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
                     return ProfileInfoBlockWidget(
                       user: user,
                       userInfo: info,
+                      onAvatarClick: widget.userId == null
+                          ? () => getIt.get<AvatarUploadInteractor>().startAvatarUpload(user.id)
+                          : null,
                       onSubscribe: widget.userId != null && !info.isSubscribed
                           ? () => BlocProvider.of<ProfileInfoBloc>(context).add(const ProfileInfoEvent.subscribe())
                           : null,

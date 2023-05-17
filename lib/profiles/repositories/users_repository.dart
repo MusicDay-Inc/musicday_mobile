@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:musicday_mobile/core/common/pair.dart';
 import 'package:musicday_mobile/core/paging/paged_response.dart';
 import 'package:musicday_mobile/profiles/models/user.dart';
@@ -13,6 +15,9 @@ abstract class UsersRepository {
 
   /// Отписывает от пользователя.
   Future<bool> unsubscribeToUser(String id);
+
+  /// Устанавливает аватарку пользователя.
+  Future<bool> uploadAvatar(String id, File file);
 
   /// Возвращает постраничный ответ с активностями подписок.
   PagedResponse<UserActivity> getFeed();

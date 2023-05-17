@@ -16,7 +16,7 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart' as _i8;
 import 'package:get_it/get_it.dart' as _i1;
 import 'package:google_sign_in/google_sign_in.dart' as _i9;
 import 'package:injectable/injectable.dart' as _i2;
-import 'package:musicday_mobile/auth/di/auth_module.dart' as _i35;
+import 'package:musicday_mobile/auth/di/auth_module.dart' as _i37;
 import 'package:musicday_mobile/auth/interactors/google_sign_in_interactor.dart'
     as _i17;
 import 'package:musicday_mobile/auth/interactors/google_sign_in_interactor_impl.dart'
@@ -41,18 +41,22 @@ import 'package:musicday_mobile/auth/ui/sign_up/sign_up_screen_bloc.dart'
 import 'package:musicday_mobile/core/logging/impl/logger_factory_impl.dart'
     as _i11;
 import 'package:musicday_mobile/core/logging/logger_factory.dart' as _i10;
-import 'package:musicday_mobile/core/network/di/network_module.dart' as _i36;
-import 'package:musicday_mobile/core/paging/di/paging_module.dart' as _i38;
+import 'package:musicday_mobile/core/network/di/network_module.dart' as _i38;
+import 'package:musicday_mobile/core/paging/di/paging_module.dart' as _i41;
 import 'package:musicday_mobile/core/paging/factory/paged_response_factory.dart'
     as _i12;
-import 'package:musicday_mobile/core/storage/di/storage_module.dart' as _i37;
+import 'package:musicday_mobile/core/storage/di/storage_module.dart' as _i39;
 import 'package:musicday_mobile/core/validation/di/validators_module.dart'
-    as _i41;
+    as _i40;
 import 'package:musicday_mobile/core/validation/validator.dart' as _i13;
 import 'package:musicday_mobile/profiles/converters/user_dto_converter.dart'
     as _i6;
-import 'package:musicday_mobile/profiles/di/profiles_module.dart' as _i40;
+import 'package:musicday_mobile/profiles/di/profiles_module.dart' as _i43;
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart' as _i4;
+import 'package:musicday_mobile/profiles/interactors/avatar_upload_interactor.dart'
+    as _i34;
+import 'package:musicday_mobile/profiles/interactors/avatar_upload_interactor_impl.dart'
+    as _i35;
 import 'package:musicday_mobile/profiles/models/user.dart' as _i5;
 import 'package:musicday_mobile/profiles/network/users_remote_service.dart'
     as _i30;
@@ -61,8 +65,8 @@ import 'package:musicday_mobile/profiles/repositories/users_repository.dart'
 import 'package:musicday_mobile/profiles/repositories/users_repository_impl.dart'
     as _i32;
 import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_bloc.dart'
-    as _i34;
-import 'package:musicday_mobile/releases/di/releases_module.dart' as _i39;
+    as _i36;
+import 'package:musicday_mobile/releases/di/releases_module.dart' as _i42;
 import 'package:musicday_mobile/releases/network/releases_remote_service.dart'
     as _i26;
 import 'package:musicday_mobile/releases/repositories/releases_repository.dart'
@@ -201,11 +205,15 @@ _i1.GetIt init(
         loggerFactory: gh<_i10.LoggerFactory>(),
         releasesRepository: gh<_i27.ReleasesRepository>(),
       ));
-  gh.factoryParam<_i34.ProfileInfoBloc, String?, dynamic>((
+  gh.singleton<_i34.AvatarUploadInteractor>(_i35.AvatarUploadInteractorImpl(
+    loggerFactory: gh<_i10.LoggerFactory>(),
+    usersRepository: gh<_i31.UsersRepository>(),
+  ));
+  gh.factoryParam<_i36.ProfileInfoBloc, String?, dynamic>((
     userId,
     _,
   ) =>
-      _i34.ProfileInfoBloc(
+      _i36.ProfileInfoBloc(
         userId: userId,
         googleSignOutInteractor: gh<_i19.GoogleSignOutInteractor>(),
         authSessionRepository: gh<_i15.AuthSessionRepository>(),
@@ -215,16 +223,16 @@ _i1.GetIt init(
   return getIt;
 }
 
-class _$AuthModule extends _i35.AuthModule {}
+class _$AuthModule extends _i37.AuthModule {}
 
-class _$NetworkModule extends _i36.NetworkModule {}
+class _$NetworkModule extends _i38.NetworkModule {}
 
-class _$StorageModule extends _i37.StorageModule {}
+class _$StorageModule extends _i39.StorageModule {}
 
-class _$PagingModule extends _i38.PagingModule {}
+class _$ValidatorsModule extends _i40.ValidatorsModule {}
 
-class _$ReleasesModule extends _i39.ReleasesModule {}
+class _$PagingModule extends _i41.PagingModule {}
 
-class _$ProfilesModule extends _i40.ProfilesModule {}
+class _$ReleasesModule extends _i42.ReleasesModule {}
 
-class _$ValidatorsModule extends _i41.ValidatorsModule {}
+class _$ProfilesModule extends _i43.ProfilesModule {}
