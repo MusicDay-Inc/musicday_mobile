@@ -6,6 +6,8 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:musicday_mobile/auth/interactors/google_sign_out_interactor.dart'
+    as _i7;
 import 'package:musicday_mobile/auth/models/session.dart' as _i5;
 import 'package:musicday_mobile/auth/repositories/auth_session_repository.dart'
     as _i3;
@@ -164,4 +166,20 @@ class MockLogger extends _i1.Mock implements _i2.Logger {
         ),
         returnValueForMissingStub: null,
       );
+}
+
+/// A class which mocks [GoogleSignOutInteractor].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockGoogleSignOutInteractor extends _i1.Mock
+    implements _i7.GoogleSignOutInteractor {
+  @override
+  _i4.Future<void> signOut() => (super.noSuchMethod(
+        Invocation.method(
+          #signOut,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
 }

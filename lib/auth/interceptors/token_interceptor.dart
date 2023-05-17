@@ -1,16 +1,19 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:musicday_mobile/auth/interactors/google_sign_out_interactor.dart';
 import 'package:musicday_mobile/auth/repositories/auth_session_repository.dart';
 import 'package:musicday_mobile/core/logging/logger.dart';
 import 'package:musicday_mobile/core/logging/logger_factory.dart';
 
 class TokenInterceptor extends Interceptor {
   final Logger _logger;
+  final GoogleSignOutInteractor googleSignOutInteractor;
   final AuthSessionRepository authSessionRepository;
 
   TokenInterceptor({
     required this.authSessionRepository,
+    required this.googleSignOutInteractor,
     required LoggerFactory loggerFactory,
   }) : _logger = loggerFactory.create("TokenInterceptor");
 
@@ -36,7 +39,7 @@ class TokenInterceptor extends Interceptor {
 
     if (err.response?.statusCode == HttpStatus.unauthorized) {
       _logger.debug("onError(${err.requestOptions.path}): unauthorized");
-      authSessionRepository.deleteSession().then((value) => super.onError(err, handler));
+      googleSignOutInteractor.signOut().then((value) => super.onError(err, handler));
     } else {
       _logger.debug("onError(${err.requestOptions.path}): authorized");
       super.onError(err, handler);

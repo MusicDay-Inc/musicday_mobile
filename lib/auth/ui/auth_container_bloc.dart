@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+import 'package:musicday_mobile/auth/interactors/google_sign_out_interactor.dart';
 import 'package:musicday_mobile/auth/repositories/auth_session_repository.dart';
 import 'package:musicday_mobile/auth/ui/auth_container_state.dart';
 import 'package:musicday_mobile/core/logging/logger.dart';
@@ -10,11 +11,13 @@ import 'package:musicday_mobile/core/logging/logger_factory.dart';
 @Injectable()
 class AuthContainerBloc extends Cubit<AuthContainerState> {
   final Logger _logger;
+  final GoogleSignOutInteractor googleSignOutInteractor;
   final AuthSessionRepository authSessionRepository;
   late StreamSubscription _sessionSubscription;
 
   AuthContainerBloc({
     required LoggerFactory loggerFactory,
+    required this.googleSignOutInteractor,
     required this.authSessionRepository,
   })  : _logger = loggerFactory.create("AuthContainerBloc"),
         super(const AuthContainerState.loading()) {
@@ -36,7 +39,7 @@ class AuthContainerBloc extends Cubit<AuthContainerState> {
   /// Удаляет сессию из БД.
   Future<void> onSessionClosed() {
     _logger.debug("onSessionClosed()");
-    return authSessionRepository.deleteSession();
+    return googleSignOutInteractor.signOut();
   }
 
   @override
