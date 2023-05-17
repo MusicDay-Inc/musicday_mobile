@@ -46,7 +46,7 @@ class _UserReviewWidgetState extends State<UserReviewWidget> {
           ),
         ),
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
+          padding: const EdgeInsets.symmetric(horizontal: 5),
           child: TextButton(
             onPressed: widget.review != null ? widget.onDeleteClick : widget.onWriteClick,
             child: Text(

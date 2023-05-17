@@ -120,7 +120,7 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                   final userReview = userReviews[index - 2];
                   return Column(
                     children: [
-                      const SizedBox(height: 8),
+                      const SizedBox(height: 4),
                       AnotherUserReviewWidget(
                         reviewTimestamp: userReview.review.publishTime.millisecondsSinceEpoch ~/ 1000,
                         authorId: userReview.user.id,
@@ -129,11 +129,8 @@ class _SongInfoScreenState extends State<SongInfoScreen> {
                         comment: userReview.review.text,
                         rating: userReview.review.rating,
                       ),
-                      const SizedBox(height: 14),
-                      if (index < 11)
-                        const Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: Divider(height: 1))
-                      else
-                        const SizedBox(height: 24),
+                      const SizedBox(height: 10),
+                      const Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: Divider(height: 1))
                     ],
                   );
                 }, childCount: userReviews.isEmpty ? 1 : 2 + userReviews.length),

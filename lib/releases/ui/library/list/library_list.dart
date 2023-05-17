@@ -56,7 +56,6 @@ class _LibraryListState extends State<LibraryList> {
                 return true;
               },
               child: ListView.builder(
-                padding: const EdgeInsets.only(top: 8, bottom: 8),
                 itemCount: snapshot.data!.isLoading ? snapshot.data!.items.length + 1 : snapshot.data!.items.length,
                 itemBuilder: (context, index) {
                   if (snapshot.data!.items.length == index && snapshot.data!.isLoading) {
@@ -70,7 +69,7 @@ class _LibraryListState extends State<LibraryList> {
                   return Column(
                     children: [
                       ReleaseItemWidget(activity: snapshot.data!.items[index]),
-                      const Divider(),
+                      const Divider(height: 1),
                     ],
                   );
                 },

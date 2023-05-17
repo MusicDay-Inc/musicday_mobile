@@ -49,6 +49,7 @@ class _ActivityListState extends State<ActivityList> {
                 return true;
               },
               child: ListView.builder(
+                padding: const EdgeInsets.only(bottom: 32),
                 itemCount: snapshot.data!.isLoading ? snapshot.data!.items.length + 1 : snapshot.data!.items.length,
                 itemBuilder: (context, index) {
                   if (snapshot.data!.items.length == index && snapshot.data!.isLoading) {

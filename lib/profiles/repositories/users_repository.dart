@@ -1,11 +1,12 @@
 import 'package:musicday_mobile/core/common/pair.dart';
 import 'package:musicday_mobile/core/paging/paged_response.dart';
 import 'package:musicday_mobile/profiles/models/user.dart';
+import 'package:musicday_mobile/profiles/models/user_info.dart';
 import 'package:musicday_mobile/releases/models/activity.dart';
 
 abstract class UsersRepository {
   /// Возвращает поток с информацией о пользователе.
-  Stream<Pair<User, bool>?> getUserById(String id);
+  Stream<Pair<User, UserInfo>?> getUserById(String id);
 
   /// Подписывает на пользователя.
   Future<bool> subscribeToUser(String id);

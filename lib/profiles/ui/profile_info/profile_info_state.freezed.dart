@@ -20,7 +20,7 @@ mixin _$ProfileInfoState {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(User user, List<Activity> reviews,
-            bool reviewsLoading, bool isSubscribed)
+            bool reviewsLoading, UserInfo info)
         data,
   }) =>
       throw _privateConstructorUsedError;
@@ -28,7 +28,7 @@ mixin _$ProfileInfoState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(User user, List<Activity> reviews, bool reviewsLoading,
-            bool isSubscribed)?
+            UserInfo info)?
         data,
   }) =>
       throw _privateConstructorUsedError;
@@ -36,7 +36,7 @@ mixin _$ProfileInfoState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(User user, List<Activity> reviews, bool reviewsLoading,
-            bool isSubscribed)?
+            UserInfo info)?
         data,
     required TResult orElse(),
   }) =>
@@ -118,7 +118,7 @@ class _$Loading implements Loading {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(User user, List<Activity> reviews,
-            bool reviewsLoading, bool isSubscribed)
+            bool reviewsLoading, UserInfo info)
         data,
   }) {
     return loading();
@@ -129,7 +129,7 @@ class _$Loading implements Loading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(User user, List<Activity> reviews, bool reviewsLoading,
-            bool isSubscribed)?
+            UserInfo info)?
         data,
   }) {
     return loading?.call();
@@ -140,7 +140,7 @@ class _$Loading implements Loading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(User user, List<Activity> reviews, bool reviewsLoading,
-            bool isSubscribed)?
+            UserInfo info)?
         data,
     required TResult orElse(),
   }) {
@@ -192,12 +192,10 @@ abstract class _$$DataCopyWith<$Res> {
       __$$DataCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {User user,
-      List<Activity> reviews,
-      bool reviewsLoading,
-      bool isSubscribed});
+      {User user, List<Activity> reviews, bool reviewsLoading, UserInfo info});
 
   $UserCopyWith<$Res> get user;
+  $UserInfoCopyWith<$Res> get info;
 }
 
 /// @nodoc
@@ -213,7 +211,7 @@ class __$$DataCopyWithImpl<$Res>
     Object? user = null,
     Object? reviews = null,
     Object? reviewsLoading = null,
-    Object? isSubscribed = null,
+    Object? info = null,
   }) {
     return _then(_$Data(
       null == user
@@ -228,10 +226,10 @@ class __$$DataCopyWithImpl<$Res>
           ? _value.reviewsLoading
           : reviewsLoading // ignore: cast_nullable_to_non_nullable
               as bool,
-      null == isSubscribed
-          ? _value.isSubscribed
-          : isSubscribed // ignore: cast_nullable_to_non_nullable
-              as bool,
+      null == info
+          ? _value.info
+          : info // ignore: cast_nullable_to_non_nullable
+              as UserInfo,
     ));
   }
 
@@ -242,13 +240,21 @@ class __$$DataCopyWithImpl<$Res>
       return _then(_value.copyWith(user: value));
     });
   }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserInfoCopyWith<$Res> get info {
+    return $UserInfoCopyWith<$Res>(_value.info, (value) {
+      return _then(_value.copyWith(info: value));
+    });
+  }
 }
 
 /// @nodoc
 
 class _$Data implements Data {
-  const _$Data(this.user, final List<Activity> reviews, this.reviewsLoading,
-      this.isSubscribed)
+  const _$Data(
+      this.user, final List<Activity> reviews, this.reviewsLoading, this.info)
       : _reviews = reviews;
 
   @override
@@ -264,11 +270,11 @@ class _$Data implements Data {
   @override
   final bool reviewsLoading;
   @override
-  final bool isSubscribed;
+  final UserInfo info;
 
   @override
   String toString() {
-    return 'ProfileInfoState.data(user: $user, reviews: $reviews, reviewsLoading: $reviewsLoading, isSubscribed: $isSubscribed)';
+    return 'ProfileInfoState.data(user: $user, reviews: $reviews, reviewsLoading: $reviewsLoading, info: $info)';
   }
 
   @override
@@ -280,17 +286,12 @@ class _$Data implements Data {
             const DeepCollectionEquality().equals(other._reviews, _reviews) &&
             (identical(other.reviewsLoading, reviewsLoading) ||
                 other.reviewsLoading == reviewsLoading) &&
-            (identical(other.isSubscribed, isSubscribed) ||
-                other.isSubscribed == isSubscribed));
+            (identical(other.info, info) || other.info == info));
   }
 
   @override
-  int get hashCode => Object.hash(
-      runtimeType,
-      user,
-      const DeepCollectionEquality().hash(_reviews),
-      reviewsLoading,
-      isSubscribed);
+  int get hashCode => Object.hash(runtimeType, user,
+      const DeepCollectionEquality().hash(_reviews), reviewsLoading, info);
 
   @JsonKey(ignore: true)
   @override
@@ -303,10 +304,10 @@ class _$Data implements Data {
   TResult when<TResult extends Object?>({
     required TResult Function() loading,
     required TResult Function(User user, List<Activity> reviews,
-            bool reviewsLoading, bool isSubscribed)
+            bool reviewsLoading, UserInfo info)
         data,
   }) {
-    return data(user, reviews, reviewsLoading, isSubscribed);
+    return data(user, reviews, reviewsLoading, info);
   }
 
   @override
@@ -314,10 +315,10 @@ class _$Data implements Data {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? loading,
     TResult? Function(User user, List<Activity> reviews, bool reviewsLoading,
-            bool isSubscribed)?
+            UserInfo info)?
         data,
   }) {
-    return data?.call(user, reviews, reviewsLoading, isSubscribed);
+    return data?.call(user, reviews, reviewsLoading, info);
   }
 
   @override
@@ -325,12 +326,12 @@ class _$Data implements Data {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? loading,
     TResult Function(User user, List<Activity> reviews, bool reviewsLoading,
-            bool isSubscribed)?
+            UserInfo info)?
         data,
     required TResult orElse(),
   }) {
     if (data != null) {
-      return data(user, reviews, reviewsLoading, isSubscribed);
+      return data(user, reviews, reviewsLoading, info);
     }
     return orElse();
   }
@@ -369,12 +370,12 @@ class _$Data implements Data {
 
 abstract class Data implements ProfileInfoState {
   const factory Data(final User user, final List<Activity> reviews,
-      final bool reviewsLoading, final bool isSubscribed) = _$Data;
+      final bool reviewsLoading, final UserInfo info) = _$Data;
 
   User get user;
   List<Activity> get reviews;
   bool get reviewsLoading;
-  bool get isSubscribed;
+  UserInfo get info;
   @JsonKey(ignore: true)
   _$$DataCopyWith<_$Data> get copyWith => throw _privateConstructorUsedError;
 }

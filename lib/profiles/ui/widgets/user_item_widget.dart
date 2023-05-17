@@ -12,34 +12,37 @@ class UserItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
-      child: Row(children: [
-        AvatarWidget(size: 22, avatarUrl: user.avatarUrl),
-        const SizedBox(width: 8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(user.nickname, style: const TextStyle(fontWeight: FontWeight.bold)),
-            Text.rich(TextSpan(children: [
-              TextSpan(text: "@${user.username}", style: TextStyle(color: Theme.of(context).hintColor)),
-              const WidgetSpan(child: SizedBox(width: 6)),
-              WidgetSpan(
-                alignment: PlaceholderAlignment.middle,
-                child: Padding(
-                  padding: const EdgeInsets.only(top: 2),
-                  child: Icon(Icons.circle, size: 4, color: Theme.of(context).hintColor),
+    return InkWell(
+      onTap: () => Navigator.pushNamed(context, "profile", arguments: user.id),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        child: Row(children: [
+          AvatarWidget(size: 22, avatarUrl: user.avatarUrl),
+          const SizedBox(width: 8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(user.nickname, style: const TextStyle(fontWeight: FontWeight.bold)),
+              Text.rich(TextSpan(children: [
+                TextSpan(text: "@${user.username}", style: TextStyle(color: Theme.of(context).hintColor)),
+                const WidgetSpan(child: SizedBox(width: 6)),
+                WidgetSpan(
+                  alignment: PlaceholderAlignment.middle,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 2),
+                    child: Icon(Icons.circle, size: 4, color: Theme.of(context).hintColor),
+                  ),
                 ),
-              ),
-              const WidgetSpan(child: SizedBox(width: 6)),
-              TextSpan(
-                text: "${user.subscriberAmount} subscribers",
-                style: TextStyle(color: Theme.of(context).hintColor),
-              ),
-            ])),
-          ],
-        ),
-      ]),
+                const WidgetSpan(child: SizedBox(width: 6)),
+                TextSpan(
+                  text: "${user.subscriberAmount} subscribers",
+                  style: TextStyle(color: Theme.of(context).hintColor),
+                ),
+              ])),
+            ],
+          ),
+        ]),
+      ),
     );
   }
 }

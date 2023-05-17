@@ -25,11 +25,11 @@ class ActivityItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final release = activity.release;
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        InkWell(
-          onTap: () => Navigator.pushNamed(context, "profile", arguments: user.id),
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      InkWell(
+        onTap: () => Navigator.pushNamed(context, "profile", arguments: user.id),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           child: Row(children: [
             AvatarWidget(size: 17, avatarUrl: user.avatarUrl),
             const SizedBox(width: 10),
@@ -59,11 +59,13 @@ class ActivityItemWidget extends StatelessWidget {
             ),
           ]),
         ),
-        const SizedBox(height: 4),
-        const Divider(),
-        InkWell(
-          onTap: () => Navigator.pushNamed(context, "song_info",
-              arguments: SongInfoArguments(songId: activity.release.id, isSong: activity.release is Song)),
+      ),
+      const Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: Divider(height: 1)),
+      InkWell(
+        onTap: () => Navigator.pushNamed(context, "song_info",
+            arguments: SongInfoArguments(songId: activity.release.id, isSong: activity.release is Song)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 7),
           child: Row(children: [
             Container(
               width: 32,
@@ -131,17 +133,20 @@ class ActivityItemWidget extends StatelessWidget {
             ),
           ]),
         ),
-        if (activity.review.text.isNotEmpty) ...[
-          const Divider(),
-          const SizedBox(height: 2),
-          ExpandableText(
+      ),
+      if (activity.review.text.isNotEmpty) ...[
+        const Padding(padding: EdgeInsets.symmetric(horizontal: 16), child: Divider(height: 1)),
+        const SizedBox(height: 2),
+        Padding(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 12),
+          child: ExpandableText(
             activity.review.text,
             style: TextStyle(color: Theme.of(context).hintColor),
             expandText: AppLocalizations.of(context)!.readMore,
             maxLines: 5,
           ),
-        ]
-      ]),
-    );
+        ),
+      ]
+    ]);
   }
 }

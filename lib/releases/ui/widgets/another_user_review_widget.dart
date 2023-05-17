@@ -28,45 +28,51 @@ class AnotherUserReviewWidget extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.only(right: 16, left: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(children: [
-                AvatarWidget(size: 16, avatarUrl: authorAvatar),
-                const SizedBox(width: 6),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(authorName, style: const TextStyle(fontSize: 14)),
-                    Row(
-                      children: [
-                        RatingStarsWidget(filled: rating, total: 5, size: 14),
-                        const SizedBox(width: 4),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 2),
-                          child: Icon(Icons.circle, size: 5, color: Theme.of(context).hintColor),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          reviewTimestamp.formatDate(),
-                          style: TextStyle(fontSize: 12, color: Theme.of(context).hintColor),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ]),
-              const SizedBox(height: 8),
-              ExpandableText(
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            InkWell(
+              onTap: () => Navigator.pushNamed(context, "profile", arguments: authorId),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+                child: Row(children: [
+                  AvatarWidget(size: 16, avatarUrl: authorAvatar),
+                  const SizedBox(width: 6),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(authorName, style: const TextStyle(fontSize: 14)),
+                      Row(
+                        children: [
+                          RatingStarsWidget(filled: rating, total: 5, size: 14),
+                          const SizedBox(width: 4),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 2),
+                            child: Icon(Icons.circle, size: 5, color: Theme.of(context).hintColor),
+                          ),
+                          const SizedBox(width: 4),
+                          Text(
+                            reviewTimestamp.formatDate(),
+                            style: TextStyle(fontSize: 12, color: Theme.of(context).hintColor),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ]),
+              ),
+            ),
+            const SizedBox(height: 4),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: ExpandableText(
                 comment,
                 style: TextStyle(color: Theme.of(context).hintColor),
                 expandText: AppLocalizations.of(context)!.readMore,
                 maxLines: 5,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ],
     );

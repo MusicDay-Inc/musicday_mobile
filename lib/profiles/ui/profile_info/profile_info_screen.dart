@@ -37,7 +37,7 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
               padding: EdgeInsets.only(bottom: 60.0),
               child: Center(child: CircularProgressIndicator()),
             );
-          }, data: (user, reviews, isLoading, isSubscribed) {
+          }, data: (user, reviews, isLoading, info) {
             var itemsCount = 4;
 
             if (reviews.isEmpty && isLoading) {
@@ -64,10 +64,11 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
                   if (index == 0) {
                     return ProfileInfoBlockWidget(
                       user: user,
-                      onSubscribe: widget.userId != null && !isSubscribed
+                      userInfo: info,
+                      onSubscribe: widget.userId != null && !info.isSubscribed
                           ? () => BlocProvider.of<ProfileInfoBloc>(context).add(const ProfileInfoEvent.subscribe())
                           : null,
-                      onUnsubscribe: widget.userId != null && isSubscribed
+                      onUnsubscribe: widget.userId != null && info.isSubscribed
                           ? () => BlocProvider.of<ProfileInfoBloc>(context).add(const ProfileInfoEvent.unsubscribe())
                           : null,
                     );
@@ -78,11 +79,12 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
                       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
                       child: Row(
                         children: [
-                          Text("1 rated songs", style: TextStyle(color: Theme.of(context).hintColor)),
+                          Text("${info.songAmount} rated songs", style: TextStyle(color: Theme.of(context).hintColor)),
                           const SizedBox(width: 6),
                           Icon(Icons.circle, size: 4, color: Theme.of(context).hintColor),
                           const SizedBox(width: 7),
-                          Text("1 rated albums", style: TextStyle(color: Theme.of(context).hintColor)),
+                          Text("${info.albumAmount} rated albums",
+                              style: TextStyle(color: Theme.of(context).hintColor)),
                         ],
                       ),
                     );
@@ -90,7 +92,7 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
                     return const Padding(padding: EdgeInsets.only(left: 16, right: 16), child: Divider());
                   } else if (index == 4 && reviews.isNotEmpty) {
                     return const Padding(
-                      padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 12),
+                      padding: EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 0),
                       child: Text("Activity", style: TextStyle(fontSize: 17, fontWeight: FontWeight.bold)),
                     );
                   }
@@ -107,16 +109,14 @@ class _ProfileInfoScreenState extends State<ProfileInfoScreen> {
                     const SizedBox(height: 12),
                     ActivityItemWidget(user: user, activity: reviews[index - 5]),
                     const SizedBox(height: 12),
-                    if (index + 1 != itemsCount) ...[
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
-                        child: Divider(
-                          color: Theme.of(context).dividerColor.withAlpha(50),
-                          height: 4,
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Divider(
+                        color: Theme.of(context).dividerColor.withAlpha(50),
+                        height: 4,
                       ),
-                      const SizedBox(height: 12),
-                    ]
+                    ),
+                    const SizedBox(height: 12),
                   ]);
                 },
               ),

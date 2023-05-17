@@ -16,7 +16,7 @@ class _SearchContainerState extends State<SearchContainer> with SingleTickerProv
   @override
   void initState() {
     _controller = TabController(length: 3, vsync: this);
-    _controller.addListener(() => _searchBarController.clear());
+    _controller.addListener(() => setState(() => _searchBarController.clear()));
     super.initState();
   }
 

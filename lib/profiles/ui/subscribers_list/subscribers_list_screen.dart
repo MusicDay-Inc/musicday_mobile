@@ -78,7 +78,7 @@ class _SubscribersListScreenState extends State<SubscribersListScreen> {
                     UserItemWidget(user: state.items[index]),
                     const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16),
-                      child: Divider(),
+                      child: Divider(height: 1),
                     ),
                   ],
                 );

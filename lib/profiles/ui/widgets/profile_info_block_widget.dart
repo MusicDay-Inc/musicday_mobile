@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:musicday_mobile/core/ui/avatars/avatar_widget.dart';
 import 'package:musicday_mobile/profiles/models/user.dart';
+import 'package:musicday_mobile/profiles/models/user_info.dart';
 
 class ProfileInfoBlockWidget extends StatelessWidget {
   final User user;
+  final UserInfo userInfo;
   final VoidCallback? onSubscribe;
   final VoidCallback? onUnsubscribe;
 
   const ProfileInfoBlockWidget({
     super.key,
     required this.user,
+    required this.userInfo,
     this.onSubscribe,
     this.onUnsubscribe,
   });
@@ -28,29 +31,46 @@ class ProfileInfoBlockWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(user.nickname, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                const Row(children: [
-                  Expanded(
-                    child: Text(
-                      "Senior android dev at SberDevices, HSE FCS, 19yo, @kotlinovsky",
-                      style: TextStyle(fontSize: 14),
-                      maxLines: 2,
+                Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: Text(user.nickname, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(left: 4),
+                  child: Row(children: [
+                    Expanded(
+                      child: Text(
+                        userInfo.bio,
+                        style: const TextStyle(fontSize: 14),
+                        maxLines: 2,
+                      ),
                     ),
-                  ),
-                ]),
-                const SizedBox(height: 7),
+                  ]),
+                ),
+                const SizedBox(height: 3),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("${user.subscriberAmount} subscribers"),
-                    const SizedBox(width: 6),
+                    InkWell(
+                      onTap: () => Navigator.of(context).pushNamed("subscribers_list", arguments: user.id),
+                      child: Padding(
+                        padding: const EdgeInsets.all(4),
+                        child: Text("${user.subscriberAmount} subscribers"),
+                      ),
+                    ),
+                    const SizedBox(width: 3),
                     Icon(Icons.circle, size: 5, color: Theme.of(context).hintColor),
-                    const SizedBox(width: 6),
-                    Text("${user.subscriptionsAmount} subscriptions"),
+                    const SizedBox(width: 3),
+                    InkWell(
+                        onTap: () => Navigator.of(context).pushNamed("subscriptions_list", arguments: user.id),
+                        child: Padding(
+                          padding: const EdgeInsets.all(4),
+                          child: Text("${user.subscriptionsAmount} subscriptions"),
+                        )),
                   ],
                 ),
                 if (onSubscribe != null || onUnsubscribe != null) ...[
-                  const SizedBox(height: 7),
+                  const SizedBox(height: 3),
                   if (onSubscribe != null) ...[
                     Padding(
                       padding: const EdgeInsets.only(right: 16),

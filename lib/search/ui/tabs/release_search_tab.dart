@@ -44,6 +44,11 @@ class _ReleaseSearchTabState extends State<ReleaseSearchTab> {
         }
 
         final state = snapshot.data!;
+        var itemsCount = state.isLoading ? state.items.length + 1 : state.items.length;
+        if (widget.query.trim().isEmpty) {
+          itemsCount = 0;
+        }
+
         return NotificationListener<ScrollNotification>(
           onNotification: (notification) {
             if (notification.metrics.maxScrollExtent == notification.metrics.pixels) {
@@ -53,7 +58,7 @@ class _ReleaseSearchTabState extends State<ReleaseSearchTab> {
             return true;
           },
           child: ListView.builder(
-            itemCount: state.isLoading ? state.items.length + 1 : state.items.length,
+            itemCount: itemsCount,
             itemBuilder: (context, index) {
               if (index == state.items.length) {
                 return const Padding(
@@ -70,10 +75,7 @@ class _ReleaseSearchTabState extends State<ReleaseSearchTab> {
 
               return Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8),
-                    child: ReleastSmallItemWidget(release: state.items[index]),
-                  ),
+                  ReleastSmallItemWidget(release: state.items[index]),
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 16),
                     child: Divider(height: 1),

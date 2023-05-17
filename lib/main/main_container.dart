@@ -2,6 +2,7 @@ import 'package:bottom_nav_layout/bottom_nav_layout.dart';
 import 'package:flutter/material.dart';
 import 'package:musicday_mobile/activity/ui/activity_screen.dart';
 import 'package:musicday_mobile/profiles/ui/profile_info/profile_info_screen.dart';
+import 'package:musicday_mobile/profiles/ui/subscribers_list/subscribers_list_screen.dart';
 import 'package:musicday_mobile/releases/ui/library/library_screen.dart';
 import 'package:musicday_mobile/releases/ui/song_info/song_info_arguments.dart';
 import 'package:musicday_mobile/releases/ui/song_info/song_info_screen.dart';
@@ -71,7 +72,15 @@ class _MainContainerState extends State<MainContainer> {
           return MaterialPageRoute(builder: (_) => ProfileInfoScreen(userId: settings.arguments as String));
         } else if (settings.name == "song_info") {
           return MaterialPageRoute(builder: (_) => SongInfoScreen(arguments: settings.arguments as SongInfoArguments));
+        } else if (settings.name == "subscriptions_list") {
+          return MaterialPageRoute(
+              builder: (_) => SubscribersListScreen(id: settings.arguments as String, showSubscribers: false));
+        } else if (settings.name == "subscribers_list") {
+          return MaterialPageRoute(
+              builder: (_) => SubscribersListScreen(id: settings.arguments as String, showSubscribers: true));
         }
+
+        throw UnsupportedError("Unsupported route: $settings");
       },
     );
   }

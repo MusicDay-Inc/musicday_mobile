@@ -14,6 +14,7 @@ import 'package:musicday_mobile/profiles/dtos/activity_dto.dart';
 import 'package:musicday_mobile/profiles/dtos/get_profile_response.dart';
 import 'package:musicday_mobile/profiles/dtos/user_dto.dart';
 import 'package:musicday_mobile/profiles/models/user.dart';
+import 'package:musicday_mobile/profiles/models/user_info.dart';
 import 'package:musicday_mobile/profiles/network/users_remote_service.dart';
 import 'package:musicday_mobile/profiles/repositories/users_repository.dart';
 import 'package:musicday_mobile/releases/dtos/review_dto.dart';
@@ -31,7 +32,7 @@ class UsersRepositoryImpl extends UsersRepository {
   final UsersRemoteService usersRemoteService;
   final Converter<UserDto, User> userDtoConverter;
   final PagedResponseFactory pagedResponseFactory;
-  final _newUsersController = StreamController<Pair<User, bool>>.broadcast();
+  final _newUsersController = StreamController<Pair<User, UserInfo>>.broadcast();
 
   UsersRepositoryImpl({
     required LoggerFactory loggerFactory,
@@ -41,7 +42,7 @@ class UsersRepositoryImpl extends UsersRepository {
   }) : _logger = loggerFactory.create("UsersRepositoryImpl");
 
   @override
-  Stream<Pair<User, bool>?> getUserById(String id) {
+  Stream<Pair<User, UserInfo>?> getUserById(String id) {
     _logger.debug("getUserById($id)");
     return NetworkRetryHelper.retry(() => usersRemoteService.getProfile(id), _logger).map((response) {
       return response.when(
@@ -72,8 +73,15 @@ class UsersRepositoryImpl extends UsersRepository {
     }).map((event) => event?.first);
   }
 
-  Pair<User, bool> _convertGetProfileResponse(GetProfileResponse data) =>
-      Pair(first: userDtoConverter.convert(data.user), second: data.isClientSubscribed);
+  Pair<User, UserInfo> _convertGetProfileResponse(GetProfileResponse data) => Pair(
+        first: userDtoConverter.convert(data.user),
+        second: UserInfo(
+          bio: data.bio,
+          isSubscribed: data.isClientSubscribed,
+          albumAmount: data.albumAmount,
+          songAmount: data.songAmount,
+        ),
+      );
 
   @override
   Future<bool> subscribeToUser(String id) async {
