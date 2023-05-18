@@ -56,8 +56,14 @@ dev_dependencies:
   mock_web_server: ^5.0.0-nullsafety.1
   injectable_generator: ^2.1.5
   retrofit_generator: '>=5.0.0 <6.0.0'
+  flutter_launcher_icons: "^0.13.1"
   json_serializable: ^6.6.1
   mockito: ^5.4.0
+
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "favicon.png"
+  min_sdk_android: 16 # android min sdk min:16, default 21
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

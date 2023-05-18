@@ -106,12 +106,12 @@ _i1.GetIt init(
   gh.singleton<_i12.PagedResponseFactory>(
       pagingModule.providePagedResponseFactory(gh<_i10.LoggerFactory>()));
   gh.singleton<_i13.Validator<String>>(
-    validatorsModule.provideUsernameValidator(gh<_i10.LoggerFactory>()),
-    instanceName: 'usernameValidator',
-  );
-  gh.singleton<_i13.Validator<String>>(
     validatorsModule.provideNicknameValidator(gh<_i10.LoggerFactory>()),
     instanceName: 'nicknameValidator',
+  );
+  gh.singleton<_i13.Validator<String>>(
+    validatorsModule.provideUsernameValidator(gh<_i10.LoggerFactory>()),
+    instanceName: 'usernameValidator',
   );
   gh.singleton<_i14.AuthRemoteService>(
       authModule.provideAuthRemoteService(gh<_i7.Dio>()));
